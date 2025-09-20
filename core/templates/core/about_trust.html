@@ -1,0 +1,250 @@
+{% extends 'core/base.html' %}
+{% load custom_trans %}
+
+{% block title %}About Our Trust - AamCare{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card text-white text-center" style="
+                background: linear-gradient(135deg, #80b613 0%, #8b4513 100%);
+                background-size: cover;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style='
+                    position: absolute;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background-image: radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+                                      radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.10) 0%, transparent 50%);
+                    z-index: 0;
+                '></div>
+                <div class="card-body py-5" style="position: relative; z-index: 1;">
+                    <h1><i class="fas fa-shield-alt text-white"></i>{% trans "Building Trust in Maternal Health" %}</h1>
+                    <p class="lead">{% trans "How AamCare ensures every piece of health information is safe, verified, and culturally appropriate" %}</p>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ gov_approved_content }}</h3>
+                                <p class="mb-0">{% trans "Government Approved" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ total_experts }}</h3>
+                                <p class="mb-0">{% trans "Health Experts" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ total_workers }}</h3>
+                                <p class="mb-0">{% trans "Community Workers" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ total_testimonials }}</h3>
+                                <p class="mb-0">{% trans "Success Stories" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Pillars -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">
+                <i class="fas fa-certificate cultural-icon"></i>{% trans "Our Trust Pillars" %}
+            </h2>
+        </div>
+        
+        <!-- Government Approval -->
+        <div class="col-lg-6 mb-4">
+            <div class="card expert-card h-100">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-flag fa-3x cultural-icon"></i>
+                    </div>
+                    <h4 class="card-title text-center">{% trans "Government-Approved Guidelines" %}</h4>
+                    <p class="card-text">
+                        {% trans "All health information in AamCare is sourced from official guidelines of the" %}
+                        <strong>{% trans "Nepal Ministry of Health and Population (MoHP)" %}</strong> {% trans "and the" %}
+                        <strong>{% trans "World Health Organization (WHO)" %}</strong>. {% trans "This ensures that every recommendation is evidence-based and aligned with national health policies." %}
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "MoHP Maternal Health Guidelines" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "WHO Pregnancy Recommendations" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "National Immunization Schedule" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Official Danger Sign Protocols" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expert Validation -->
+        <div class="col-lg-6 mb-4">
+            <div class="card expert-card h-100">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-user-md fa-3x cultural-icon"></i>
+                    </div>
+                    <h4 class="card-title text-center">{% trans "Expert Validation" %}</h4>
+                    <p class="card-text">
+                        {% trans "Every piece of content is reviewed by qualified health professionals including obstetricians, midwives, nutritionists, and community health workers. Our expert team ensures medical accuracy and safety of all health recommendations." %}
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Medical Doctors (MBBS, MD)" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Certified Midwives" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Registered Nurses" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Community Health Workers" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Partnership -->
+        <div class="col-lg-6 mb-4">
+            <div class="card expert-card h-100">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-users fa-3x cultural-icon"></i>
+                    </div>
+                    <h4 class="card-title text-center">{% trans "Community Partnership" %}</h4>
+                    <p class="card-text">
+                        {% trans "We collaborate with" %} <strong>{% trans "Auxiliary Nurse Midwives (ANMs)" %}</strong> {% trans "and" %}
+                        <strong>{% trans "Female Community Health Volunteers (FCHVs)" %}</strong> {% trans "who are trusted members of rural communities. They provide localized advice and ensure cultural sensitivity of all health guidance." %}
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Local Health Workers" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Community Trust" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Cultural Understanding" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Personalized Support" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cultural Sensitivity -->
+        <div class="col-lg-6 mb-4">
+            <div class="card expert-card h-100">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-globe fa-3x cultural-icon"></i>
+                    </div>
+                    <h4 class="card-title text-center">{% trans "Cultural Sensitivity" %}</h4>
+                    <p class="card-text">
+                        {% trans "All health information is adapted to respect Nepali cultural traditions, local dietary practices, and community beliefs. We ensure that medical guidance is presented in a way that feels familiar and respectful." %}
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Local Food Sources" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Traditional Practices" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Community Values" %}</li>
+                        <li><i class="fas fa-check-circle text-white me-2"></i>{% trans "Language Adaptation" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Stories -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card mandala-bg">
+                <div class="card-body text-center py-5">
+                    <h3><i class="fas fa-heart cultural-icon"></i>{% trans "Real Success Stories" %}</h3>
+                    <p class="lead">{% trans "Mothers across rural Nepal have safely delivered healthy babies using AamCare's guidance" %}</p>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="fas fa-baby fa-2x cultural-icon mb-2"></i>
+                                <h5>{% trans "Safe Deliveries" %}</h5>
+                                <p class="small">{% trans "Mothers who followed our guidance had safe deliveries" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="fas fa-heart fa-2x cultural-icon mb-2"></i>
+                                <h5>{% trans "Healthy Babies" %}</h5>
+                                <p class="small">{% trans "Babies born healthy and meeting developmental milestones" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="fas fa-users fa-2x cultural-icon mb-2"></i>
+                                <h5>{% trans "Community Trust" %}</h5>
+                                <p class="small">{% trans "Building trust in digital health care in rural areas" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{% url 'testimonials' %}" class="btn btn-primary">
+                            <i class="fas fa-heart me-2"></i>{% trans "Read Success Stories" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commitment Statement -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body text-center py-5">
+                    <h3><i class="fas fa-certificate cultural-icon"></i>{% trans "Our Commitment" %}</h3>
+                    <p class="lead">
+                        {% trans "We are committed to providing the highest quality, most trustworthy maternal health information to every woman in rural Nepal. Your safety and the health of your baby are our top priorities." %}
+                    </p>
+                    <div class="mt-4">
+                        <span class="trust-badge me-3">
+                            <i class="fas fa-shield-alt me-1"></i>{% trans "100% Safe" %}
+                        </span>
+                        <span class="trust-badge me-3">
+                            <i class="fas fa-certificate me-1"></i>{% trans "Expert Reviewed" %}
+                        </span>
+                        <span class="trust-badge">
+                            <i class="fas fa-heart me-1"></i>{% trans "Community Trusted" %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cultural-icon {
+        color: #8b4513;
+    }
+    
+    .expert-card {
+        background: linear-gradient(135deg, #80b613 0%, #8b4513 100%);
+        color: white;
+        border: none;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .expert-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .mandala-bg {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 2px solid #8b4513;
+    }
+    
+    .trust-badge {
+        background: #8b4513;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+</style>
+
+{% endblock %} 

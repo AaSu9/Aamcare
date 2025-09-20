@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Mental Health Support{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-brain me-2"></i>Mental Health Support</h2>
+                    <p class="lead mb-0">Emotional well-being support for pregnancy and motherhood</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if mental_content %}
+        <div class="row">
+            {% for content in mental_content %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ content.title }}</h5>
+                            <p class="card-text">{{ content.body|truncatewords:30 }}</p>
+                            <a href="{% url 'content_detail' content.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-brain fa-3x text-muted mb-3"></i>
+                        <h5>No Mental Health Support Available</h5>
+                        <p class="text-muted">Mental health support content will be added soon. Please check back later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

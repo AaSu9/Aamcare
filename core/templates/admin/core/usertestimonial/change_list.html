@@ -1,0 +1,75 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .bulk-delete-warning {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+        font-weight: bold;
+    }
+    .action-counter {
+        background-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    .delete-action {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+    }
+    .delete-action:hover {
+        background-color: #c82333 !important;
+        border-color: #c82333 !important;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add warning for delete action
+        var deleteAction = document.querySelector('option[value="delete_selected_testimonials"]');
+        if (deleteAction) {
+            deleteAction.textContent = '🗑️ Delete selected testimonials permanently';
+        }
+        
+        // Add confirmation for bulk delete
+        var actionForm = document.querySelector('#changelist-form');
+        if (actionForm) {
+            actionForm.addEventListener('submit', function(e) {
+                var actionSelect = document.querySelector('select[name="action"]');
+                if (actionSelect && actionSelect.value === 'delete_selected_testimonials') {
+                    var selectedItems = document.querySelectorAll('input[name="_selected_action"]:checked');
+                    if (selectedItems.length > 0) {
+                        if (!confirm('Are you sure you want to permanently delete ' + selectedItems.length + ' selected success story(ies)? This action cannot be undone.')) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+{% block object-tools-items %}
+{{ block.super }}
+<li>
+    <a href="{% url 'admin:core_usertestimonial_add' %}" class="addlink">
+        ➕ ⬇️Add New Success Story
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="bulk-delete-warning">
+    ⚠️ <strong>Admin Notice:</strong> Use the bulk actions below to manage multiple success stories. The delete action will permanently remove stories from the system.
+</div>
+{{ block.super }}
+{% endblock %} 

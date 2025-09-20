@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Success Stories - AamCare{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card text-white text-center" style="
+                background: linear-gradient(135deg, #80b613 0%, #8b4513 100%);
+                background-size: cover;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style='
+                    position: absolute;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background-image: radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+                                      radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.10) 0%, transparent 50%);
+                    z-index: 0;
+                '></div>
+                <div class="card-body py-5" style="position: relative; z-index: 1;">
+                    <h1><i class="fas fa-heart cultural-icon"></i>Success Stories</h1>
+                    <p class="lead">Real stories from mothers who found support and guidance through AamCare</p>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ total_count }}</h3>
+                                <p class="mb-0">Total Stories</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ featured_count }}</h3>
+                                <p class="mb-0">Featured Stories</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">100%</h3>
+                                <p class="mb-0">Verified Stories</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="mb-0">Safe</h3>
+                                <p class="mb-0">Deliveries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Testimonials -->
+    {% if testimonials %}
+        <div class="row">
+            {% for testimonial in testimonials %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card testimonial-card h-100">
+                        <div class="card-body">
+                            {% if testimonial.is_featured %}
+                                <div class="text-end mb-2">
+                                    <span class="trust-badge">
+                                        <i class="fas fa-star me-1"></i>Featured Story
+                                    </span>
+                                </div>
+                            {% endif %}
+                            
+                            <h5 class="card-title">
+                                <i class="fas fa-quote-left cultural-icon"></i>{{ testimonial.title }}
+                            </h5>
+                            
+                            <p class="card-text">{{ testimonial.story|linebreaks }}</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        {{ testimonial.village_district }}
+                                    </small>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="badge bg-success">{{ testimonial.outcome }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3 pt-3 border-top">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    Shared on {{ testimonial.created_at|date:"F j, Y" }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card text-center">
+                    <div class="card-body py-5">
+                        <i class="fas fa-heart fa-3x text-muted mb-3"></i>
+                        <h5>No Success Stories Yet</h5>
+                        <p class="text-muted">Be the first to share your success story with AamCare!</p>
+                        <a href="{% url 'home' %}" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Call to Action -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card mandala-bg">
+                <div class="card-body text-center py-5">
+                    <h3><i class="fas fa-share-alt cultural-icon"></i>Share Your Story</h3>
+                    <p class="lead">Your experience can inspire and help other mothers in rural Nepal</p>
+                    <p>Contact us to share your success story and help build trust in maternal health care.</p>
+                    <div class="mt-4">
+                        <a href="{% url 'about_trust' %}" class="btn btn-primary me-3">
+                            <i class="fas fa-certificate me-2"></i>Learn About Our Trust
+                        </a>
+                        <a href="{% url 'health_experts' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-user-md me-2"></i>Meet Our Experts
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

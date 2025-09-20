@@ -1,0 +1,150 @@
+{% extends 'core/base.html' %}
+{% load custom_trans %}
+
+{% block title %}{% trans "Pregnancy Tips by Trimester" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-lightbulb me-2"></i>{% trans "Pregnancy Tips by Trimester" %}</h2>
+                    <p class="lead mb-0">{% trans "Comprehensive Do's and Don'ts for each stage of your pregnancy journey" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trimester Navigation -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>{% trans "Select Trimester" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'trimester_tips' %}" class="btn btn-outline-primary w-100 active">
+                                <i class="fas fa-list me-2"></i>{% trans "All Trimesters" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for trimester in trimesters %}
+    <div class="row mb-2">
+        <div class="col-12">
+            <h4 class="mb-3 text-{{ trimester.color }}">
+                <i class="fas {{ trimester.icon }} me-2"></i>{% trans trimester.label %}
+            </h4>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card border-{{ trimester.color }}">
+                <div class="card-header bg-{{ trimester.color }} text-white">
+                    <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>{% trans "Do's" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for tip in trimester_tips|get_item:trimester.num|get_item:'do' %}
+                            <div class="list-group-item border-0 ps-0">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <div>
+                                        <p class="mb-1">{{ tip.title }}</p>
+                                        {% if tip.content %}
+                                            <small class="text-muted">{{ tip.content }}</small>
+                                        {% endif %}
+                                        {% if tip.week_start %}
+                                            <small class="text-info">{% trans "Week" %} {{ tip.week_start }}{% if tip.week_end and tip.week_end != tip.week_start %}-{{ tip.week_end }}{% endif %}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="list-group-item border-0 ps-0 text-muted">{% trans "No Do's for this trimester." %}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card border-{{ trimester.color }}">
+                <div class="card-header bg-{{ trimester.color }} text-white">
+                    <h5 class="mb-0"><i class="fas fa-times-circle me-2"></i>{% trans "Don'ts" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for tip in trimester_tips|get_item:trimester.num|get_item:'dont' %}
+                            <div class="list-group-item border-0 ps-0">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-times text-danger me-2"></i>
+                                    <div>
+                                        <p class="mb-1">{{ tip.title }}</p>
+                                        {% if tip.content %}
+                                            <small class="text-muted">{{ tip.content }}</small>
+                                        {% endif %}
+                                        {% if tip.week_start %}
+                                            <small class="text-info">{% trans "Week" %} {{ tip.week_start }}{% if tip.week_end and tip.week_end != tip.week_start %}-{{ tip.week_end }}{% endif %}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="list-group-item border-0 ps-0 text-muted">{% trans "No Don'ts for this trimester." %}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Additional Information -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>{% trans "Important Notes" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-info">{% trans "Sources & Validation" %}</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>{% trans "WHO - World Health Organization guidelines" %}</li>
+                                <li><i class="fas fa-check text-success me-2"></i>{% trans "MoHP - Nepal Ministry of Health and Population" %}</li>
+                                <li><i class="fas fa-check text-success me-2"></i>{% trans "Local Expert - Validated by local health experts" %}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-info">{% trans "Remember" %}</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-heart text-danger me-2"></i>{% trans "Always consult your healthcare provider" %}</li>
+                                <li><i class="fas fa-heart text-danger me-2"></i>{% trans "Every pregnancy is unique" %}</li>
+                                <li><i class="fas fa-heart text-danger me-2"></i>{% trans "Listen to your body" %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+});
+</script>
+{% endblock %} 

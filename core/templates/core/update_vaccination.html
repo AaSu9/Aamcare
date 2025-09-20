@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Update Vaccination{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4><i class="fas fa-edit me-2"></i>Update Vaccination Record</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <h5>{{ vaccination.get_vaccine_name_display }}</h5>
+                        <p class="text-muted">Due Date: {{ vaccination.due_date|date:"F j, Y" }}</p>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.status.id_for_label }}" class="form-label">Status</label>
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                                <div class="text-danger">{{ form.status.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3" id="completed-date-field">
+                            <label for="{{ form.completed_date.id_for_label }}" class="form-label">Completed Date</label>
+                            {{ form.completed_date }}
+                            {% if form.completed_date.errors %}
+                                <div class="text-danger">{{ form.completed_date.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">Leave blank to use today's date when marking as completed</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.notes.id_for_label }}" class="form-label">Notes (Optional)</label>
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                                <div class="text-danger">{{ form.notes.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Update Record</button>
+                            <a href="{% url 'vaccination_tracker' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusSelect = document.getElementById('{{ form.status.id_for_label }}');
+    const completedDateField = document.getElementById('completed-date-field');
+    const completedDateInput = document.getElementById('{{ form.completed_date.id_for_label }}');
+    
+    function toggleCompletedDate() {
+        if (statusSelect.value === 'completed') {
+            completedDateField.style.display = 'block';
+        } else {
+            completedDateField.style.display = 'none';
+            completedDateInput.value = '';
+        }
+    }
+    
+    statusSelect.addEventListener('change', toggleCompletedDate);
+    toggleCompletedDate(); // Initial state
+});
+</script>
+{% endblock %} 

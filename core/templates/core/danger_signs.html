@@ -1,0 +1,253 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Danger Signs - AamCare{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Emergency Alert -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-danger text-center" role="alert">
+                <h4><i class="fas fa-exclamation-triangle me-2"></i>Emergency Contact</h4>
+                <p class="mb-2"><strong>If you experience any danger signs, seek immediate medical care!</strong></p>
+                <p class="mb-0">
+                    <i class="fas fa-phone me-2"></i>Emergency: <strong>1660</strong> | 
+                    <i class="fas fa-hospital me-2"></i>Nearest Health Facility
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card text-dark text-center" style="
+                background: linear-gradient(135deg, #ffa500 0%, #ff6b6b 100%);
+                background-size: cover;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style='
+                    position: absolute;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background-image: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
+                                      radial-gradient(circle at 75% 75%, rgba(255, 107, 107, 0.10) 0%, transparent 50%);
+                    z-index: 0;
+                '></div>
+                <div class="card-body py-5" style="position: relative; z-index: 1;">
+                    <h1><i class="fas fa-exclamation-triangle cultural-icon"></i>Pregnancy & Postpartum Danger Signs</h1>
+                    <p class="lead">Know when to seek immediate medical attention - this information could save lives</p>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">24/7</h3>
+                                <p class="mb-0">Emergency Support</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">100%</h3>
+                                <p class="mb-0">Government Approved</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">Immediate</h3>
+                                <p class="mb-0">Action Required</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danger Signs Content -->
+    {% if danger_content %}
+        <div class="row">
+            {% for content in danger_content %}
+                <div class="col-12 mb-4">
+                    <div class="card border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-exclamation-triangle me-2"></i>{{ content.title }}
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{ content.body|linebreaks }}
+                                    
+                                    {% if content.cultural_context %}
+                                        <div class="mt-3 p-3 bg-light rounded">
+                                            <h6><i class="fas fa-globe cultural-icon"></i>Cultural Context</h6>
+                                            <p class="mb-0">{{ content.cultural_context }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h6><i class="fas fa-info-circle cultural-icon"></i>Source Information</h6>
+                                            <p class="mb-2">
+                                                <strong>Source:</strong> {{ content.get_source_display }}
+                                            </p>
+                                            {% if content.source_reference %}
+                                                <p class="mb-2">
+                                                    <strong>Reference:</strong> {{ content.source_reference }}
+                                                </p>
+                                            {% endif %}
+                                            {% if content.reviewed_by %}
+                                                <p class="mb-2">
+                                                    <strong>Reviewed by:</strong> {{ content.reviewed_by.name }}
+                                                </p>
+                                            {% endif %}
+                                            {% if content.review_date %}
+                                                <p class="mb-0">
+                                                    <strong>Review date:</strong> {{ content.review_date|date:"F j, Y" }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card text-center">
+                    <div class="card-body py-5">
+                        <i class="fas fa-exclamation-triangle fa-3x text-muted mb-3"></i>
+                        <h5>No Danger Signs Information Available</h5>
+                        <p class="text-muted">Please contact your health care provider for emergency guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Emergency Action Plan -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card text-white text-center" style="
+                background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+                background-size: cover;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style='
+                    position: absolute;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background-image: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
+                                      radial-gradient(circle at 75% 75%, rgba(255, 107, 107, 0.10) 0%, transparent 50%);
+                    z-index: 0;
+                '></div>
+                <div class="card-body text-center py-5" style="position: relative; z-index: 1;">
+                    <h3><i class="fas fa-phone cultural-icon"></i>Emergency Action Plan</h3>
+                    <p class="lead">What to do if you experience danger signs</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-phone fa-2x mb-2"></i>
+                                <h6>Step 1: Call</h6>
+                                <p class="small">Call emergency number 1660 immediately</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-user-md fa-2x mb-2"></i>
+                                <h6>Step 2: Contact</h6>
+                                <p class="small">Contact your nearest health facility</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-car fa-2x mb-2"></i>
+                                <h6>Step 3: Transport</h6>
+                                <p class="small">Arrange safe transport to hospital</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-hospital fa-2x mb-2"></i>
+                                <h6>Step 4: Treatment</h6>
+                                <p class="small">Receive immediate medical care</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Health Resources -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card mandala-bg">
+                <div class="card-body text-center py-5">
+                    <h3><i class="fas fa-map-marker-alt cultural-icon"></i>Local Health Resources</h3>
+                    <p class="lead">Know your local health facilities and community health workers</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card expert-card">
+                                <div class="card-body">
+                                    <i class="fas fa-hospital fa-2x cultural-icon mb-2"></i>
+                                    <h6>Health Posts</h6>
+                                    <p class="small">Primary health care centers in your area</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card expert-card">
+                                <div class="card-body">
+                                    <i class="fas fa-user-nurse fa-2x cultural-icon mb-2"></i>
+                                    <h6>ANMs & FCHVs</h6>
+                                    <p class="small">Community health workers for immediate support</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card expert-card">
+                                <div class="card-body">
+                                    <i class="fas fa-ambulance fa-2x cultural-icon mb-2"></i>
+                                    <h6>Emergency Transport</h6>
+                                    <p class="small">Local transport options for emergencies</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'community_workers' %}" class="btn btn-primary me-3">
+                            <i class="fas fa-users me-2"></i>Find Community Workers
+                        </a>
+                        <a href="{% url 'about_trust' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-certificate me-2"></i>Learn About Our Trust
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Important Notice -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                <h6><i class="fas fa-info-circle me-2"></i>Important Notice</h6>
+                <p class="mb-0">
+                    This information is provided as a guide only. Always seek immediate medical attention 
+                    if you experience any danger signs. AamCare is not a substitute for professional 
+                    medical care. In case of emergency, call 1660 or go to the nearest health facility immediately.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

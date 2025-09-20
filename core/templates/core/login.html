@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+{% load custom_trans %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4><i class="fas fa-sign-in-alt me-2"></i>{% trans "Login" %}</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">{% trans "Username" %}</label>
+                            <input type="text" name="username" class="form-control" id="id_username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label">{% trans "Password" %}</label>
+                            <input type="password" name="password" class="form-control" id="id_password" required>
+                        </div>
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <p>{% trans "Your username and password didn't match. Please try again." %}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans "Login" %}</button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p>{% trans "Don't have an account?" %}</p>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'register_pregnant_woman' %}" class="btn btn-outline-primary">{% trans "Register as Pregnant Woman" %}</a>
+                            <a href="{% url 'register_new_mother' %}" class="btn btn-outline-primary">{% trans "Register as New Mother" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+</style>
+{% endblock %} 

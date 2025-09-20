@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Breastfeeding Support{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-baby me-2"></i>Breastfeeding Support</h2>
+                    <p class="lead mb-0">Essential guidance for successful breastfeeding</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comprehensive Nutrition Table Link -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-success border-success">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1"><i class="fas fa-table me-2"></i>Looking for Detailed Postpartum Nutrition Tables?</h5>
+                        <p class="mb-0">Access our comprehensive nutrition tables with detailed meal plans, safe/unsafe medicines, and breastfeeding tips.</p>
+                    </div>
+                    <a href="{% url 'comprehensive_nutrition_mother' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-table me-2"></i>View Comprehensive Tables
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if breastfeeding_content %}
+        <div class="row">
+            {% for content in breastfeeding_content %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ content.title }}</h5>
+                            <p class="card-text">{{ content.body|truncatewords:30 }}</p>
+                            <a href="{% url 'content_detail' content.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-baby fa-3x text-muted mb-3"></i>
+                        <h5>No Breastfeeding Support Available</h5>
+                        <p class="text-muted">Breastfeeding support content will be added soon. Please check back later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

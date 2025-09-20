@@ -1,0 +1,115 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Exercise Guidance{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-running me-2"></i>Exercise Guidance</h2>
+                    {% if is_pregnant %}
+                        <p class="lead mb-2">Personalized exercise for Week {{ current_week }} (Month {{ current_month }}, Trimester {{ current_trimester }})</p>
+                        <p class="mb-0">Based on your due date: {{ profile.due_date|date:"F j, Y" }}</p>
+                    {% else %}
+                        <p class="lead mb-0">Safe and effective exercises for pregnancy and postpartum recovery</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if is_pregnant %}
+        <!-- Date-Based Exercise Planning for Pregnant Women -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-calendar-check me-2"></i>Your Exercise Timeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Current Status</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Current Week:</strong> {{ current_week }} of 40</li>
+                                    <li><strong>Current Month:</strong> {{ current_month }}</li>
+                                    <li><strong>Trimester:</strong> {{ current_trimester }}</li>
+                                    <li><strong>Due Date:</strong> {{ profile.due_date|date:"F j, Y" }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-clock me-2"></i>Exercise Guidelines</h6>
+                                <ul class="list-unstyled">
+                                    {% if current_trimester == 1 %}
+                                        <li><strong>Duration:</strong> 30 minutes daily</li>
+                                        <li><strong>Intensity:</strong> Low to moderate</li>
+                                        <li><strong>Focus:</strong> Safety & comfort</li>
+                                    {% elif current_trimester == 2 %}
+                                        <li><strong>Duration:</strong> 30-45 minutes daily</li>
+                                        <li><strong>Intensity:</strong> Moderate</li>
+                                        <li><strong>Focus:</strong> Strength & flexibility</li>
+                                    {% else %}
+                                        <li><strong>Duration:</strong> 20-30 minutes daily</li>
+                                        <li><strong>Intensity:</strong> Low</li>
+                                        <li><strong>Focus:</strong> Comfort & preparation</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-exclamation-triangle me-2"></i>Safety Reminders</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Listen to your body</strong></li>
+                                    <li><strong>Stay hydrated</strong></li>
+                                    <li><strong>Avoid overheating</strong></li>
+                                    <li><strong>Stop if uncomfortable</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_pregnant and exercise_content %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-star me-2"></i>Your Personalized Exercise Plan</h5>
+                    <p class="mb-0">Showing exercise recommendations specifically for your current pregnancy stage (Week {{ current_week }}).</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if exercise_content %}
+        <div class="row">
+            {% for content in exercise_content %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ content.title }}</h5>
+                            <p class="card-text">{{ content.body|truncatewords:30 }}</p>
+                            <a href="{% url 'content_detail' content.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-running fa-3x text-muted mb-3"></i>
+                        <h5>No Exercise Guidance Available</h5>
+                        <p class="text-muted">Exercise guidance will be added soon. Please check back later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

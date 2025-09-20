@@ -1,0 +1,130 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Diet Plans{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-utensils me-2"></i>Pregnancy & Postpartum Diet Plans</h2>
+                    {% if is_pregnant %}
+                        <p class="lead mb-2">Personalized nutrition for Week {{ current_week }} (Month {{ current_month }}, Trimester {{ current_trimester }})</p>
+                        <p class="mb-0">Based on your due date: {{ profile.due_date|date:"F j, Y" }}</p>
+                    {% else %}
+                        <p class="lead mb-0">Nutritional guidance for healthy pregnancy and recovery</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comprehensive Nutrition Table Link -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-info border-info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1"><i class="fas fa-table me-2"></i>Looking for Detailed Nutrition Tables?</h5>
+                        <p class="mb-0">Access our comprehensive nutrition tables with detailed meal plans, safe/unsafe medicines, and personalized recommendations.</p>
+                    </div>
+                    <a href="{% url 'comprehensive_nutrition_pregnant' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-table me-2"></i>View Comprehensive Tables
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if is_pregnant %}
+        <!-- Date-Based Nutrition Planning for Pregnant Women -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-calendar-check me-2"></i>Your Nutrition Timeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Current Status</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Current Week:</strong> {{ current_week }} of 40</li>
+                                    <li><strong>Current Month:</strong> {{ current_month }}</li>
+                                    <li><strong>Trimester:</strong> {{ current_trimester }}</li>
+                                    <li><strong>Due Date:</strong> {{ profile.due_date|date:"F j, Y" }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-clock me-2"></i>Time Remaining</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Weeks Left:</strong> {{ 40|add:"-"|add:current_week }} weeks</li>
+                                    <li><strong>Days Left:</strong> {{ profile.due_date|timeuntil }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-primary"><i class="fas fa-calendar-week me-2"></i>Nutrition Focus</h6>
+                                <ul class="list-unstyled">
+                                    {% if current_trimester == 1 %}
+                                        <li><strong>Focus:</strong> Folic Acid, Iron</li>
+                                        <li><strong>Meals:</strong> Small, frequent</li>
+                                        <li><strong>Hydration:</strong> Extra important</li>
+                                    {% elif current_trimester == 2 %}
+                                        <li><strong>Focus:</strong> Protein, Calcium</li>
+                                        <li><strong>Meals:</strong> Balanced nutrition</li>
+                                        <li><strong>Hydration:</strong> 8-10 glasses daily</li>
+                                    {% else %}
+                                        <li><strong>Focus:</strong> Omega-3, Fiber</li>
+                                        <li><strong>Meals:</strong> Nutrient-dense</li>
+                                        <li><strong>Hydration:</strong> 10-12 glasses daily</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_pregnant and diet_content %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-star me-2"></i>Your Personalized Diet Plan</h5>
+                    <p class="mb-0">Showing diet recommendations specifically for your current pregnancy stage (Week {{ current_week }}).</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if diet_content %}
+        <div class="row">
+            {% for content in diet_content %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ content.title }}</h5>
+                            <p class="card-text">{{ content.body|truncatewords:30 }}</p>
+                            <a href="{% url 'content_detail' content.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-utensils fa-3x text-muted mb-3"></i>
+                        <h5>No Diet Plans Available</h5>
+                        <p class="text-muted">Diet plans will be added soon. Please check back later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

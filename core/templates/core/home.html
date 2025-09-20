@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_trans %}
+
+{% block title %}{% trans "AamCare - Maternal Health Support" %}{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">{% trans "Welcome to AamCare" %}</h1>
+                <p class="lead mb-4">{% trans "Your trusted companion for maternal health and pregnancy care" %}</p>
+                <p class="mb-4">{% trans "Reducing infant and maternal mortality in rural Nepal through personalized health support, guidance, and digital care." %}</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-baby-carriage" style="font-size: 8rem; opacity: 0.8;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card card-hover h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">{% trans "I'm Pregnant" %}</h5>
+                    <p class="card-text">{% trans "Register as a pregnant woman to get personalized care and guidance" %}</p>
+                    <a href="{% url 'register_pregnant_woman' %}" class="btn btn-primary">{% trans "Register as Pregnant Woman" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card card-hover h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-heart fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">{% trans "I'm a New Mother" %}</h5>
+                    <p class="card-text">{% trans "Register as a new mother for postpartum care and baby health tracking" %}</p>
+                    <a href="{% url 'register_new_mother' %}" class="btn btn-primary">{% trans "Register as New Mother" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card card-hover h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Health Tracking</h5>
+                    <p class="card-text">Monitor your health progress with monthly checkups and personalized recommendations.</p>
+                    <a href="#features" class="btn btn-outline-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5" id="features">
+    <h2 class="text-center mb-5">Our Features</h2>
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="text-center">
+                <i class="fas fa-utensils fa-2x text-primary mb-3"></i>
+                <h5>Diet Plans</h5>
+                <p>Personalized nutrition guidance for pregnancy and postpartum recovery.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="text-center">
+                <i class="fas fa-syringe fa-2x text-primary mb-3"></i>
+                <h5>Vaccination Schedule</h5>
+                <p>Timely reminders and information about essential vaccinations.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="text-center">
+                <i class="fas fa-running fa-2x text-primary mb-3"></i>
+                <h5>Exercise Guidance</h5>
+                <p>Safe and effective exercise routines for pregnancy and recovery.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="text-center">
+                <i class="fas fa-brain fa-2x text-primary mb-3"></i>
+                <h5>Mental Health</h5>
+                <p>Support for emotional well-being during pregnancy and motherhood.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Stories Section -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body text-center py-5">
+                    <h2><i class="fas fa-heart cultural-icon"></i>Success Stories</h2>
+                    <p class="lead mb-4">Read inspiring stories from mothers who found support and guidance through AamCare</p>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ featured_testimonials.count }}</h3>
+                                <p class="mb-0">Success Stories</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ health_experts.count }}</h3>
+                                <p class="mb-0">Health Experts</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h3 class="mb-0">{{ gov_approved_count }}</h3>
+                                <p class="mb-0">Government Approved</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'success_stories' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-heart me-2"></i>Read Success Stories
+                    </a>
+                    <a href="{% url 'about_trust' %}" class="btn btn-outline-primary btn-lg ms-3">
+                        <i class="fas fa-certificate me-2"></i>Learn About Trust
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

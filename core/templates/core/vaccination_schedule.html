@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Vaccination Schedule{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-syringe me-2"></i>Vaccination Schedule</h2>
+                    <p class="lead mb-0">Essential vaccinations for mother and child health</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if vaccine_content %}
+        <div class="row">
+            {% for content in vaccine_content %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ content.title }}</h5>
+                            <p class="card-text">{{ content.body|truncatewords:30 }}</p>
+                            <a href="{% url 'content_detail' content.id %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-syringe fa-3x text-muted mb-3"></i>
+                        <h5>No Vaccination Information Available</h5>
+                        <p class="text-muted">Vaccination schedules will be added soon. Please check back later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

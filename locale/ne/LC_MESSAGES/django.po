@@ -1,0 +1,543 @@
+# Nepali translations for AamCare project.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the AamCare project.
+msgid ""
+msgstr ""
+"Project-Id-Version: AamCare 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language: ne\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/core/base.html:4
+msgid "AamCare - Maternal Health Support"
+msgstr "आमकेयर - मातृ स्वास्थ्य सहयोग"
+
+#: templates/core/base.html:120
+msgid "Home"
+msgstr "गृह"
+
+#: templates/core/base.html:125
+msgid "Trust & Safety"
+msgstr "विश्वास र सुरक्षा"
+
+#: templates/core/base.html:128
+msgid "About Our Trust"
+msgstr "हाम्रो विश्वासको बारेमा"
+
+#: templates/core/base.html:131
+msgid "Health Experts"
+msgstr "स्वास्थ्य विशेषज्ञहरू"
+
+#: templates/core/base.html:134
+msgid "Community Workers"
+msgstr "समुदाय कार्यकर्ताहरू"
+
+#: templates/core/base.html:137
+msgid "Success Stories"
+msgstr "सफलताका कथाहरू"
+
+#: templates/core/base.html:140
+msgid "Danger Signs"
+msgstr "खतराका संकेतहरू"
+
+#: templates/core/base.html:147
+msgid "Dashboard"
+msgstr "ड्यासबोर्ड"
+
+#: templates/core/base.html:154
+msgid "Logout"
+msgstr "लगआउट"
+
+#: templates/core/base.html:160
+msgid "Login"
+msgstr "लगइन"
+
+#: templates/core/base.html:163
+msgid "Register"
+msgstr "दर्ता गर्नुहोस्"
+
+#: templates/core/base.html:166
+msgid "Language"
+msgstr "भाषा"
+
+#: templates/core/base.html:169
+msgid "English"
+msgstr "English"
+
+#: templates/core/base.html:172
+msgid "Nepali"
+msgstr "नेपाली"
+
+#: templates/core/home.html:15
+msgid "Welcome to AamCare"
+msgstr "आमकेयरमा स्वागत छ"
+
+#: templates/core/home.html:16
+msgid "Your trusted companion for maternal health and pregnancy care"
+msgstr "मातृ स्वास्थ्य र गर्भावस्था हेरचाहको लागि तपाईंको विश्वसनीय साथी"
+
+#: templates/core/home.html:25
+msgid "I'm Pregnant"
+msgstr "म गर्भवती छु"
+
+#: templates/core/home.html:26
+msgid "Register as a pregnant woman to get personalized care and guidance"
+msgstr "व्यक्तिगत हेरचाह र मार्गदर्शन प्राप्त गर्न गर्भवती महिलाको रूपमा दर्ता गर्नुहोस्"
+
+#: templates/core/home.html:32
+msgid "I'm a New Mother"
+msgstr "म नयाँ आमा हुँ"
+
+#: templates/core/home.html:33
+msgid "Register as a new mother for postpartum care and baby health tracking"
+msgstr "प्रसवपछिको हेरचाह र बच्चाको स्वास्थ्य ट्र्याकिङको लागि नयाँ आमाको रूपमा दर्ता गर्नुहोस्"
+
+#: templates/core/home.html:45
+msgid "Why Choose AamCare?"
+msgstr "किन आमकेयर छान्ने?"
+
+#: templates/core/home.html:52
+msgid "Government Approved"
+msgstr "सरकारी स्वीकृत"
+
+#: templates/core/home.html:53
+msgid "All content is verified and approved by health authorities"
+msgstr "सबै सामग्री स्वास्थ्य प्राधिकरणहरूद्वारा प्रमाणित र स्वीकृत छ"
+
+#: templates/core/home.html:59
+msgid "Expert Guidance"
+msgstr "विशेषज्ञ मार्गदर्शन"
+
+#: templates/core/home.html:60
+msgid "Access to qualified health experts and community workers"
+msgstr "योग्य स्वास्थ्य विशेषज्ञ र समुदाय कार्यकर्ताहरूसँग पहुँच"
+
+#: templates/core/home.html:66
+msgid "Personalized Care"
+msgstr "व्यक्तिगत हेरचाह"
+
+#: templates/core/home.html:67
+msgid "Tailored advice based on your pregnancy stage and health status"
+msgstr "तपाईंको गर्भावस्थाको अवस्था र स्वास्थ्य स्थितिको आधारमा अनुकूलित सल्लाह"
+
+#: templates/core/home.html:73
+msgid "Community Support"
+msgstr "समुदाय सहयोग"
+
+#: templates/core/home.html:74
+msgid "Connect with other mothers and share experiences"
+msgstr "अन्य आमाहरूसँग जडान गर्नुहोस् र अनुभव साझा गर्नुहोस्"
+
+#: templates/core/home.html:85
+msgid "Featured Success Stories"
+msgstr "विशेष सफलताका कथाहरू"
+
+#: templates/core/home.html:95
+msgid "Our Health Experts"
+msgstr "हाम्रा स्वास्थ्य विशेषज्ञहरू"
+
+#: templates/core/home.html:105
+msgid "Get Started Today"
+msgstr "आज सुरु गर्नुहोस्"
+
+#: templates/core/home.html:106
+msgid "Join thousands of mothers who trust AamCare for their maternal health journey"
+msgstr "आफ्नो मातृ स्वास्थ्य यात्राको लागि आमकेयरमा विश्वास गर्ने हजारौं आमाहरूसँग सामेल हुनुहोस्"
+
+#: templates/core/home.html:112
+msgid "Register Now"
+msgstr "अहिले दर्ता गर्नुहोस्"
+
+#: templates/core/home.html:118
+msgid "About AamCare"
+msgstr "आमकेयरको बारेमा"
+
+#: templates/core/home.html:119
+msgid "AamCare is a comprehensive maternal health platform designed to support pregnant women and new mothers throughout their journey. Our platform provides evidence-based information, expert guidance, and community support to ensure the best possible outcomes for both mother and child."
+msgstr "आमकेयर एक व्यापक मातृ स्वास्थ्य प्लेटफर्म हो जुन गर्भवती महिलाहरू र नयाँ आमाहरूलाई आफ्नो यात्रामा सहयोग गर्न डिजाइन गरिएको छ। हाम्रो प्लेटफर्मले प्रमाण-आधारित जानकारी, विशेषज्ञ मार्गदर्शन, र समुदाय सहयोग प्रदान गर्छ जसले आमा र बच्चा दुवैको लागि सर्वोत्तम सम्भावित परिणाम सुनिश्चित गर्छ।"
+
+#: templates/core/home.html:125
+msgid "Contact Us"
+msgstr "हामीलाई सम्पर्क गर्नुहोस्"
+
+#: templates/core/home.html:126
+msgid "Email: info@aamcare.com"
+msgstr "इमेल: info@aamcare.com"
+
+#: templates/core/home.html:127
+msgid "Phone: +977-1-2345678"
+msgstr "फोन: +977-1-2345678"
+
+#: templates/core/home.html:133
+msgid "© 2024 AamCare. All rights reserved."
+msgstr "© २०२४ आमकेयर। सबै अधिकार सुरक्षित।"
+
+#: templates/core/login.html:15
+msgid "Login to AamCare"
+msgstr "आमकेयरमा लगइन गर्नुहोस्"
+
+#: templates/core/login.html:20
+msgid "Username"
+msgstr "प्रयोगकर्ता नाम"
+
+#: templates/core/login.html:25
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: templates/core/login.html:30
+msgid "Login"
+msgstr "लगइन"
+
+#: templates/core/login.html:35
+msgid "Don't have an account?"
+msgstr "खाता छैन?"
+
+#: templates/core/login.html:36
+msgid "Register here"
+msgstr "यहाँ दर्ता गर्नुहोस्"
+
+#: templates/core/register_pregnant.html:15
+msgid "Register as Pregnant Woman"
+msgstr "गर्भवती महिलाको रूपमा दर्ता गर्नुहोस्"
+
+#: templates/core/register_pregnant.html:20
+msgid "Name"
+msgstr "नाम"
+
+#: templates/core/register_pregnant.html:25
+msgid "Age"
+msgstr "उमेर"
+
+#: templates/core/register_pregnant.html:30
+msgid "Due Date"
+msgstr "प्रसव मिति"
+
+#: templates/core/register_pregnant.html:35
+msgid "Medical History"
+msgstr "चिकित्सकीय इतिहास"
+
+#: templates/core/register_pregnant.html:40
+msgid "Register"
+msgstr "दर्ता गर्नुहोस्"
+
+#: templates/core/register_mother.html:15
+msgid "Register as New Mother"
+msgstr "नयाँ आमाको रूपमा दर्ता गर्नुहोस्"
+
+#: templates/core/register_mother.html:20
+msgid "Child Birth Date"
+msgstr "बच्चाको जन्म मिति"
+
+#: templates/core/register_mother.html:25
+msgid "Current Health Status"
+msgstr "वर्तमान स्वास्थ्य स्थिति"
+
+#: templates/core/pregnant_dashboard.html:15
+msgid "Pregnancy Dashboard"
+msgstr "गर्भावस्था ड्यासबोर्ड"
+
+#: templates/core/pregnant_dashboard.html:20
+msgid "Current Week"
+msgstr "वर्तमान हप्ता"
+
+#: templates/core/pregnant_dashboard.html:25
+msgid "Current Month"
+msgstr "वर्तमान महिना"
+
+#: templates/core/pregnant_dashboard.html:30
+msgid "Current Trimester"
+msgstr "वर्तमान त्रैमासिक"
+
+#: templates/core/pregnant_dashboard.html:40
+msgid "Recent Checkups"
+msgstr "हालैका जाँचहरू"
+
+#: templates/core/pregnant_dashboard.html:50
+msgid "Upcoming Vaccinations"
+msgstr "आगामी टीकाकरणहरू"
+
+#: templates/core/pregnant_dashboard.html:60
+msgid "Health Tips"
+msgstr "स्वास्थ्य सुझावहरू"
+
+#: templates/core/mother_dashboard.html:15
+msgid "Mother Dashboard"
+msgstr "आमा ड्यासबोर्ड"
+
+#: templates/core/mother_dashboard.html:20
+msgid "Baby's Age"
+msgstr "बच्चाको उमेर"
+
+#: templates/core/mother_dashboard.html:25
+msgid "Health Status"
+msgstr "स्वास्थ्य स्थिति"
+
+#: templates/core/mother_dashboard.html:35
+msgid "Baby's Vaccinations"
+msgstr "बच्चाका टीकाकरणहरू"
+
+#: templates/core/mother_dashboard.html:45
+msgid "Postpartum Care"
+msgstr "प्रसवपछिको हेरचाह"
+
+#: templates/core/mother_dashboard.html:55
+msgid "Breastfeeding Support"
+msgstr "स्तनपान सहयोग"
+
+#: templates/core/vaccination_tracker.html:15
+msgid "Vaccination Tracker"
+msgstr "टीकाकरण ट्र्याकर"
+
+#: templates/core/vaccination_tracker.html:20
+msgid "Vaccine Name"
+msgstr "टीकाको नाम"
+
+#: templates/core/vaccination_tracker.html:25
+msgid "Due Date"
+msgstr "मिति"
+
+#: templates/core/vaccination_tracker.html:30
+msgid "Status"
+msgstr "स्थिति"
+
+#: templates/core/vaccination_tracker.html:35
+msgid "Actions"
+msgstr "कार्यहरू"
+
+#: templates/core/vaccination_tracker.html:40
+msgid "Pending"
+msgstr "प्रक्रियामा"
+
+#: templates/core/vaccination_tracker.html:45
+msgid "Completed"
+msgstr "पूरा भयो"
+
+#: templates/core/vaccination_tracker.html:50
+msgid "Update"
+msgstr "अपडेट"
+
+#: templates/core/diet_plans.html:15
+msgid "Diet Plans"
+msgstr "आहार योजनाहरू"
+
+#: templates/core/diet_plans.html:20
+msgid "Nutritional Guidance"
+msgstr "पोषण मार्गदर्शन"
+
+#: templates/core/diet_plans.html:25
+msgid "Healthy eating during pregnancy and postpartum"
+msgstr "गर्भावस्था र प्रसवपछि स्वस्थ खाना"
+
+#: templates/core/exercise_guidance.html:15
+msgid "Exercise Guidance"
+msgstr "व्यायाम मार्गदर्शन"
+
+#: templates/core/exercise_guidance.html:20
+msgid "Safe exercises for pregnant women and new mothers"
+msgstr "गर्भवती महिलाहरू र नयाँ आमाहरूको लागि सुरक्षित व्यायामहरू"
+
+#: templates/core/breastfeeding_support.html:15
+msgid "Breastfeeding Support"
+msgstr "स्तनपान सहयोग"
+
+#: templates/core/breastfeeding_support.html:20
+msgid "Guidance and tips for successful breastfeeding"
+msgstr "सफल स्तनपानको लागि मार्गदर्शन र सुझावहरू"
+
+#: templates/core/mental_health_support.html:15
+msgid "Mental Health Support"
+msgstr "मानसिक स्वास्थ्य सहयोग"
+
+#: templates/core/mental_health_support.html:20
+msgid "Supporting your mental well-being during pregnancy and motherhood"
+msgstr "गर्भावस्था र मातृत्वको समयमा तपाईंको मानसिक कल्याणलाई सहयोग"
+
+#: templates/core/testimonials.html:15
+msgid "Success Stories"
+msgstr "सफलताका कथाहरू"
+
+#: templates/core/testimonials.html:20
+msgid "Real stories from mothers who used AamCare"
+msgstr "आमकेयर प्रयोग गर्ने आमाहरूका वास्तविक कथाहरू"
+
+#: templates/core/health_experts.html:15
+msgid "Health Experts"
+msgstr "स्वास्थ्य विशेषज्ञहरू"
+
+#: templates/core/health_experts.html:20
+msgid "Meet our qualified health professionals"
+msgstr "हाम्रा योग्य स्वास्थ्य पेशेवरहरूसँग भेट्नुहोस्"
+
+#: templates/core/community_workers.html:15
+msgid "Community Health Workers"
+msgstr "समुदाय स्वास्थ्य कार्यकर्ताहरू"
+
+#: templates/core/community_workers.html:20
+msgid "Local health workers supporting your community"
+msgstr "तपाईंको समुदायलाई सहयोग गर्ने स्थानीय स्वास्थ्य कार्यकर्ताहरू"
+
+#: templates/core/danger_signs.html:15
+msgid "Danger Signs"
+msgstr "खतराका संकेतहरू"
+
+#: templates/core/danger_signs.html:20
+msgid "Warning signs during pregnancy and postpartum"
+msgstr "गर्भावस्था र प्रसवपछि चेतावनी संकेतहरू"
+
+#: templates/core/about_trust.html:15
+msgid "About Our Trust"
+msgstr "हाम्रो विश्वासको बारेमा"
+
+#: templates/core/about_trust.html:20
+msgid "Learn about our commitment to maternal health"
+msgstr "मातृ स्वास्थ्यको लागि हाम्रो प्रतिबद्धताको बारेमा जान्नुहोस्"
+
+#: templates/core/trimester_tips.html:15
+msgid "Trimester Tips"
+msgstr "त्रैमासिक सुझावहरू"
+
+#: templates/core/trimester_tips.html:20
+msgid "Weekly and trimester-based guidance"
+msgstr "साप्ताहिक र त्रैमासिक-आधारित मार्गदर्शन"
+
+#: templates/core/comprehensive_nutrition_pregnant.html:15
+msgid "Comprehensive Nutrition - Pregnancy"
+msgstr "व्यापक पोषण - गर्भावस्था"
+
+#: templates/core/comprehensive_nutrition_mother.html:15
+msgid "Comprehensive Nutrition - Postpartum"
+msgstr "व्यापक पोषण - प्रसवपछि"
+
+#: templates/core/submit_checkup.html:15
+msgid "Submit Checkup"
+msgstr "जाँच सबमिट गर्नुहोस्"
+
+#: templates/core/submit_checkup.html:20
+msgid "Blood Pressure (Systolic)"
+msgstr "रक्तचाप (सिस्टोलिक)"
+
+#: templates/core/submit_checkup.html:25
+msgid "Blood Pressure (Diastolic)"
+msgstr "रक्तचाप (डायस्टोलिक)"
+
+#: templates/core/submit_checkup.html:30
+msgid "Weight (kg)"
+msgstr "तौल (किलो)"
+
+#: templates/core/submit_checkup.html:35
+msgid "Blood Sugar Level"
+msgstr "रक्त शर्करा स्तर"
+
+#: templates/core/submit_checkup.html:40
+msgid "Notes"
+msgstr "टिप्पणीहरू"
+
+#: templates/core/submit_checkup.html:45
+msgid "Submit"
+msgstr "सबमिट गर्नुहोस्"
+
+#: templates/core/submit_story.html:15
+msgid "Submit Your Story"
+msgstr "आफ्नो कथा सबमिट गर्नुहोस्"
+
+#: templates/core/submit_story.html:20
+msgid "Title"
+msgstr "शीर्षक"
+
+#: templates/core/submit_story.html:25
+msgid "Story"
+msgstr "कथा"
+
+#: templates/core/submit_story.html:30
+msgid "Submit Story"
+msgstr "कथा सबमिट गर्नुहोस्"
+
+#: templates/core/give_birth.html:15
+msgid "Give Birth"
+msgstr "प्रसव गर्नुहोस्"
+
+#: templates/core/give_birth.html:20
+msgid "Child Birth Date"
+msgstr "बच्चाको जन्म मिति"
+
+#: templates/core/give_birth.html:25
+msgid "Birth Weight (kg)"
+msgstr "जन्म तौल (किलो)"
+
+#: templates/core/give_birth.html:30
+msgid "Birth Notes"
+msgstr "जन्म टिप्पणीहरू"
+
+#: templates/core/give_birth.html:35
+msgid "Record Birth"
+msgstr "जन्म रेकर्ड गर्नुहोस्"
+
+#: templates/core/vaccination_schedule.html:15
+msgid "Vaccination Schedule"
+msgstr "टीकाकरण कार्यक्रम"
+
+#: templates/core/vaccination_schedule.html:20
+msgid "Complete vaccination timeline"
+msgstr "पूर्ण टीकाकरण समयरेखा"
+
+#: templates/core/success_stories.html:15
+msgid "Success Stories"
+msgstr "सफलताका कथाहरू"
+
+#: templates/core/success_stories.html:20
+msgid "Inspiring stories from our community"
+msgstr "हाम्रो समुदायबाट प्रेरणादायक कथाहरू"
+
+#: templates/core/delete_checkup_confirm.html:15
+msgid "Delete Checkup"
+msgstr "जाँच मेटाउनुहोस्"
+
+#: templates/core/delete_checkup_confirm.html:20
+msgid "Are you sure you want to delete this checkup record?"
+msgstr "के तपाईं यो जाँच रेकर्ड मेटाउन निश्चित हुनुहुन्छ?"
+
+#: templates/core/delete_checkup_confirm.html:25
+msgid "Yes, Delete"
+msgstr "हो, मेटाउनुहोस्"
+
+#: templates/core/delete_checkup_confirm.html:30
+msgid "Cancel"
+msgstr "रद्द गर्नुहोस्"
+
+#: templates/core/update_vaccination.html:15
+msgid "Update Vaccination"
+msgstr "टीकाकरण अपडेट गर्नुहोस्"
+
+#: templates/core/update_vaccination.html:20
+msgid "Vaccination Date"
+msgstr "टीकाकरण मिति"
+
+#: templates/core/update_vaccination.html:25
+msgid "Update"
+msgstr "अपडेट"
+
+#: templates/core/content_detail.html:15
+msgid "Content Detail"
+msgstr "सामग्री विवरण"
+
+#: templates/core/content_detail.html:20
+msgid "Back to List"
+msgstr "सूचीमा फर्कनुहोस्"
+
+#: templates/core/404.html:15
+msgid "Page Not Found"
+msgstr "पृष्ठ फेला परेन"
+
+#: templates/core/404.html:20
+msgid "The page you are looking for does not exist."
+msgstr "तपाईंले खोजिरहनुभएको पृष्ठ अवस्थित छैन।"
+
+#: templates/core/404.html:25
+msgid "Go Home"
+msgstr "गृहमा जानुहोस्" 

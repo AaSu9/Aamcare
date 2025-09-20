@@ -1,0 +1,543 @@
+# English translations for AamCare project.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the AamCare project.
+msgid ""
+msgstr ""
+"Project-Id-Version: AamCare 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/core/base.html:4
+msgid "AamCare - Maternal Health Support"
+msgstr "AamCare - Maternal Health Support"
+
+#: templates/core/base.html:120
+msgid "Home"
+msgstr "Home"
+
+#: templates/core/base.html:125
+msgid "Trust & Safety"
+msgstr "Trust & Safety"
+
+#: templates/core/base.html:128
+msgid "About Our Trust"
+msgstr "About Our Trust"
+
+#: templates/core/base.html:131
+msgid "Health Experts"
+msgstr "Health Experts"
+
+#: templates/core/base.html:134
+msgid "Community Workers"
+msgstr "Community Workers"
+
+#: templates/core/base.html:137
+msgid "Success Stories"
+msgstr "Success Stories"
+
+#: templates/core/base.html:140
+msgid "Danger Signs"
+msgstr "Danger Signs"
+
+#: templates/core/base.html:147
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/core/base.html:154
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/core/base.html:160
+msgid "Login"
+msgstr "Login"
+
+#: templates/core/base.html:163
+msgid "Register"
+msgstr "Register"
+
+#: templates/core/base.html:166
+msgid "Language"
+msgstr "Language"
+
+#: templates/core/base.html:169
+msgid "English"
+msgstr "English"
+
+#: templates/core/base.html:172
+msgid "Nepali"
+msgstr "नेपाली"
+
+#: templates/core/home.html:15
+msgid "Welcome to AamCare"
+msgstr "Welcome to AamCare"
+
+#: templates/core/home.html:16
+msgid "Your trusted companion for maternal health and pregnancy care"
+msgstr "Your trusted companion for maternal health and pregnancy care"
+
+#: templates/core/home.html:25
+msgid "I'm Pregnant"
+msgstr "I'm Pregnant"
+
+#: templates/core/home.html:26
+msgid "Register as a pregnant woman to get personalized care and guidance"
+msgstr "Register as a pregnant woman to get personalized care and guidance"
+
+#: templates/core/home.html:32
+msgid "I'm a New Mother"
+msgstr "I'm a New Mother"
+
+#: templates/core/home.html:33
+msgid "Register as a new mother for postpartum care and baby health tracking"
+msgstr "Register as a new mother for postpartum care and baby health tracking"
+
+#: templates/core/home.html:45
+msgid "Why Choose AamCare?"
+msgstr "Why Choose AamCare?"
+
+#: templates/core/home.html:52
+msgid "Government Approved"
+msgstr "Government Approved"
+
+#: templates/core/home.html:53
+msgid "All content is verified and approved by health authorities"
+msgstr "All content is verified and approved by health authorities"
+
+#: templates/core/home.html:59
+msgid "Expert Guidance"
+msgstr "Expert Guidance"
+
+#: templates/core/home.html:60
+msgid "Access to qualified health experts and community workers"
+msgstr "Access to qualified health experts and community workers"
+
+#: templates/core/home.html:66
+msgid "Personalized Care"
+msgstr "Personalized Care"
+
+#: templates/core/home.html:67
+msgid "Tailored advice based on your pregnancy stage and health status"
+msgstr "Tailored advice based on your pregnancy stage and health status"
+
+#: templates/core/home.html:73
+msgid "Community Support"
+msgstr "Community Support"
+
+#: templates/core/home.html:74
+msgid "Connect with other mothers and share experiences"
+msgstr "Connect with other mothers and share experiences"
+
+#: templates/core/home.html:85
+msgid "Featured Success Stories"
+msgstr "Featured Success Stories"
+
+#: templates/core/home.html:95
+msgid "Our Health Experts"
+msgstr "Our Health Experts"
+
+#: templates/core/home.html:105
+msgid "Get Started Today"
+msgstr "Get Started Today"
+
+#: templates/core/home.html:106
+msgid "Join thousands of mothers who trust AamCare for their maternal health journey"
+msgstr "Join thousands of mothers who trust AamCare for their maternal health journey"
+
+#: templates/core/home.html:112
+msgid "Register Now"
+msgstr "Register Now"
+
+#: templates/core/home.html:118
+msgid "About AamCare"
+msgstr "About AamCare"
+
+#: templates/core/home.html:119
+msgid "AamCare is a comprehensive maternal health platform designed to support pregnant women and new mothers throughout their journey. Our platform provides evidence-based information, expert guidance, and community support to ensure the best possible outcomes for both mother and child."
+msgstr "AamCare is a comprehensive maternal health platform designed to support pregnant women and new mothers throughout their journey. Our platform provides evidence-based information, expert guidance, and community support to ensure the best possible outcomes for both mother and child."
+
+#: templates/core/home.html:125
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: templates/core/home.html:126
+msgid "Email: info@aamcare.com"
+msgstr "Email: info@aamcare.com"
+
+#: templates/core/home.html:127
+msgid "Phone: +977-1-2345678"
+msgstr "Phone: +977-1-2345678"
+
+#: templates/core/home.html:133
+msgid "© 2024 AamCare. All rights reserved."
+msgstr "© 2024 AamCare. All rights reserved."
+
+#: templates/core/login.html:15
+msgid "Login to AamCare"
+msgstr "Login to AamCare"
+
+#: templates/core/login.html:20
+msgid "Username"
+msgstr "Username"
+
+#: templates/core/login.html:25
+msgid "Password"
+msgstr "Password"
+
+#: templates/core/login.html:30
+msgid "Login"
+msgstr "Login"
+
+#: templates/core/login.html:35
+msgid "Don't have an account?"
+msgstr "Don't have an account?"
+
+#: templates/core/login.html:36
+msgid "Register here"
+msgstr "Register here"
+
+#: templates/core/register_pregnant.html:15
+msgid "Register as Pregnant Woman"
+msgstr "Register as Pregnant Woman"
+
+#: templates/core/register_pregnant.html:20
+msgid "Name"
+msgstr "Name"
+
+#: templates/core/register_pregnant.html:25
+msgid "Age"
+msgstr "Age"
+
+#: templates/core/register_pregnant.html:30
+msgid "Due Date"
+msgstr "Due Date"
+
+#: templates/core/register_pregnant.html:35
+msgid "Medical History"
+msgstr "Medical History"
+
+#: templates/core/register_pregnant.html:40
+msgid "Register"
+msgstr "Register"
+
+#: templates/core/register_mother.html:15
+msgid "Register as New Mother"
+msgstr "Register as New Mother"
+
+#: templates/core/register_mother.html:20
+msgid "Child Birth Date"
+msgstr "Child Birth Date"
+
+#: templates/core/register_mother.html:25
+msgid "Current Health Status"
+msgstr "Current Health Status"
+
+#: templates/core/pregnant_dashboard.html:15
+msgid "Pregnancy Dashboard"
+msgstr "Pregnancy Dashboard"
+
+#: templates/core/pregnant_dashboard.html:20
+msgid "Current Week"
+msgstr "Current Week"
+
+#: templates/core/pregnant_dashboard.html:25
+msgid "Current Month"
+msgstr "Current Month"
+
+#: templates/core/pregnant_dashboard.html:30
+msgid "Current Trimester"
+msgstr "Current Trimester"
+
+#: templates/core/pregnant_dashboard.html:40
+msgid "Recent Checkups"
+msgstr "Recent Checkups"
+
+#: templates/core/pregnant_dashboard.html:50
+msgid "Upcoming Vaccinations"
+msgstr "Upcoming Vaccinations"
+
+#: templates/core/pregnant_dashboard.html:60
+msgid "Health Tips"
+msgstr "Health Tips"
+
+#: templates/core/mother_dashboard.html:15
+msgid "Mother Dashboard"
+msgstr "Mother Dashboard"
+
+#: templates/core/mother_dashboard.html:20
+msgid "Baby's Age"
+msgstr "Baby's Age"
+
+#: templates/core/mother_dashboard.html:25
+msgid "Health Status"
+msgstr "Health Status"
+
+#: templates/core/mother_dashboard.html:35
+msgid "Baby's Vaccinations"
+msgstr "Baby's Vaccinations"
+
+#: templates/core/mother_dashboard.html:45
+msgid "Postpartum Care"
+msgstr "Postpartum Care"
+
+#: templates/core/mother_dashboard.html:55
+msgid "Breastfeeding Support"
+msgstr "Breastfeeding Support"
+
+#: templates/core/vaccination_tracker.html:15
+msgid "Vaccination Tracker"
+msgstr "Vaccination Tracker"
+
+#: templates/core/vaccination_tracker.html:20
+msgid "Vaccine Name"
+msgstr "Vaccine Name"
+
+#: templates/core/vaccination_tracker.html:25
+msgid "Due Date"
+msgstr "Due Date"
+
+#: templates/core/vaccination_tracker.html:30
+msgid "Status"
+msgstr "Status"
+
+#: templates/core/vaccination_tracker.html:35
+msgid "Actions"
+msgstr "Actions"
+
+#: templates/core/vaccination_tracker.html:40
+msgid "Pending"
+msgstr "Pending"
+
+#: templates/core/vaccination_tracker.html:45
+msgid "Completed"
+msgstr "Completed"
+
+#: templates/core/vaccination_tracker.html:50
+msgid "Update"
+msgstr "Update"
+
+#: templates/core/diet_plans.html:15
+msgid "Diet Plans"
+msgstr "Diet Plans"
+
+#: templates/core/diet_plans.html:20
+msgid "Nutritional Guidance"
+msgstr "Nutritional Guidance"
+
+#: templates/core/diet_plans.html:25
+msgid "Healthy eating during pregnancy and postpartum"
+msgstr "Healthy eating during pregnancy and postpartum"
+
+#: templates/core/exercise_guidance.html:15
+msgid "Exercise Guidance"
+msgstr "Exercise Guidance"
+
+#: templates/core/exercise_guidance.html:20
+msgid "Safe exercises for pregnant women and new mothers"
+msgstr "Safe exercises for pregnant women and new mothers"
+
+#: templates/core/breastfeeding_support.html:15
+msgid "Breastfeeding Support"
+msgstr "Breastfeeding Support"
+
+#: templates/core/breastfeeding_support.html:20
+msgid "Guidance and tips for successful breastfeeding"
+msgstr "Guidance and tips for successful breastfeeding"
+
+#: templates/core/mental_health_support.html:15
+msgid "Mental Health Support"
+msgstr "Mental Health Support"
+
+#: templates/core/mental_health_support.html:20
+msgid "Supporting your mental well-being during pregnancy and motherhood"
+msgstr "Supporting your mental well-being during pregnancy and motherhood"
+
+#: templates/core/testimonials.html:15
+msgid "Success Stories"
+msgstr "Success Stories"
+
+#: templates/core/testimonials.html:20
+msgid "Real stories from mothers who used AamCare"
+msgstr "Real stories from mothers who used AamCare"
+
+#: templates/core/health_experts.html:15
+msgid "Health Experts"
+msgstr "Health Experts"
+
+#: templates/core/health_experts.html:20
+msgid "Meet our qualified health professionals"
+msgstr "Meet our qualified health professionals"
+
+#: templates/core/community_workers.html:15
+msgid "Community Health Workers"
+msgstr "Community Health Workers"
+
+#: templates/core/community_workers.html:20
+msgid "Local health workers supporting your community"
+msgstr "Local health workers supporting your community"
+
+#: templates/core/danger_signs.html:15
+msgid "Danger Signs"
+msgstr "Danger Signs"
+
+#: templates/core/danger_signs.html:20
+msgid "Warning signs during pregnancy and postpartum"
+msgstr "Warning signs during pregnancy and postpartum"
+
+#: templates/core/about_trust.html:15
+msgid "About Our Trust"
+msgstr "About Our Trust"
+
+#: templates/core/about_trust.html:20
+msgid "Learn about our commitment to maternal health"
+msgstr "Learn about our commitment to maternal health"
+
+#: templates/core/trimester_tips.html:15
+msgid "Trimester Tips"
+msgstr "Trimester Tips"
+
+#: templates/core/trimester_tips.html:20
+msgid "Weekly and trimester-based guidance"
+msgstr "Weekly and trimester-based guidance"
+
+#: templates/core/comprehensive_nutrition_pregnant.html:15
+msgid "Comprehensive Nutrition - Pregnancy"
+msgstr "Comprehensive Nutrition - Pregnancy"
+
+#: templates/core/comprehensive_nutrition_mother.html:15
+msgid "Comprehensive Nutrition - Postpartum"
+msgstr "Comprehensive Nutrition - Postpartum"
+
+#: templates/core/submit_checkup.html:15
+msgid "Submit Checkup"
+msgstr "Submit Checkup"
+
+#: templates/core/submit_checkup.html:20
+msgid "Blood Pressure (Systolic)"
+msgstr "Blood Pressure (Systolic)"
+
+#: templates/core/submit_checkup.html:25
+msgid "Blood Pressure (Diastolic)"
+msgstr "Blood Pressure (Diastolic)"
+
+#: templates/core/submit_checkup.html:30
+msgid "Weight (kg)"
+msgstr "Weight (kg)"
+
+#: templates/core/submit_checkup.html:35
+msgid "Blood Sugar Level"
+msgstr "Blood Sugar Level"
+
+#: templates/core/submit_checkup.html:40
+msgid "Notes"
+msgstr "Notes"
+
+#: templates/core/submit_checkup.html:45
+msgid "Submit"
+msgstr "Submit"
+
+#: templates/core/submit_story.html:15
+msgid "Submit Your Story"
+msgstr "Submit Your Story"
+
+#: templates/core/submit_story.html:20
+msgid "Title"
+msgstr "Title"
+
+#: templates/core/submit_story.html:25
+msgid "Story"
+msgstr "Story"
+
+#: templates/core/submit_story.html:30
+msgid "Submit Story"
+msgstr "Submit Story"
+
+#: templates/core/give_birth.html:15
+msgid "Give Birth"
+msgstr "Give Birth"
+
+#: templates/core/give_birth.html:20
+msgid "Child Birth Date"
+msgstr "Child Birth Date"
+
+#: templates/core/give_birth.html:25
+msgid "Birth Weight (kg)"
+msgstr "Birth Weight (kg)"
+
+#: templates/core/give_birth.html:30
+msgid "Birth Notes"
+msgstr "Birth Notes"
+
+#: templates/core/give_birth.html:35
+msgid "Record Birth"
+msgstr "Record Birth"
+
+#: templates/core/vaccination_schedule.html:15
+msgid "Vaccination Schedule"
+msgstr "Vaccination Schedule"
+
+#: templates/core/vaccination_schedule.html:20
+msgid "Complete vaccination timeline"
+msgstr "Complete vaccination timeline"
+
+#: templates/core/success_stories.html:15
+msgid "Success Stories"
+msgstr "Success Stories"
+
+#: templates/core/success_stories.html:20
+msgid "Inspiring stories from our community"
+msgstr "Inspiring stories from our community"
+
+#: templates/core/delete_checkup_confirm.html:15
+msgid "Delete Checkup"
+msgstr "Delete Checkup"
+
+#: templates/core/delete_checkup_confirm.html:20
+msgid "Are you sure you want to delete this checkup record?"
+msgstr "Are you sure you want to delete this checkup record?"
+
+#: templates/core/delete_checkup_confirm.html:25
+msgid "Yes, Delete"
+msgstr "Yes, Delete"
+
+#: templates/core/delete_checkup_confirm.html:30
+msgid "Cancel"
+msgstr "Cancel"
+
+#: templates/core/update_vaccination.html:15
+msgid "Update Vaccination"
+msgstr "Update Vaccination"
+
+#: templates/core/update_vaccination.html:20
+msgid "Vaccination Date"
+msgstr "Vaccination Date"
+
+#: templates/core/update_vaccination.html:25
+msgid "Update"
+msgstr "Update"
+
+#: templates/core/content_detail.html:15
+msgid "Content Detail"
+msgstr "Content Detail"
+
+#: templates/core/content_detail.html:20
+msgid "Back to List"
+msgstr "Back to List"
+
+#: templates/core/404.html:15
+msgid "Page Not Found"
+msgstr "Page Not Found"
+
+#: templates/core/404.html:20
+msgid "The page you are looking for does not exist."
+msgstr "The page you are looking for does not exist."
+
+#: templates/core/404.html:25
+msgid "Go Home"
+msgstr "Go Home" 

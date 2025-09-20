@@ -1,0 +1,273 @@
+{% extends 'core/base.html' %}
+{% load custom_trans %}
+
+{% block title %}{% trans "Vaccination Tracker" %}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                    <h2><i class="fas fa-syringe me-2"></i>{% trans "Vaccination Tracker" %}</h2>
+                    <p class="lead mb-0">
+                        {% if profile_type == 'pregnant' %}
+                            {% trans "Track your pregnancy vaccinations" %}
+                        {% else %}
+                            {% trans "Track your baby's vaccination schedule" %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if profile_type == 'mother' %}
+    <!-- Mother and Child Vaccine Sections -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="fas fa-user me-2"></i>{% trans "Mother's Vaccines" %}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">{% trans "Vaccines recommended for mothers during pregnancy and postpartum" %}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "Tdap (Tetanus, Diphtheria, Pertussis)" %}</span>
+                            <span class="badge bg-info">{% trans "Pregnancy" %}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "Influenza" %}</span>
+                            <span class="badge bg-info">{% trans "Seasonal" %}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "COVID-19" %}</span>
+                            <span class="badge bg-info">{% trans "As recommended" %}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-baby me-2"></i>{% trans "Baby's Vaccines" %}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">{% trans "Vaccines for your child from birth to 5 years" %}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "BCG, Hepatitis B" %}</span>
+                            <span class="badge bg-success">{% trans "Birth" %}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "OPV, DPT, Hib" %}</span>
+                            <span class="badge bg-success">{% trans "6 weeks - 9 months" %}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "MMR, Varicella" %}</span>
+                            <span class="badge bg-success">{% trans "15 months" %}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "Booster doses" %}</span>
+                            <span class="badge bg-success">{% trans "18 months - 5 years" %}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-list me-2"></i>{% trans "Vaccination Schedule" %}</h5>
+                </div>
+                <div class="card-body">
+                    {% if vaccinations %}
+                        {% if profile_type == 'mother' %}
+                        <!-- Vaccine Type Summary -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="alert alert-primary">
+                                    <i class="fas fa-user me-2"></i>
+                                    <strong>{% trans "Mother Vaccines:" %}</strong> {{ mother_vaccines_count }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-success">
+                                    <i class="fas fa-baby me-2"></i>
+                                    <strong>{% trans "Baby Vaccines:" %}</strong> {{ baby_vaccines_count }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Color Legend -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>{% trans "Color Legend" %}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <div class="bg-primary me-2" style="width: 20px; height: 20px; border-radius: 3px;"></div>
+                                                    <span>{% trans "Light Blue Rows" %} = {% trans "Mother Vaccines" %}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <div class="bg-success me-2" style="width: 20px; height: 20px; border-radius: 3px;"></div>
+                                                    <span>{% trans "Light Green Rows" %} = {% trans "Baby Vaccines" %}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Vaccine" %}</th>
+                                        <th>{% trans "Type" %}</th>
+                                        <th>{% trans "Due Date" %}</th>
+                                        <th>{% trans "Status" %}</th>
+                                        <th>{% trans "Completed Date" %}</th>
+                                        <th>{% trans "Notes" %}</th>
+                                        <th>{% trans "Action" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for vaccination in vaccinations %}
+                                    <tr class="{% if profile_type == 'mother' %}{% if '(Mother)' in vaccination.vaccine_name or 'tdap' in vaccination.vaccine_name|lower or 'covid19' in vaccination.vaccine_name|lower or 'influenza' in vaccination.vaccine_name|lower %}table-primary{% else %}table-success{% endif %}{% endif %}">
+                                        <td>
+                                            <strong>{% trans vaccination.vaccine_name %}</strong>
+                                        </td>
+                                        <td>
+                                            {% if profile_type == 'mother' %}
+                                                {% if '(Mother)' in vaccination.vaccine_name or 'tdap' in vaccination.vaccine_name|lower or 'covid19' in vaccination.vaccine_name|lower or 'influenza' in vaccination.vaccine_name|lower %}
+                                                    <span class="badge bg-primary">{% trans "Mother" %}</span>
+                                                {% elif 'hepb' in vaccination.vaccine_name|lower or 'dtap' in vaccination.vaccine_name|lower or 'hib' in vaccination.vaccine_name|lower or 'pcv13' in vaccination.vaccine_name|lower or 'ipv' in vaccination.vaccine_name|lower or 'rotavirus' in vaccination.vaccine_name|lower or 'mmr' in vaccination.vaccine_name|lower or 'varicella' in vaccination.vaccine_name|lower or 'hepa' in vaccination.vaccine_name|lower or 'Birth' in vaccination.vaccine_name or 'OPV' in vaccination.vaccine_name or 'DPT' in vaccination.vaccine_name or 'Hib' in vaccination.vaccine_name or 'MMR' in vaccination.vaccine_name or 'Varicella' in vaccination.vaccine_name or 'Typhoid' in vaccination.vaccine_name or 'BCG' in vaccination.vaccine_name or 'Hepatitis B' in vaccination.vaccine_name or 'Measles' in vaccination.vaccine_name or 'Booster' in vaccination.vaccine_name %}
+                                                    <span class="badge bg-success">{% trans "Baby" %}</span>
+                                                {% else %}
+                                                    <span class="badge bg-primary">{% trans "Mother" %}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="badge bg-primary">{% trans "Mother" %}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ vaccination.due_date|date:"M j, Y" }}</td>
+                                        <td>
+                                            {% if vaccination.status == 'completed' %}
+                                                <span class="badge bg-success">{% trans "Completed" %}</span>
+                                            {% elif vaccination.status == 'overdue' %}
+                                                <span class="badge bg-danger">{% trans "Overdue" %}</span>
+                                            {% elif vaccination.status == 'pending' %}
+                                                <span class="badge bg-warning">{% trans "Pending" %}</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">{% trans vaccination.get_status_display %}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if vaccination.completed_date %}
+                                                {{ vaccination.completed_date|date:"M j, Y" }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if vaccination.notes %}
+                                                {{ vaccination.notes|truncatewords:5 }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'update_vaccination' vaccination.id %}" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit me-1"></i>{% trans "Update" %}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <h4>{{ total_vaccinations }}</h4>
+                                        <p class="mb-0">{% trans "Total Vaccinations" %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <h4>{{ completed_vaccinations }}</h4>
+                                        <p class="mb-0">{% trans "Completed" %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white">
+                                    <div class="card-body text-center">
+                                        <h4>{{ pending_vaccinations }}</h4>
+                                        <p class="mb-0">{% trans "Pending" %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-danger text-white">
+                                    <div class="card-body text-center">
+                                        <h4>{{ overdue_vaccinations }}</h4>
+                                        <p class="mb-0">{% trans "Overdue" %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-syringe fa-3x text-muted mb-3"></i>
+                            <h5>{% trans "No Vaccination Records Found" %}</h5>
+                            <p class="text-muted">{% trans "Vaccination schedule will be created automatically after registration." %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        background-color: #f8f9fa;
+        border-top: none;
+    }
+    .badge {
+        font-size: 0.8rem;
+    }
+    .table-primary {
+        background-color: rgba(13, 110, 253, 0.1) !important;
+    }
+    .table-success {
+        background-color: rgba(25, 135, 84, 0.1) !important;
+    }
+    .alert-primary {
+        border-left: 4px solid #0d6efd;
+    }
+    .alert-success {
+        border-left: 4px solid #198754;
+    }
+</style>
+{% endblock %} 

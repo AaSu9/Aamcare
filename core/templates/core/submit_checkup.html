@@ -1,0 +1,222 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Submit Checkup Progress{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>
+                        {% if profile_type == 'pregnant' %}
+                            <i class="fas fa-user me-2"></i>Submit Pregnancy Checkup Progress
+                        {% else %}
+                            <i class="fas fa-heart me-2"></i>Submit Recovery & Child Progress
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.month.id_for_label }}" class="form-label">
+                                {% if profile_type == 'pregnant' %}
+                                    Pregnancy Month
+                                {% else %}
+                                    Postpartum Month
+                                {% endif %}
+                            </label>
+                            {{ form.month }}
+                            {% if form.month.errors %}
+                                <div class="text-danger">{{ form.month.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Mother's Health Information -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0"><i class="fas fa-user-md me-2"></i>Mother's Health Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.weight_kg.id_for_label }}" class="form-label">
+                                                <i class="fas fa-weight me-1"></i>{{ form.weight_kg.label }}
+                                            </label>
+                                            {{ form.weight_kg }}
+                                            {% if form.weight_kg.errors %}
+                                                <div class="text-danger">{{ form.weight_kg.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.blood_pressure_systolic.id_for_label }}" class="form-label">
+                                                <i class="fas fa-heartbeat me-1"></i>{{ form.blood_pressure_systolic.label }}
+                                            </label>
+                                            {{ form.blood_pressure_systolic }}
+                                            {% if form.blood_pressure_systolic.errors %}
+                                                <div class="text-danger">{{ form.blood_pressure_systolic.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.blood_pressure_diastolic.id_for_label }}" class="form-label">
+                                                <i class="fas fa-heartbeat me-1"></i>{{ form.blood_pressure_diastolic.label }}
+                                            </label>
+                                            {{ form.blood_pressure_diastolic }}
+                                            {% if form.blood_pressure_diastolic.errors %}
+                                                <div class="text-danger">{{ form.blood_pressure_diastolic.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                {{ form.fever }}
+                                                <label class="form-check-label" for="{{ form.fever.id_for_label }}">
+                                                    <i class="fas fa-thermometer-half me-1"></i>{{ form.fever.label }}
+                                                </label>
+                                            </div>
+                                            {% if form.fever.errors %}
+                                                <div class="text-danger">{{ form.fever.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="{{ form.fever_temperature.id_for_label }}" class="form-label">
+                                                <i class="fas fa-thermometer-half me-1"></i>{{ form.fever_temperature.label }}
+                                            </label>
+                                            {{ form.fever_temperature }}
+                                            {% if form.fever_temperature.errors %}
+                                                <div class="text-danger">{{ form.fever_temperature.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if profile_type == 'mother' %}
+                        <!-- Child's Information (only for new mothers) -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fas fa-baby me-2"></i>Child's Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.child_weight_kg.id_for_label }}" class="form-label">
+                                                <i class="fas fa-weight me-1"></i>{{ form.child_weight_kg.label }}
+                                            </label>
+                                            {{ form.child_weight_kg }}
+                                            {% if form.child_weight_kg.errors %}
+                                                <div class="text-danger">{{ form.child_weight_kg.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.child_height_cm.id_for_label }}" class="form-label">
+                                                <i class="fas fa-ruler-vertical me-1"></i>{{ form.child_height_cm.label }}
+                                            </label>
+                                            {{ form.child_height_cm }}
+                                            {% if form.child_height_cm.errors %}
+                                                <div class="text-danger">{{ form.child_height_cm.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.child_head_circumference_cm.id_for_label }}" class="form-label">
+                                                <i class="fas fa-circle me-1"></i>{{ form.child_head_circumference_cm.label }}
+                                            </label>
+                                            {{ form.child_head_circumference_cm }}
+                                            {% if form.child_head_circumference_cm.errors %}
+                                                <div class="text-danger">{{ form.child_head_circumference_cm.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="{{ form.child_feeding_status.id_for_label }}" class="form-label">
+                                                <i class="fas fa-baby-carriage me-1"></i>{{ form.child_feeding_status.label }}
+                                            </label>
+                                            {{ form.child_feeding_status }}
+                                            {% if form.child_feeding_status.errors %}
+                                                <div class="text-danger">{{ form.child_feeding_status.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Notes Section -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0"><i class="fas fa-sticky-note me-2"></i>Additional Notes</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
+                                    {{ form.notes }}
+                                    {% if form.notes.errors %}
+                                        <div class="text-danger">{{ form.notes.errors }}</div>
+                                    {% endif %}
+                                    <div class="form-text">
+                                        {% if profile_type == 'pregnant' %}
+                                            Describe how you're feeling, any symptoms, or concerns about your pregnancy.
+                                        {% else %}
+                                            Describe your recovery progress, any challenges, how you're feeling, or any concerns about your child's development.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save me-2"></i>Submit Progress
+                            </button>
+                            <a href="{% if profile_type == 'pregnant' %}{% url 'pregnant_dashboard' %}{% else %}{% url 'mother_dashboard' %}{% endif %}" 
+                               class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    .form-check-input:checked {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+</style>
+{% endblock %} 
