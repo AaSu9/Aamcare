@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AamCare - Maternal Health Support System
 
 A Django web application designed to reduce infant and maternal mortality in rural Nepal by providing personalized health support, guidance, and digital care for pregnant women and new mothers.
@@ -166,3 +167,7 @@ This project is created for educational and demonstration purposes.
 ---
 
 **AamCare** - Supporting maternal and infant health in rural Nepal through digital care and guidance. 
+=======
+# Aamcare
+It is a website that helps the pregnant and new mother
+>>>>>>> 0a0893f12f6752fe2583a0344ba9724bb03f3a8f
