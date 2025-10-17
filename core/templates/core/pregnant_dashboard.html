@@ -4,34 +4,33 @@
 {% block title %}{% trans "Pregnancy Dashboard" %}{% endblock %}
 
 {% block content %}
-<div class="container my-4">
+<div class="container my-5 animate__animated animate__fadeIn">
     <div class="row">
         <div class="col-12">
-            <div class="card bg-primary text-white mb-4">
+            <div class="card bg-light text-dark mb-4 shadow-sm">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <h2><i class="fas fa-user me-2"></i>{% trans "Welcome" %}, {{ profile.name }}!</h2>
                             <div class="row">
-                                <div class="col-md-6">
-                                                            <p class="mb-1"><i class="fas fa-calendar me-2"></i>{% trans "Due Date" %}: {{ profile.due_date|date:"F j, Y" }}</p>
+                                <div class="col-sm-6">
+                                    <p class="mb-1"><i class="fas fa-calendar me-2"></i>{% trans "Due Date" %}: {{ profile.due_date|date:"F j, Y" }}</p>
                         <p class="mb-1"><i class="fas fa-birthday-cake me-2"></i>{% trans "Age" %}: {{ profile.age }} {% trans "years" %}</p>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                                             <p class="mb-1"><i class="fas fa-clock me-2"></i>{% trans "Week" %} {{ current_week }} {% trans "of" %} 40</p>
                         <p class="mb-1"><i class="fas fa-calendar-alt me-2"></i>{% trans "Month" %} {{ current_month }} | {% trans "Trimester" %} {{ current_trimester }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 text-end">
-                            <a href="{% url 'submit_story' %}" class="btn btn-light btn-lg me-2">
+                            <a href="{% url 'submit_story' %}" class="btn btn-outline-primary btn-lg me-2">
                                 <i class="fas fa-heart me-2"></i>{% trans "Share Your Story" %}
                             </a>
                             {% if pregnancy_dates.days_remaining <= 0 %}
                                 <a href="{% url 'give_birth' %}" class="btn btn-success btn-lg">
                                     <i class="fas fa-baby me-2"></i>{% trans "I've Given Birth" %}
                                 </a>
-                            {% endif %}
                             <a href="{% url 'update_pregnant_profile' %}" class="btn btn-light btn-sm mt-2">
                                 <i class="fas fa-phone"></i> Update Phone Number
                             </a>
@@ -45,8 +44,8 @@
     <!-- Birth Transition Alert -->
     {% if pregnancy_dates.days_remaining <= 0 %}
         <div class="row mb-4">
-            <div class="col-12">
-                <div class="alert alert-success border-success">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissible fade show border-success" role="alert">
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <h5 class="mb-1"><i class="fas fa-baby me-2"></i>{% trans "Congratulations! Your due date has passed." %}</h5>
@@ -56,6 +55,7 @@
                                                             <a href="{% url 'give_birth' %}" class="btn btn-success btn-lg">
                                     <i class="fas fa-baby me-2"></i>{% trans "I've Given Birth" %}
                                 </a>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>\
                         </div>
                     </div>
                 </div>
@@ -66,9 +66,9 @@
     <!-- Date-Based Planning Section -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h5><i class="fas fa-calendar-check me-2"></i>Your Pregnancy Timeline & Planning</h5>
+            <div class="card border-primary h-100 reveal">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Your Pregnancy Timeline & Planning</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -90,21 +90,21 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                     {% if pregnancy_dates.next_weeks %}
                     <div class="mt-3">
                         <h6 class="text-primary"><i class="fas fa-calendar-week me-2"></i>Upcoming Weeks</h6>
-                        <div class="row">
+                        <div class="row row-cols-2 row-cols-md-4 g-2">
                             {% for week_info in pregnancy_dates.next_weeks %}
-                            <div class="col-md-3 mb-2">
-                                <div class="card border-info">
+                            <div class="col">
+                                <div class="card h-100 border-info reveal-item">
                                     <div class="card-body text-center p-2">
                                         <h6 class="text-info mb-1">Week {{ week_info.week }}</h6>
                                         <p class="mb-1 small">{{ week_info.date|date:"M j" }}</p>
                                         <p class="mb-0 small text-muted">
                                             {% if week_info.days_from_now == 0 %}
                                                 <span class="badge bg-success">Today</span>
-                                            {% elif week_info.days_from_now > 0 %}
+                                            {% elif week_info.days_from_now > 0 and week_info.days_from_now <= 7 %}
                                                 <span class="badge bg-info">{{ week_info.days_from_now }} days</span>
                                             {% else %}
                                                 <span class="badge bg-secondary">Past</span>
@@ -125,9 +125,9 @@
     <!-- Pregnancy Tips Card (below planning section) -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card border-success">
-                <div class="card-header bg-success text-white">
-                    <h5><i class="fas fa-lightbulb me-2"></i>Pregnancy Tips</h5>
+            <div class="card border-success h-100 reveal">
+                <div class="card-header bg-success text-white py-3">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Pregnancy Tips</h5>
                 </div>
                 <div class="card-body text-center">
                     <p class="text-muted mb-3">Get personalized Do's and Don'ts for your pregnancy journey</p>
@@ -142,9 +142,9 @@
     <!-- Existing dashboard content below -->
     <div class="row">
         <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5><i class="fas fa-chart-line me-2"></i>Health Progress</h5>
+            <div class="card mb-4 h-100">
+                <div class="card-header py-3 reveal">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Health Progress</h5>
                 </div>
                 <div class="card-body">
                     {% if checkups %}
@@ -218,9 +218,9 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5><i class="fas fa-utensils me-2"></i>Diet Plans</h5>
+            <div class="card mb-4 h-100">
+                <div class="card-header py-3 reveal">
+                    <h5 class="mb-0"><i class="fas fa-utensils me-2"></i>Diet Plans</h5>
                 </div>
                 <div class="card-body">
                     {% if diet_content %}
@@ -241,9 +241,9 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5><i class="fas fa-syringe me-2"></i>Vaccination Schedule</h5>
+            <div class="card mb-4 h-100">
+                <div class="card-header py-3 reveal">
+                    <h5 class="mb-0"><i class="fas fa-syringe me-2"></i>Vaccination Schedule</h5>
                 </div>
                 <div class="card-body">
                     {% if vaccinations %}
@@ -282,9 +282,9 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5><i class="fas fa-running me-2"></i>Exercise Guidance</h5>
+            <div class="card reveal">
+                <div class="card-header py-3">
+                    <h5 class="mb-0"><i class="fas fa-running me-2"></i>Exercise Guidance</h5>
                 </div>
                 <div class="card-body">
                     {% if exercise_content %}
@@ -319,5 +319,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 });
+
+// Initialize ScrollReveal
+ScrollReveal().reveal('.reveal', { distance: '50px', duration: 1000, easing: 'ease-in-out', origin: 'bottom', interval: 100 });
+ScrollReveal().reveal('.reveal-item', { distance: '20px', duration: 800, easing: 'ease-in-out', origin: 'bottom', interval: 50 });
 </script>
 {% endblock %} 

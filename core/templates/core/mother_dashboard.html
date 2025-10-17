@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center justify-content-between">
                         <div class="col-md-8">
                                             <h2><i class="fas fa-heart me-2"></i>{% trans "Welcome" %}, {{ profile.name }}!</h2>
                 <p class="mb-0">{% trans "Child Birth Date" %}: {{ profile.child_birth_date|date:"F j, Y" }}</p>
@@ -34,7 +34,7 @@
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
                     <h5><i class="fas fa-calendar-check me-2"></i>Your Postpartum Timeline & Planning</h5>
-                </div>
+                </div> 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -69,7 +69,7 @@
                             <div class="col-md-3 mb-2">
                                 <div class="card border-info">
                                     <div class="card-body text-center p-2">
-                                        <h6 class="text-info mb-1">{{ milestone.description|truncatewords:2 }}</h6>
+                                        <h6 class="text-info mb-1">{{ milestone.description|truncatewords:4 }}</h6>
                                         <p class="mb-1 small">{{ milestone.date|date:"M j" }}</p>
                                         <p class="mb-0 small text-muted">
                                             {% if milestone.days_from_now == 0 %}
@@ -88,7 +88,7 @@
                     </div>
                     {% endif %}
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 
@@ -103,7 +103,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr class="table-primary">
                                         <th>Month</th>
                                         <th>Mother Weight</th>
                                         <th>Blood Pressure</th>
@@ -121,10 +121,10 @@
                                     <tr>
                                         <td><span class="badge bg-primary">Month {{ checkup.month }}</span></td>
                                         <td>
-                                            {% if checkup.weight_kg %}
+                                            {% if checkup.mother_weight_kg %}
                                                 <span class="text-success">{{ checkup.weight_kg }} kg</span>
                                             {% else %}
-                                                <span class="text-muted">-</span>
+ <span class="text-muted">{% trans "-" %}</span>
                                             {% endif %}
                                         </td>
                                         <td>
@@ -132,7 +132,7 @@
                                                 <span class="text-info">{{ checkup.blood_pressure_systolic }}/{{ checkup.blood_pressure_diastolic }}</span>
                                             {% else %}
                                                 <span class="text-muted">-</span>
-                                            {% endif %}
+ {% endif %}
                                         </td>
                                         <td>
                                             {% if checkup.fever %}
@@ -142,7 +142,7 @@
                                                         {{ checkup.fever_temperature }}°C
                                                     {% else %}
                                                         Yes
-                                                    {% endif %}
+ {% endif %}
                                                 </span>
                                             {% else %}
                                                 <span class="text-success">No</span>
@@ -152,7 +152,7 @@
                                             {% if checkup.child_weight_kg %}
                                                 <span class="text-success">{{ checkup.child_weight_kg }} kg</span>
                                             {% else %}
-                                                <span class="text-muted">-</span>
+ <span class="text-muted">{% trans "-" %}</span>
                                             {% endif %}
                                         </td>
                                         <td>
@@ -160,7 +160,7 @@
                                                 <span class="text-info">{{ checkup.child_height_cm }} cm</span>
                                             {% else %}
                                                 <span class="text-muted">-</span>
-                                            {% endif %}
+ {% endif %}
                                         </td>
                                         <td>
                                             {% if checkup.child_feeding_status %}
@@ -168,20 +168,20 @@
                                             {% else %}
                                                 <span class="text-muted">-</span>
                                             {% endif %}
-                                        </td>
+ </td>
                                         <td>{{ checkup.notes|truncatewords:8 }}</td>
                                         <td>{{ checkup.created_at|date:"M j, Y" }}</td>
                                         <td>
                                             <a href="{% url 'delete_checkup' checkup.id %}" class="btn btn-sm btn-outline-danger" 
                                                title="Delete this checkup record">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
-                        </div>
+ </div>
                     {% else %}
                         <p class="text-muted">No recovery progress recorded yet.</p>
                     {% endif %}
@@ -195,7 +195,7 @@
 
         <div class="col-lg-4">
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header bg-info text-white">
                     <h5><i class="fas fa-baby me-2"></i>Baby Vaccination Schedule</h5>
                 </div>
                 <div class="card-body">
@@ -211,7 +211,7 @@
                                         <span class="text-danger">Overdue</span>
                                     {% else %}
                                         <span class="text-warning">Pending</span>
-                                    {% endif %}<br>
+ {% endif %}<br>
                                 {% endfor %}
                             </p>
                             <a href="{% url 'vaccination_tracker' %}" class="btn btn-sm btn-primary">View Full Tracker</a>
@@ -221,7 +221,7 @@
             </div>
 
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header bg-success text-white">
                     <h5><i class="fas fa-heart me-2"></i>Breastfeeding Support</h5>
                 </div>
                 <div class="card-body">
@@ -244,7 +244,7 @@
             </div>
 
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header bg-warning text-white">
                     <h5><i class="fas fa-brain me-2"></i>Mental Health Support</h5>
                 </div>
                 <div class="card-body">
@@ -268,7 +268,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-danger text-white">
                     <h5><i class="fas fa-running me-2"></i>Postpartum Exercise</h5>
                 </div>
                 <div class="card-body">
@@ -300,3 +300,15 @@
     </a>
 </div>
 {% endblock %} 
+
+{% block extra_js %}
+<script>
+    // Initialize ScrollReveal for the main cards
+    ScrollReveal().reveal('.card', {
+        delay: 200,
+        distance: '50px',
+        easing: 'ease-in-out',
+        origin: 'bottom'
+    });
+</script>
+{% endblock %}

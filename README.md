@@ -145,7 +145,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## Features for Hackathon Demo
+## Features p
 
 ✅ **Complete User Registration System**
 ✅ **Personalized Dashboards**
@@ -156,7 +156,7 @@ python manage.py migrate
 ✅ **Admin Panel**
 ✅ **Sample Data**
 
-## Contributing
+## Contributig
 
 This is a hackathon project demonstrating maternal health support technology. For production use, additional security measures, testing, and deployment configurations would be needed.
 

@@ -6,10 +6,16 @@
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-8 col-lg-6 animate__animated animate__fadeInUp">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
+                    
+                    <!-- Encouraging message/image -->
+                    <div class="mb-3">
+                        <i class="fas fa-heart fa-3x mb-2"></i>
+                    </div>
                     <h4><i class="fas fa-user-plus me-2"></i>{% trans "Register as Pregnant Woman" %}</h4>
+                    <p class="mb-0">{% trans "Join our community for a healthy and supported pregnancy!" %}</p>
                 </div>
                 <div class="card-body p-4">
                     <form method="post">
