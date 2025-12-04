@@ -324,15 +324,73 @@ def pregnant_dashboard(request):
         profile = PregnantWomanProfile.objects.get(user=request.user)
         checkups = CheckupProgress.objects.filter(pregnant_profile=profile).order_by('-created_at')
         vaccinations = VaccinationRecord.objects.filter(pregnant_profile=profile).order_by('due_date')
-        diet_content = InfoContent.objects.filter(category='diet')
-        exercise_content = InfoContent.objects.filter(category='exercise')
-        vaccine_content = InfoContent.objects.filter(category='vaccine')
         
         # Calculate pregnancy dates and current status
         pregnancy_dates = profile.get_pregnancy_dates()
         current_week = profile.get_current_pregnancy_week()
         current_month = profile.get_current_pregnancy_month()
         current_trimester = profile.get_trimester()
+        
+        # Get trimester-specific content using Q objects for OR conditions
+        from django.db.models import Q
+        
+        # Filter diet content by trimester
+        diet_content = InfoContent.objects.filter(
+            category='diet'
+        ).filter(
+            Q(trimester=str(current_trimester)) | Q(trimester='all')
+        ).filter(
+            Q(target_audience='pregnant') | Q(target_audience='both')
+        )
+        
+        # Filter exercise content by trimester
+        exercise_content = InfoContent.objects.filter(
+            category='exercise'
+        ).filter(
+            Q(trimester=str(current_trimester)) | Q(trimester='all')
+        ).filter(
+            Q(target_audience='pregnant') | Q(target_audience='both')
+        )
+        
+        # Get all vaccine content (not filtered by trimester)
+        vaccine_content = InfoContent.objects.filter(category='vaccine')
+        
+        # Get trimester-specific tips
+        trimester_tips_content = {
+            1: {
+                'name': 'First Trimester',
+                'weeks': 'Weeks 1-13',
+                'tips': [
+                    'Take prenatal vitamins with folic acid daily',
+                    'Stay hydrated - drink 8-10 glasses of water',
+                    'Get plenty of rest to combat fatigue',
+                    'Avoid alcohol, smoking, and raw foods',
+                    'Start gentle exercises like walking',
+                ]
+            },
+            2: {
+                'name': 'Second Trimester',
+                'weeks': 'Weeks 14-26',
+                'tips': [
+                    'Continue prenatal vitamins and calcium',
+                    'Increase protein intake for baby growth',
+                    'Start pregnancy exercises and yoga',
+                    'Begin preparing for breastfeeding',
+                    'Plan your birth and hospital arrangements',
+                ]
+            },
+            3: {
+                'name': 'Third Trimester',
+                'weeks': 'Weeks 27-40',
+                'tips': [
+                    'Rest frequently and sleep on your side',
+                    'Eat smaller, frequent meals',
+                    'Practice breathing exercises for labor',
+                    'Pack your hospital bag',
+                    'Know the signs of labor and when to go to hospital',
+                ]
+            }
+        }
         
         # Update vaccination status based on due dates
         update_vaccination_status(vaccinations)
@@ -348,6 +406,7 @@ def pregnant_dashboard(request):
             'current_week': current_week,
             'current_month': current_month,
             'current_trimester': current_trimester,
+            'trimester_info': trimester_tips_content.get(current_trimester, {}),
         }
         return render(request, 'core/pregnant_dashboard.html', context)
     except PregnantWomanProfile.DoesNotExist:
@@ -386,12 +445,86 @@ def mother_dashboard(request):
         profile = NewMotherProfile.objects.get(user=request.user)
         checkups = CheckupProgress.objects.filter(mother_profile=profile).order_by('-created_at')
         vaccinations = VaccinationRecord.objects.filter(mother_profile=profile).order_by('due_date')
-        breastfeeding_content = InfoContent.objects.filter(category='breastfeeding')
-        mental_content = InfoContent.objects.filter(category='mental')
-        exercise_content = InfoContent.objects.filter(category='exercise')
         
-        # Get postpartum dates for planning
+        # Get postpartum dates and stage for planning
         postpartum_dates = profile.get_postpartum_dates()
+        postpartum_stage = profile.get_postpartum_stage()
+        
+        # Get postpartum stage-specific content using Q objects
+        from django.db.models import Q
+        
+        # Filter breastfeeding content by postpartum stage
+        breastfeeding_content = InfoContent.objects.filter(
+            category='breastfeeding'
+        ).filter(
+            Q(postpartum_stage=postpartum_stage) | Q(postpartum_stage='all')
+        ).filter(
+            Q(target_audience='mother') | Q(target_audience='both')
+        )
+        
+        # Filter mental health content by postpartum stage
+        mental_content = InfoContent.objects.filter(
+            category='mental'
+        ).filter(
+            Q(postpartum_stage=postpartum_stage) | Q(postpartum_stage='all')
+        ).filter(
+            Q(target_audience='mother') | Q(target_audience='both')
+        )
+        
+        # Filter exercise content by postpartum stage
+        exercise_content = InfoContent.objects.filter(
+            category='exercise'
+        ).filter(
+            Q(postpartum_stage=postpartum_stage) | Q(postpartum_stage='all')
+        ).filter(
+            Q(target_audience='mother') | Q(target_audience='both')
+        )
+        
+        # Filter diet content by postpartum stage
+        diet_content = InfoContent.objects.filter(
+            category='diet'
+        ).filter(
+            Q(postpartum_stage=postpartum_stage) | Q(postpartum_stage='all')
+        ).filter(
+            Q(target_audience='mother') | Q(target_audience='both')
+        )
+        
+        # Get postpartum stage-specific tips
+        stage_info = {
+            'early': {
+                'name': 'Early Recovery',
+                'period': '0-6 weeks postpartum',
+                'tips': [
+                    'Rest as much as possible - your body is healing',
+                    'Focus on breastfeeding and bonding with baby',
+                    'Eat nutritious foods to support milk production',
+                    'Gentle walking only - avoid strenuous exercise',
+                    'Watch for signs of postpartum depression',
+                ]
+            },
+            'mid': {
+                'name': 'Mid Recovery',
+                'period': '6 weeks - 3 months postpartum',
+                'tips': [
+                    'Gradually increase physical activity',
+                    'Start light exercises with doctor approval',
+                    'Continue nutritious diet for breastfeeding',
+                    'Establish a sleep routine for you and baby',
+                    'Connect with other new mothers for support',
+                ]
+            },
+            'established': {
+                'name': 'Established Recovery',
+                'period': '3+ months postpartum',
+                'tips': [
+                    'Resume regular exercise routine',
+                    'Consider starting solids for baby (after 6 months)',
+                    'Focus on self-care and mental health',
+                    'Plan for any work-life balance adjustments',
+                    'Continue regular check-ups for you and baby',
+                ]
+            }
+        }
         
         # Update vaccination status based on due dates
         update_vaccination_status(vaccinations)
@@ -403,7 +536,10 @@ def mother_dashboard(request):
             'breastfeeding_content': breastfeeding_content,
             'mental_content': mental_content,
             'exercise_content': exercise_content,
+            'diet_content': diet_content,
             'postpartum_dates': postpartum_dates,
+            'postpartum_stage': postpartum_stage,
+            'stage_info': stage_info.get(postpartum_stage, {}),
         }
         return render(request, 'core/mother_dashboard.html', context)
     except NewMotherProfile.DoesNotExist:

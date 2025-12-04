@@ -116,6 +116,16 @@ class NewMotherProfile(models.Model):
                 })
         
         return dates
+    
+    def get_postpartum_stage(self):
+        """Get current postpartum recovery stage (early, mid, established)"""
+        days_since_birth = (date.today() - self.child_birth_date).days
+        if days_since_birth <= 42:  # 0-6 weeks
+            return 'early'
+        elif days_since_birth <= 90:  # 6 weeks - 3 months
+            return 'mid'
+        else:  # 3+ months
+            return 'established'
 
 class CheckupProgress(models.Model):
     PROFILE_TYPE_CHOICES = (
@@ -199,6 +209,26 @@ class InfoContent(models.Model):
         ('research', 'Medical Research'),
     )
     
+    TRIMESTER_CHOICES = (
+        ('1', 'First Trimester (Weeks 1-13)'),
+        ('2', 'Second Trimester (Weeks 14-26)'),
+        ('3', 'Third Trimester (Weeks 27-40)'),
+        ('all', 'All Trimesters'),
+    )
+    
+    POSTPARTUM_STAGE_CHOICES = (
+        ('early', 'Early Recovery (0-6 weeks)'),
+        ('mid', 'Mid Recovery (6 weeks - 3 months)'),
+        ('established', 'Established (3+ months)'),
+        ('all', 'All Stages'),
+    )
+    
+    TARGET_AUDIENCE_CHOICES = (
+        ('pregnant', 'Pregnant Women'),
+        ('mother', 'New Mothers'),
+        ('both', 'Both'),
+    )
+    
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     title = models.CharField(max_length=200)
     title_ne = models.CharField(max_length=200, blank=True, null=True, help_text="Title in Nepali")
@@ -218,6 +248,11 @@ class InfoContent(models.Model):
     # Cultural context
     cultural_context = models.TextField(blank=True, help_text="How this information relates to Nepali culture and traditions")
     local_language_available = models.BooleanField(default=False, help_text="Available in local languages (Nepali, Maithili, etc.)")
+    
+    # Trimester and postpartum targeting
+    trimester = models.CharField(max_length=5, choices=TRIMESTER_CHOICES, default='all', help_text="Relevant trimester for pregnant women")
+    postpartum_stage = models.CharField(max_length=20, choices=POSTPARTUM_STAGE_CHOICES, default='all', help_text="Relevant postpartum stage for new mothers")
+    target_audience = models.CharField(max_length=10, choices=TARGET_AUDIENCE_CHOICES, default='both', help_text="Target audience for this content")
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
