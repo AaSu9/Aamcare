@@ -127,7 +127,7 @@ LOCALE_PATHS = [
 ]
 
 # Disable translation loading for now to avoid .mo file issues
-USE_I18N = False
+USE_I18N = True
 
 # Language selection middleware
 MIDDLEWARE = [

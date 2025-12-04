@@ -1,173 +1,332 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% load custom_trans %}
+{% load i18n %}
 
 {% block title %}{% trans "AamCare - Maternal Health Support" %}{% endblock %}
 
 {% block content %}
 <style>
+    /* Hero Section */
     .hero-section {
-        background: linear-gradient(to right, #ff7e5f, #feb47b);
-        color: #fff;
-        padding: 100px 0;
-        text-align: center;
-    }
-    .hero-section img {
-        max-width: 250px;
-        margin-bottom: 20px;
-    }
-    .hero-section h1 {
-        font-size: 4.5rem;
-        font-weight: 700;
-    }
-    .hero-section p {
-        font-size: 1.5rem;
-    }
-    .hero-section .btn {
-        border-radius: 50px;
-        padding: 15px 35px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-    .hero-section .btn-primary {
-        background-color: #fff;
-        color: #ff7e5f;
-        border: 2px solid #fff;
-    }
-    .hero-section .btn-primary:hover {
-        background-color: transparent;
-        color: #fff;
+        background: linear-gradient(135deg, #FFF9F0 0%, #FFF5E6 100%);
+        padding: 120px 0 100px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .card-hover:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 1.5rem 4rem rgba(0,0,0,.2)!important;
-        transition: all .3s ease-in-out;
+    .hero-shape {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+        border-radius: 50%;
+        top: -200px;
+        right: -100px;
+        z-index: 0;
     }
-    .feature-icon {
-        font-size: 4rem;
-        color: #ff7e5f;
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
     }
-    .container.my-5 {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+
+    .hero-title {
+        font-size: 4.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-    .bg-light.py-5 {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--gray);
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+        max-width: 600px;
+    }
+
+    .hero-image-container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-image {
+        border-radius: 30px;
+        box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1);
+        transform: perspective(1000px) rotateY(-5deg);
+        transition: transform 0.5s ease;
+    }
+
+    .hero-image:hover {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2.5rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+    }
+
+    .feature-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        background: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        font-size: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon-wrapper {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Stats Section */
+    .stats-section {
+        background: var(--dark);
+        color: white;
+        padding: 80px 0;
+        position: relative;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 2rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-item:last-child {
+        border-right: none;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.8;
+        font-weight: 300;
+    }
+
+    /* Success Stories Preview */
+    .stories-section {
+        background: #fff;
+        padding: 100px 0;
+    }
+
+    .story-card-preview {
+        background: var(--light);
+        border-radius: 24px;
+        padding: 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .story-bg-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20rem;
+        color: rgba(0, 0, 0, 0.02);
+        z-index: 0;
+    }
+
+    .story-content {
+        position: relative;
+        z-index: 1;
     }
 </style>
 
-<div class="hero-section">
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-shape"></div>
     <div class="container">
-        <img src="{% static 'core/logo.png' %}" alt="AamCare Logo" class="animate__animated animate__fadeInDown">
-        <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">{% trans "Welcome to AamCare" %}</h1>
-        <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">{% trans "Your gentle guide to a healthy pregnancy and a happy motherhood" %}</p>
-        <a href="{% url 'register_pregnant_woman' %}" class="btn btn-primary btn-lg mx-2 animate__animated animate__zoomIn animate__delay-2s">{% trans "I'm Pregnant" %}</a>
-        <a href="{% url 'register_new_mother' %}" class="btn btn-secondary btn-lg mx-2 animate__animated animate__zoomIn animate__delay-2s">{% trans "I'm a New Mother" %}</a>
-    </div>
-</div>
-
-<div class="container my-5">
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card card-hover h-100 p-4 feature-card">
-                <i class="fas fa-baby feature-icon mb-3"></i>
-                <h5 class="card-title">{% trans "Personalized Care" %}</h5>
-                <p class="card-text">{% trans "Get tailored advice and support throughout your pregnancy journey." %}</p>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card card-hover h-100 p-4 feature-card">
-                <i class="fas fa-heartbeat feature-icon mb-3"></i>
-                <h5 class="card-title">{% trans "Health Tracking" %}</h5>
-                <p class="card-text">{% trans "Monitor your health and your baby's development with ease." %}</p>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card card-hover h-100 p-4 feature-card">
-                <i class="fas fa-users feature-icon mb-3"></i>
-                <h5 class="card-title">{% trans "Community Support" %}</h5>
-                <p class="card-text">{% trans "Connect with other mothers and healthcare professionals." %}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="bg-light py-5">
-    <div class="container">
-        <h2 class="text-center mb-5">{% trans "Our Features" %}</h2>
-        <div class="row">
-            <div class="col-md-6 col-lg-3 mb-4 text-center">
-                <i class="fas fa-utensils fa-2x text-primary mb-3"></i>
-                <h5>{% trans "Diet Plans" %}</h5>
-                <p>{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-4 text-center">
-                <i class="fas fa-syringe fa-2x text-primary mb-3"></i>
-                <h5>{% trans "Vaccination Schedule" %}</h5>
-                <p>{% trans "Timely reminders and information about essential vaccinations." %}</p>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-4 text-center">
-                <i class="fas fa-running fa-2x text-primary mb-3"></i>
-                <h5>{% trans "Exercise Guidance" %}</h5>
-                <p>{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-4 text-center">
-                <i class="fas fa-brain fa-2x text-primary mb-3"></i>
-                <h5>{% trans "Mental Health" %}</h5>
-                <p>{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container my-5">
-    <div class="row">
-        <div class="col-12">
-            <div class="card bg-light">
-                <div class="card-body text-center py-5">
-                    <h2><i class="fas fa-heart cultural-icon"></i>{% trans "Success Stories" %}</h2>
-                    <p class="lead mb-4">{% trans "Read inspiring stories from mothers who found support and guidance through AamCare" %}</p>
-                    <div class="row mb-4">
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">{{ featured_testimonials.count }}</h3>
-                                <p class="mb-0">{% trans "Success Stories" %}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">{{ health_experts.count }}</h3>
-                                <p class="mb-0">{% trans "Health Experts" %}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">{{ gov_approved_count }}</h3>
-                                <p class="mb-0">{% trans "Government Approved" %}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="{% url 'success_stories' %}" class="btn btn-primary btn-lg">
-                        <i class="fas fa-heart me-2"></i>{% trans "Read Success Stories" %}
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content animate-up">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white shadow-sm mb-4">
+                    <span class="badge bg-primary rounded-pill">New</span>
+                    <span class="small fw-bold text-secondary">Trusted by 10,000+ Mothers</span>
+                </div>
+                <h1 class="hero-title">
+                    {% trans "Your Gentle Guide to Motherhood" %}
+                </h1>
+                <p class="hero-subtitle">
+                    {% trans "Experience a safe and healthy pregnancy with personalized care, expert guidance, and a supportive community." %}
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'register_pregnant_woman' %}" class="btn btn-primary btn-lg shadow-lg">
+                        <i class="fas fa-baby me-2"></i>{% trans "I'm Pregnant" %}
                     </a>
-                    <a href="{% url 'about_trust' %}" class="btn btn-outline-primary btn-lg ms-3">
-                        <i class="fas fa-certificate me-2"></i>{% trans "Learn About Trust" %}
+                    <a href="{% url 'register_new_mother' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-heart me-2"></i>{% trans "I'm a New Mother" %}
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0 animate-up" style="animation-delay: 0.2s;">
+                <div class="hero-image-container">
+                    <img src="{% static 'core/mother-child.jpg' %}" alt="Mother and Child" class="img-fluid hero-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Grid -->
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4 animate-up">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>{% trans "Personalized Care" %}</h3>
+                    <p class="text-muted mb-0">{% trans "Get tailored advice and support throughout your pregnancy journey adapted to your specific needs." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4 animate-up" style="animation-delay: 0.1s;">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>{% trans "Health Tracking" %}</h3>
+                    <p class="text-muted mb-0">{% trans "Monitor your health and your baby's development with easy-to-use tools and visual charts." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4 animate-up" style="animation-delay: 0.2s;">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>{% trans "Community Support" %}</h3>
+                    <p class="text-muted mb-0">{% trans "Connect with other mothers and healthcare professionals in a safe, supportive environment." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Features -->
+<section class="bg-white py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5 animate-up">
+            <span class="text-primary fw-bold text-uppercase tracking-wider">Features</span>
+            <h2 class="display-5 fw-bold mt-2">{% trans "Everything You Need" %}</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 animate-up">
+                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
+                    <i class="fas fa-utensils fa-3x text-secondary mb-4"></i>
+                    <h5>{% trans "Diet Plans" %}</h5>
+                    <p class="text-muted small">{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.1s;">
+                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
+                    <i class="fas fa-syringe fa-3x text-secondary mb-4"></i>
+                    <h5>{% trans "Vaccination" %}</h5>
+                    <p class="text-muted small">{% trans "Timely reminders and information about essential vaccinations." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.2s;">
+                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
+                    <i class="fas fa-running fa-3x text-secondary mb-4"></i>
+                    <h5>{% trans "Exercises" %}</h5>
+                    <p class="text-muted small">{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.3s;">
+                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
+                    <i class="fas fa-brain fa-3x text-secondary mb-4"></i>
+                    <h5>{% trans "Mental Health" %}</h5>
+                    <p class="text-muted small">{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 stat-item animate-up">
+                <div class="stat-number">{{ featured_testimonials.count|default:"150" }}+</div>
+                <div class="stat-label">{% trans "Success Stories" %}</div>
+            </div>
+            <div class="col-md-4 stat-item animate-up" style="animation-delay: 0.1s;">
+                <div class="stat-number">{{ health_experts.count|default:"50" }}+</div>
+                <div class="stat-label">{% trans "Health Experts" %}</div>
+            </div>
+            <div class="col-md-4 stat-item animate-up" style="animation-delay: 0.2s;">
+                <div class="stat-number">{{ gov_approved_count|default:"100" }}%</div>
+                <div class="stat-label">{% trans "Government Approved" %}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="stories-section">
+    <div class="container">
+        <div class="story-card-preview animate-up">
+            <i class="fas fa-heart story-bg-icon"></i>
+            <div class="story-content">
+                <h2 class="display-5 fw-bold mb-4">{% trans "Join Our Community" %}</h2>
+                <p class="lead text-muted mb-5">{% trans "Read inspiring stories from mothers who found support and guidance through AamCare" %}</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'success_stories' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-book-open me-2"></i>{% trans "Read Stories" %}
+                    </a>
+                    <a href="{% url 'about_trust' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-shield-alt me-2"></i>{% trans "Why Trust Us" %}
                     </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<script>
-    ScrollReveal().reveal('.feature-card', {
-        delay: 200,
-        distance: '50px',
-        easing: 'ease-in-out',
-        interval: 100
-    });
-</script>
+</section>
 {% endblock %}

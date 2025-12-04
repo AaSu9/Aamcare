@@ -5,7 +5,7 @@ from core.translation_utils import get_translation
 register = template.Library()
 
 @register.simple_tag(takes_context=True)
-def trans(context, text):
+def ctrans(context, text):
     """
     Custom translation filter that can be used in templates
     Usage: {% trans "Hello" %}
