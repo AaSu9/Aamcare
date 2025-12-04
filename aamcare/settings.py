@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://8000-firebase-aamcaregit-1758815538443.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev"
+]
 
 # Application definition
 
