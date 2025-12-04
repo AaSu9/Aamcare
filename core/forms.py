@@ -5,15 +5,42 @@ from datetime import date
 from .models import PregnantWomanProfile, NewMotherProfile, CheckupProgress, VaccinationRecord, UserTestimonial
 
 class PregnantWomanRegistrationForm(UserCreationForm):
-    name = forms.CharField(max_length=100, required=True)
-    age = forms.IntegerField(min_value=13, max_value=100, required=True)
-    due_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}))
-    medical_history = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}), required=False)
-    phone_number = forms.CharField(max_length=15, required=True, help_text='Enter your phone number for SMS notifications')
+    name = forms.CharField(
+        max_length=100, 
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'})
+    )
+    age = forms.IntegerField(
+        min_value=13, 
+        max_value=100, 
+        required=True,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age'})
+    )
+    due_date = forms.DateField(
+        required=True, 
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+    )
+    medical_history = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'class': 'form-control', 'placeholder': 'Enter any medical history (optional)'}), 
+        required=False
+    )
+    phone_number = forms.CharField(
+        max_length=15, 
+        required=True, 
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+977 9812345678'}),
+        help_text='Enter your phone number for SMS notifications'
+    )
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Choose a username'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder': 'your.email@example.com'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter password'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm password'})
 
     def clean_age(self):
         age = self.cleaned_data.get('age')
@@ -22,15 +49,42 @@ class PregnantWomanRegistrationForm(UserCreationForm):
         return age
 
 class NewMotherRegistrationForm(UserCreationForm):
-    name = forms.CharField(max_length=100, required=True)
-    child_birth_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}))
-    current_health_status = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}), required=False)
-    age = forms.IntegerField(min_value=13, max_value=100, required=True)
-    phone_number = forms.CharField(max_length=15, required=True, help_text='Enter your phone number for SMS notifications')
+    name = forms.CharField(
+        max_length=100, 
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'})
+    )
+    child_birth_date = forms.DateField(
+        required=True, 
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+    )
+    current_health_status = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'class': 'form-control', 'placeholder': 'Enter current health status (optional)'}), 
+        required=False
+    )
+    age = forms.IntegerField(
+        min_value=13, 
+        max_value=100, 
+        required=True,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age'})
+    )
+    phone_number = forms.CharField(
+        max_length=15, 
+        required=True, 
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+977 9812345678'}),
+        help_text='Enter your phone number for SMS notifications'
+    )
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Choose a username'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder': 'your.email@example.com'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter password'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm password'})
 
     def clean_age(self):
         age = self.cleaned_data.get('age')
@@ -172,8 +226,14 @@ class PregnantWomanProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = PregnantWomanProfile
         fields = ['phone_number']
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+977 9812345678'})
+        }
 
 class NewMotherProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = NewMotherProfile
-        fields = ['phone_number'] 
+        fields = ['phone_number']
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+977 9812345678'})
+        } 
