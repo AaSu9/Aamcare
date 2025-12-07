@@ -12,32 +12,84 @@
         padding: 2rem;
         margin-bottom: 2rem;
         box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dashboard-hero::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 100px;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" opacity="0.1"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V9M19 21H5V3H13V9H19V21Z"/></svg>') no-repeat;
+        background-size: contain;
+        opacity: 0.2;
     }
 
     .stat-card {
         background: white;
         border-radius: 16px;
-        padding: 1.5rem;
+        padding: 1.25rem 1rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
         border: none;
         height: 100%;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover::before {
+        transform: scaleX(1);
     }
 
     .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
     }
 
     .stat-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.25rem;
+        margin: 0 auto 0.75rem auto;
+    }
+
+    .stat-card h3 {
         font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        color: #1f2937;
+    }
+
+    .stat-card p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+        color: #6b7280;
     }
 
     .recommendation-card {
@@ -47,6 +99,24 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         border: none;
         height: 100%;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recommendation-card .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recommendation-card .card-body .btn {
+        margin-top: auto;
+    }
+
+    .recommendation-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     }
 
     .recommendation-card .card-header {
@@ -67,22 +137,28 @@
     .tip-item {
         display: flex;
         align-items: flex-start;
-        padding: 0.5rem 0;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .tip-item:last-child {
+        border-bottom: none;
     }
 
     .tip-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
-        background: #10b981;
+        background: linear-gradient(135deg, #667eea, #764ba2);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         flex-shrink: 0;
         margin-right: 0.75rem;
         margin-top: 2px;
+        box-shadow: 0 2px 5px rgba(102, 126, 234, 0.2);
     }
 
     .progress-ring {
@@ -111,19 +187,145 @@
     .quick-action-btn {
         background: white;
         border: 2px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 1rem;
+        border-radius: 16px;
+        padding: 1.25rem 1rem;
         text-align: center;
         transition: all 0.3s ease;
         text-decoration: none;
         color: #374151;
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
 
     .quick-action-btn:hover {
-        border-color: #667eea;
-        background: #f5f3ff;
-        color: #667eea;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-action-btn i {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    /* Color variants for quick action buttons */
+    .btn-vaccination {
+        border-color: #fef3c7;
+        background: #fffbeb;
+    }
+    
+    .btn-vaccination:hover {
+        border-color: #f59e0b;
+        background: #fef3c7;
+        color: #f59e0b;
+    }
+    
+    .btn-vaccination i {
+        color: #f59e0b !important;
+    }
+    
+    .btn-nutrition {
+        border-color: #dbeafe;
+        background: #eff6ff;
+    }
+    
+    .btn-nutrition:hover {
+        border-color: #3b82f6;
+        background: #dbeafe;
+        color: #3b82f6;
+    }
+    
+    .btn-nutrition i {
+        color: #3b82f6 !important;
+    }
+    
+    .btn-guide {
+        border-color: #fce7f3;
+        background: #fdf2f8;
+    }
+    
+    .btn-guide:hover {
+        border-color: #ec4899;
+        background: #fce7f3;
+        color: #ec4899;
+    }
+    
+    .btn-guide i {
+        color: #ec4899 !important;
+    }
+    
+    .btn-danger {
+        border-color: #fee2e2;
+        background: #fef2f2;
+    }
+    
+    .btn-danger:hover {
+        border-color: #ef4444;
+        background: #fee2e2;
+        color: #ef4444;
+    }
+    
+    .btn-danger i {
+        color: #ef4444 !important;
+    }
+    
+    .btn-story {
+        border-color: #f0f9ff;
+        background: #f0f9ff;
+    }
+    
+    .btn-story:hover {
+        border-color: #0ea5e9;
+        background: #e0f2fe;
+        color: #0ea5e9;
+    }
+    
+    .btn-story i {
+        color: #0ea5e9 !important;
+    }
+    
+    .btn-profile {
+        border-color: #dcfce7;
+        background: #dcfce7;
+    }
+    
+    .btn-profile:hover {
+        border-color: #22c55e;
+        background: #bbf7d0;
+        color: #22c55e;
+    }
+    
+    .btn-profile i {
+        color: #22c55e !important;
+    }
+    
+    /* Divider styling for grouped buttons */
+    .group-divider {
+        border-left: 2px solid #e5e7eb;
+        margin-left: -1rem;
+        padding-left: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .group-divider {
+            border-left: none;
+            border-top: 2px solid #e5e7eb;
+            margin-left: 0;
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-top: 1rem;
+        }
+    }
+
+    .quick-action-btn span {
+        font-weight: 500;
+        font-size: 0.875rem;
     }
 
     .trimester-badge {
@@ -132,6 +334,31 @@
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
         display: inline-block;
+    }
+
+    /* Custom color classes for bonding activities */
+    .bg-light-pink {
+        background-color: #fdf2f8 !important;
+    }
+
+    .bg-light-blue {
+        background-color: #eff6ff !important;
+    }
+
+    .bg-light-yellow {
+        background-color: #fffbeb !important;
+    }
+
+    .text-pink {
+        color: #ec4899 !important;
+    }
+
+    .text-blue {
+        color: #3b82f6 !important;
+    }
+
+    .text-yellow {
+        color: #f59e0b !important;
     }
 </style>
 {% endblock %}
@@ -143,17 +370,24 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h1 class="mb-2">{% trans "Welcome" %}, {{ profile.name }}! 👋</h1>
-                <p class="mb-3 opacity-75">{% trans "Week" %} {{ current_week }} {% trans "of" %} 40 • {% trans
-                    "Trimester" %} {{ current_trimester }}</p>
-                <div class="d-flex flex-wrap gap-2">
+                <p class="mb-3 opacity-75">{% trans "Week" %} {{ current_week }} {% trans "of" %} 40 • {% trans "Trimester" %} {{ current_trimester }}</p>
+                <div class="d-flex flex-wrap gap-2 mb-3">
                     <span class="trimester-badge">
-                        <i class="fas fa-calendar me-1"></i> {% trans "Due Date" %}: {{ profile.due_date|date:"M j, Y"
-                        }}
+                        <i class="fas fa-calendar me-1"></i> {% trans "Due Date" %}: {{ profile.due_date|date:"M j, Y" }}
                     </span>
+                    {% if pregnancy_dates.days_remaining > 0 %}
                     <span class="trimester-badge">
-                        <i class="fas fa-clock me-1"></i> {{ pregnancy_dates.days_remaining }} {% trans "days remaining"
-                        %}
+                        <i class="fas fa-clock me-1"></i> {{ pregnancy_dates.days_remaining }} {% trans "days remaining" %}
                     </span>
+                    {% else %}
+                    <span class="trimester-badge">
+                        <i class="fas fa-baby me-1"></i> {% trans "Your baby is ready to arrive!" %}
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="mt-3">
+                    <p class="mb-2"><i class="fas fa-heart text-pink me-2"></i><strong>{% trans "Baby Development" %}:</strong> {% trans "Your baby is growing stronger every day!" %}</p>
+                    <p class="mb-0"><i class="fas fa-lightbulb text-yellow me-2"></i><strong>{% trans "Did you know?" %}</strong> {% trans "By week" %} {{ current_week }}, {% trans "your baby is about the size of" %} {{ baby_size_description }}.</p>
                 </div>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
@@ -171,16 +405,16 @@
 
     <!-- Quick Stats -->
     <div class="row g-4 mb-4">
-        <div class="col-6 col-lg-3">
+        <div class="col-md-6 col-xl-3">
             <div class="stat-card">
-                <div class="stat-icon" style="background: #dbeafe; color: #3b82f6;">
+                <div class="stat-icon" style="background: #dbeafe; color: #6366f1;">
                     <i class="fas fa-calendar-week"></i>
                 </div>
                 <h3 class="mb-1">{{ current_week }}</h3>
                 <p class="text-muted mb-0 small">{% trans "Current Week" %}</p>
             </div>
         </div>
-        <div class="col-6 col-lg-3">
+        <div class="col-md-6 col-xl-3">
             <div class="stat-card">
                 <div class="stat-icon" style="background: #fce7f3; color: #ec4899;">
                     <i class="fas fa-heart"></i>
@@ -189,16 +423,16 @@
                 <p class="text-muted mb-0 small">{% trans "Trimester" %}</p>
             </div>
         </div>
-        <div class="col-6 col-lg-3">
+        <div class="col-md-6 col-xl-3">
             <div class="stat-card">
-                <div class="stat-icon" style="background: #d1fae5; color: #10b981;">
+                <div class="stat-icon" style="background: #d1fae5; color: #0ea5e9;">
                     <i class="fas fa-hourglass-half"></i>
                 </div>
                 <h3 class="mb-1">{{ pregnancy_dates.days_remaining }}</h3>
                 <p class="text-muted mb-0 small">{% trans "Days Remaining" %}</p>
             </div>
         </div>
-        <div class="col-6 col-lg-3">
+        <div class="col-md-6 col-xl-3">
             <div class="stat-card">
                 <div class="stat-icon" style="background: #fef3c7; color: #f59e0b;">
                     <i class="fas fa-syringe"></i>
@@ -218,7 +452,7 @@
 
     <div class="row g-4 mb-4">
         <!-- Tips Card -->
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-4">
             <div class="recommendation-card">
                 <div class="card-header"
                     style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
@@ -236,11 +470,14 @@
                     <p class="text-muted mb-0">Loading tips...</p>
                     {% endif %}
                 </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="{% url 'trimester_tips' %}" class="btn btn-sm btn-outline-primary">{% trans "View All" %}</a>
+                </div>
             </div>
         </div>
 
         <!-- Diet Card -->
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-4">
             <div class="recommendation-card">
                 <div class="card-header"
                     style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;">
@@ -254,19 +491,18 @@
                         <p class="text-muted mb-0 small">{{ content.body|truncatewords:12 }}</p>
                     </div>
                     {% endfor %}
-                    <a href="{% url 'diet_plans' %}" class="btn btn-sm btn-outline-primary w-100 mt-3">
-                        {% trans "View All Diet Plans" %}
-                    </a>
                     {% else %}
                     <p class="text-muted small mb-3">No diet plans for this trimester yet.</p>
-                    <a href="{% url 'diet_plans' %}" class="btn btn-sm btn-outline-primary">Browse All</a>
                     {% endif %}
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="{% url 'comprehensive_nutrition_pregnant' %}" class="btn btn-sm btn-outline-primary">{% trans "Browse All" %}</a>
                 </div>
             </div>
         </div>
 
         <!-- Exercise Card -->
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-4">
             <div class="recommendation-card">
                 <div class="card-header"
                     style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;">
@@ -280,13 +516,12 @@
                         <p class="text-muted mb-0 small">{{ content.body|truncatewords:12 }}</p>
                     </div>
                     {% endfor %}
-                    <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-warning w-100 mt-3">
-                        {% trans "View All Exercises" %}
-                    </a>
                     {% else %}
                     <p class="text-muted small mb-3">No exercises for this trimester yet.</p>
-                    <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-warning">Browse All</a>
                     {% endif %}
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-primary">{% trans "Browse All" %}</a>
                 </div>
             </div>
         </div>
@@ -298,41 +533,94 @@
     </h2>
 
     <div class="row g-3 mb-4">
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'vaccination_tracker' %}" class="quick-action-btn">
+        <!-- Health & Medical -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <a href="{% url 'vaccination_tracker' %}" class="quick-action-btn btn-vaccination">
                 <i class="fas fa-syringe fa-2x mb-2 d-block"></i>
                 <span class="small">{% trans "Vaccinations" %}</span>
             </a>
         </div>
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'comprehensive_nutrition_pregnant' %}" class="quick-action-btn">
+        <div class="col-6 col-md-4 col-lg-2">
+            <a href="{% url 'comprehensive_nutrition_pregnant' %}" class="quick-action-btn btn-nutrition">
                 <i class="fas fa-table fa-2x mb-2 d-block"></i>
                 <span class="small">{% trans "Nutrition Table" %}</span>
             </a>
         </div>
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'trimester_tips' %}" class="quick-action-btn">
-                <i class="fas fa-list-check fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Trimester Guide" %}</span>
-            </a>
-        </div>
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'danger_signs' %}" class="quick-action-btn">
+        <div class="col-6 col-md-4 col-lg-2">
+            <a href="{% url 'danger_signs' %}" class="quick-action-btn btn-danger">
                 <i class="fas fa-exclamation-triangle fa-2x mb-2 d-block"></i>
                 <span class="small">{% trans "Danger Signs" %}</span>
             </a>
         </div>
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'submit_story' %}" class="quick-action-btn">
+        <!-- Guidance & Education -->
+        <div class="col-6 col-md-4 col-lg-2 group-divider">
+            <a href="{% url 'trimester_tips' %}" class="quick-action-btn btn-guide">
+                <i class="fas fa-list-check fa-2x mb-2 d-block"></i>
+                <span class="small">{% trans "Trimester Guide" %}</span>
+            </a>
+        </div>
+        <!-- Community & Profile -->
+        <div class="col-6 col-md-4 col-lg-2 group-divider">
+            <a href="{% url 'submit_story' %}" class="quick-action-btn btn-story">
                 <i class="fas fa-heart fa-2x mb-2 d-block"></i>
                 <span class="small">{% trans "Share Story" %}</span>
             </a>
         </div>
-        <div class="col-6 col-lg-2">
-            <a href="{% url 'update_pregnant_profile' %}" class="quick-action-btn">
+        <div class="col-6 col-md-4 col-lg-2">
+            <a href="{% url 'update_pregnant_profile' %}" class="quick-action-btn btn-profile">
                 <i class="fas fa-user-edit fa-2x mb-2 d-block"></i>
                 <span class="small">{% trans "Update Profile" %}</span>
             </a>
+        </div>
+    </div>
+
+    <!-- Bonding Activities -->
+    <div class="recommendation-card mb-4">
+        <div class="card-header bg-white border-bottom">
+            <i class="fas fa-baby-carriage text-pink me-2"></i>{% trans "Bonding with Your Baby" %}
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-light-pink p-2">
+                                <i class="fas fa-music text-pink"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="mb-1">{% trans "Talk to Your Baby" %}</h6>
+                            <p class="small text-muted mb-0">{% trans "Your voice is soothing and familiar to your baby" %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-light-blue p-2">
+                                <i class="fas fa-hands-helping text-blue"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="mb-1">{% trans "Gentle Touch" %}</h6>
+                            <p class="small text-muted mb-0">{% trans "Place your hands on your belly when your baby moves" %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-light-yellow p-2">
+                                <i class="fas fa-heart text-yellow"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="mb-1">{% trans "Visualize Your Baby" %}</h6>
+                            <p class="small text-muted mb-0">{% trans "Imagine your baby's features and personality" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -411,9 +699,6 @@
                         {% endif %}
                     </div>
                     {% endfor %}
-                    <a href="{% url 'vaccination_tracker' %}" class="btn btn-sm btn-outline-success w-100 mt-3">
-                        {% trans "View All Vaccinations" %}
-                    </a>
                     {% else %}
                     <div class="text-center py-4">
                         <i class="fas fa-syringe fa-2x text-muted mb-2"></i>
