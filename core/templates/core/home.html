@@ -220,41 +220,13 @@
     }
 
     .hover-lift:hover {
-        transform: translateY(-10px) scale(1.02);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+        border-color: rgba(102, 126, 234, 0.4) !important;
     }
 
     .transition-all {
         transition: all 0.3s ease;
-    }
-
-    /* Maternal Warm Color Animations */
-    @keyframes pulseGlow {
-        0%, 100% {
-            box-shadow: 0 4px 15px rgba(255, 192, 203, 0.3);
-        }
-        50% {
-            box-shadow: 0 8px 25px rgba(255, 192, 203, 0.5);
-        }
-    }
-
-    .col-lg-3:nth-child(1) .hover-lift:hover {
-        box-shadow: 0 12px 30px rgba(255, 182, 193, 0.5) !important;
-        border-color: rgba(255, 182, 193, 0.6) !important;
-    }
-
-    .col-lg-3:nth-child(2) .hover-lift:hover {
-        box-shadow: 0 12px 30px rgba(135, 206, 250, 0.5) !important;
-        border-color: rgba(135, 206, 250, 0.6) !important;
-    }
-
-    .col-lg-3:nth-child(3) .hover-lift:hover {
-        box-shadow: 0 12px 30px rgba(144, 238, 144, 0.5) !important;
-        border-color: rgba(144, 238, 144, 0.6) !important;
-    }
-
-    .col-lg-3:nth-child(4) .hover-lift:hover {
-        box-shadow: 0 12px 30px rgba(221, 160, 221, 0.5) !important;
-        border-color: rgba(221, 160, 221, 0.6) !important;
     }
 </style>
 
@@ -328,48 +300,48 @@
 </section>
 
 <!-- Detailed Features -->
-<section class="py-5" style="background: linear-gradient(135deg, #FFF9F0 0%, #FFF5E6 50%, #FFE4E1 100%);">
+<section class="py-5" style="background: linear-gradient(135deg, #FFF9F0 0%, #FFF5E6 100%);">
     <div class="container py-5">
         <div class="text-center mb-5 animate-up">
-            <span class="fw-bold text-uppercase" style="color: #D4AF37; letter-spacing: 2px; font-size: 0.9rem;">✨ Features</span>
+            <span class="fw-bold text-uppercase" style="color: #D4AF37; letter-spacing: 2px; font-size: 0.9rem;">Features</span>
             <h2 class="display-5 fw-bold mt-2" style="color: #2C3E50;">{% trans "Everything You Need" %}</h2>
             <p class="text-muted mt-3 mx-auto" style="max-width: 600px;">Comprehensive support for your beautiful journey into motherhood</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6 animate-up">
-                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: linear-gradient(135deg, #FFF0F5, #FFE4E1); border: 2px solid rgba(255, 182, 193, 0.3); box-shadow: 0 4px 15px rgba(255, 192, 203, 0.2);">
-                    <div class="mb-3" style="background: linear-gradient(135deg, #FFB6C1, #FFC0CB); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);">
+                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <div class="mb-3" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
                         <i class="fas fa-utensils fa-2x" style="color: white;"></i>
                     </div>
-                    <h5 style="color: #8B4789; font-weight: 700;">{% trans "Diet Plans" %}</h5>
-                    <p class="small" style="color: #6B5B6E;">{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Diet Plans" %}</h5>
+                    <p class="small text-muted">{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.1s;">
-                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: linear-gradient(135deg, #E6F3FF, #D4E9FF); border: 2px solid rgba(135, 206, 250, 0.3); box-shadow: 0 4px 15px rgba(173, 216, 230, 0.2);">
-                    <div class="mb-3" style="background: linear-gradient(135deg, #87CEEB, #87CEFA); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(135, 206, 250, 0.4);">
+                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <div class="mb-3" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
                         <i class="fas fa-syringe fa-2x" style="color: white;"></i>
                     </div>
-                    <h5 style="color: #4682B4; font-weight: 700;">{% trans "Vaccination" %}</h5>
-                    <p class="small" style="color: #5A6C7D;">{% trans "Timely reminders and information about essential vaccinations." %}</p>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Vaccination" %}</h5>
+                    <p class="small text-muted">{% trans "Timely reminders and information about essential vaccinations." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.2s;">
-                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: linear-gradient(135deg, #F0FFF0, #E6FFE6); border: 2px solid rgba(144, 238, 144, 0.3); box-shadow: 0 4px 15px rgba(152, 251, 152, 0.2);">
-                    <div class="mb-3" style="background: linear-gradient(135deg, #90EE90, #98FB98); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(144, 238, 144, 0.4);">
+                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <div class="mb-3" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
                         <i class="fas fa-running fa-2x" style="color: white;"></i>
                     </div>
-                    <h5 style="color: #228B22; font-weight: 700;">{% trans "Exercises" %}</h5>
-                    <p class="small" style="color: #556B2F;">{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Exercises" %}</h5>
+                    <p class="small text-muted">{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.3s;">
-                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: linear-gradient(135deg, #FFF0F5, #FFEEF8); border: 2px solid rgba(221, 160, 221, 0.3); box-shadow: 0 4px 15px rgba(218, 112, 214, 0.2);">
-                    <div class="mb-3" style="background: linear-gradient(135deg, #DDA0DD, #EE82EE); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(221, 160, 221, 0.4);">
+                <div class="p-4 rounded-4 h-100 text-center hover-lift transition-all" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <div class="mb-3" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
                         <i class="fas fa-brain fa-2x" style="color: white;"></i>
                     </div>
-                    <h5 style="color: #8B008B; font-weight: 700;">{% trans "Mental Health" %}</h5>
-                    <p class="small" style="color: #6B5B6E;">{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Mental Health" %}</h5>
+                    <p class="small text-muted">{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
                 </div>
             </div>
         </div>
