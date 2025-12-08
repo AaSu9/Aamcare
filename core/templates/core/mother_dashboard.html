@@ -5,116 +5,33 @@
 
 {% block extra_css %}
 <style>
-    .dashboard-hero {
-        background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-        border-radius: 20px;
-        color: white;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 40px rgba(236, 72, 153, 0.3);
-    }
-
-    .stage-badge {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 30px;
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-        display: inline-block;
-    }
-
-    .stat-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.25rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        text-align: center;
-        min-height: 180px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .stat-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .stat-card h3 { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
-    .stat-card p { font-size: 0.875rem; color: #6b7280; margin: 0; }
-
-    .recommendation-card {
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .recommendation-card .card-header {
-        padding: 1rem 1.25rem;
-        font-weight: 600;
-    }
-
-    .recommendation-item {
-        padding: 0.75rem 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .tip-item {
-        display: flex;
-        align-items: flex-start;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid #f5f5f5;
-    }
-
-    .tip-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #ec4899, #be185d);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.75rem;
-        margin-right: 0.75rem;
-    }
-
-    .section-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
-
-    .quick-action-btn {
-        background: white;
-        border: 2px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 1.25rem;
-        text-align: center;
-        text-decoration: none;
-        color: #374151;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .quick-action-btn i { font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .quick-action-btn span { font-weight: 500; font-size: 0.875rem; }
-    .btn-vaccination { background: #fffbeb; }
-    .btn-vaccination i { color: #f59e0b; }
-    .btn-nutrition { background: #eff6ff; }
-    .btn-nutrition i { color: #3b82f6; }
-    .btn-mental-health { background: #fdf2f8; }
-    .btn-mental-health i { color: #ec4899; }
-    .btn-danger-sign { background: #fef2f2; }
-    .btn-danger-sign i { color: #ef4444; }
-    .btn-story { background: #f0f9ff; }
-    .btn-story i { color: #0ea5e9; }
-    .btn-profile { background: #dcfce7; }
-    .btn-profile i { color: #22c55e; }
+.dashboard-hero { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border-radius: 20px; color: white; padding: 2rem; margin-bottom: 2rem; }
+.stage-badge { background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.5rem 1rem; font-size: 0.875rem; display: inline-block; }
+.stat-card { background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.stat-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 0.75rem; }
+.stat-card h3 { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
+.stat-card p { font-size: 0.875rem; color: #6b7280; margin: 0; }
+.recommendation-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.recommendation-card .card-header { padding: 1rem 1.25rem; font-weight: 600; }
+.recommendation-item { padding: 0.75rem 0; border-bottom: 1px solid #f0f0f0; }
+.tip-item { display: flex; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid #f5f5f5; }
+.tip-icon { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #be185d); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; margin-right: 0.75rem; }
+.section-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+.quick-action-btn { background: white; border: 2px solid #e5e7eb; border-radius: 16px; padding: 1.25rem; text-align: center; text-decoration: none; color: #374151; display: flex; flex-direction: column; align-items: center; }
+.quick-action-btn i { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.quick-action-btn span { font-weight: 500; font-size: 0.875rem; }
+.btn-vaccination { background: #fffbeb; }
+.btn-vaccination i { color: #f59e0b; }
+.btn-nutrition { background: #eff6ff; }
+.btn-nutrition i { color: #3b82f6; }
+.btn-mental-health { background: #fdf2f8; }
+.btn-mental-health i { color: #ec4899; }
+.btn-danger-sign { background: #fef2f2; }
+.btn-danger-sign i { color: #ef4444; }
+.btn-story { background: #f0f9ff; }
+.btn-story i { color: #0ea5e9; }
+.btn-profile { background: #dcfce7; }
+.btn-profile i { color: #22c55e; }
 </style>
 {% endblock %}
 
@@ -173,28 +90,52 @@
         <div class="col-md-6 col-lg-3">
             <div class="recommendation-card h-100">
                 <div class="card-header" style="background: linear-gradient(135deg, #10b981, #059669); color: white;"><i class="fas fa-lightbulb me-2"></i>{% trans "Tips" %}</div>
-                <div class="card-body">{% if stage_info.tips %}{% for tip in stage_info.tips %}<div class="tip-item"><span class="tip-icon"><i class="fas fa-check"></i></span><span class="small">{{ tip }}</span></div>{% endfor %}{% else %}<p class="text-muted small">Loading...</p>{% endif %}</div>
-                <div class="card-footer bg-white text-center"><a href="{% url 'postpartum_care' %}" class="btn btn-sm btn-outline-primary">{% trans "View All" %}</a></div>
+                <div class="card-body">
+                    {% if stage_info.tips %}
+                        {% for tip in stage_info.tips %}<div class="tip-item"><span class="tip-icon"><i class="fas fa-check"></i></span><span class="small">{{ tip }}</span></div>{% endfor %}
+                    {% else %}
+                        <p class="text-muted small">Loading...</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-white text-center"><a href="{% url 'mental_health_support' %}" class="btn btn-sm btn-outline-primary">{% trans "View All" %}</a></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="recommendation-card h-100">
                 <div class="card-header" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white;"><i class="fas fa-utensils me-2"></i>{% trans "Diet" %}</div>
-                <div class="card-body">{% if diet_content %}{% for c in diet_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}{% else %}<p class="text-muted small">No diet plans yet.</p>{% endif %}</div>
+                <div class="card-body">
+                    {% if diet_content %}
+                        {% for c in diet_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}
+                    {% else %}
+                        <p class="text-muted small">No diet plans yet.</p>
+                    {% endif %}
+                </div>
                 <div class="card-footer bg-white text-center"><a href="{% url 'comprehensive_nutrition_mother' %}" class="btn btn-sm btn-outline-primary">{% trans "Browse All" %}</a></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="recommendation-card h-100">
                 <div class="card-header" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;"><i class="fas fa-running me-2"></i>{% trans "Exercise" %}</div>
-                <div class="card-body">{% if exercise_content %}{% for c in exercise_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}{% else %}<p class="text-muted small">No exercises yet.</p>{% endif %}</div>
+                <div class="card-body">
+                    {% if exercise_content %}
+                        {% for c in exercise_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}
+                    {% else %}
+                        <p class="text-muted small">No exercises yet.</p>
+                    {% endif %}
+                </div>
                 <div class="card-footer bg-white text-center"><a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-primary">{% trans "Browse All" %}</a></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="recommendation-card h-100">
                 <div class="card-header" style="background: linear-gradient(135deg, #ec4899, #be185d); color: white;"><i class="fas fa-heart me-2"></i>{% trans "Breastfeeding" %}</div>
-                <div class="card-body">{% if breastfeeding_content %}{% for c in breastfeeding_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}{% else %}<p class="text-muted small">No tips yet.</p>{% endif %}</div>
+                <div class="card-body">
+                    {% if breastfeeding_content %}
+                        {% for c in breastfeeding_content|slice:":2" %}<div class="recommendation-item"><h6 class="small fw-bold mb-1">{{ c.title }}</h6><p class="text-muted small mb-0">{{ c.body|truncatewords:8 }}</p></div>{% endfor %}
+                    {% else %}
+                        <p class="text-muted small">No tips yet.</p>
+                    {% endif %}
+                </div>
                 <div class="card-footer bg-white text-center"><a href="{% url 'breastfeeding_support' %}" class="btn btn-sm btn-outline-primary">{% trans "Browse All" %}</a></div>
             </div>
         </div>
@@ -208,7 +149,7 @@
         <div class="col-6 col-md-4 col-lg-2"><a href="{% url 'danger_signs' %}" class="quick-action-btn btn-danger-sign"><i class="fas fa-exclamation-triangle"></i><span>{% trans "Danger Signs" %}</span></a></div>
         <div class="col-6 col-md-4 col-lg-2"><a href="{% url 'mental_health_support' %}" class="quick-action-btn btn-mental-health"><i class="fas fa-brain"></i><span>{% trans "Mental Health" %}</span></a></div>
         <div class="col-6 col-md-4 col-lg-2"><a href="{% url 'submit_story' %}" class="quick-action-btn btn-story"><i class="fas fa-heart"></i><span>{% trans "Share Story" %}</span></a></div>
-        <div class="col-6 col-md-4 col-lg-2"><a href="{% url 'update_mother_profile' %}" class="quick-action-btn btn-profile"><i class="fas fa-user-edit"></i><span>{% trans "Update Profile" %}</span></a></div>
+        <div class="col-6 col-md-4 col-lg-2"><a href="{% url 'update_mother_profile' %}" class="quick-action-btn btn-profile"><i class="fas fa-user-edit"></i><span>{% trans "Profile" %}</span></a></div>
     </div>
 
     <div class="row g-4">
@@ -220,7 +161,17 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="table-light"><tr><th>{% trans "Month" %}</th><th>{% trans "Weight" %}</th><th>{% trans "Baby Weight" %}</th><th>{% trans "Date" %}</th><th></th></tr></thead>
-                            <tbody>{% for c in checkups|slice:":5" %}<tr><td><span class="badge bg-primary">Month {{ c.month }}</span></td><td>{% if c.weight_kg %}{{ c.weight_kg }} kg{% else %}-{% endif %}</td><td>{% if c.child_weight_kg %}{{ c.child_weight_kg }} kg{% else %}-{% endif %}</td><td class="small">{{ c.created_at|date:"M j" }}</td><td><a href="{% url 'delete_checkup' c.id %}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a></td></tr>{% endfor %}</tbody>
+                            <tbody>
+                                {% for c in checkups|slice:":5" %}
+                                <tr>
+                                    <td><span class="badge bg-primary">Month {{ c.month }}</span></td>
+                                    <td>{% if c.weight_kg %}{{ c.weight_kg }} kg{% else %}-{% endif %}</td>
+                                    <td>{% if c.child_weight_kg %}{{ c.child_weight_kg }} kg{% else %}-{% endif %}</td>
+                                    <td class="small">{{ c.created_at|date:"M j" }}</td>
+                                    <td><a href="{% url 'delete_checkup' c.id %}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
                         </table>
                     </div>
                     {% else %}
@@ -234,7 +185,16 @@
             <div class="recommendation-card">
                 <div class="card-header bg-white border-bottom"><i class="fas fa-syringe text-success me-2"></i>{% trans "Baby Vaccinations" %}</div>
                 <div class="card-body">
-                    {% if vaccinations %}{% for v in vaccinations|slice:":5" %}<div class="d-flex justify-content-between align-items-center py-2 border-bottom"><span class="small">{{ v.vaccine_name }}</span>{% if v.status == 'completed' %}<span class="badge bg-success">{% trans "Done" %}</span>{% elif v.status == 'overdue' %}<span class="badge bg-danger">{% trans "Overdue" %}</span>{% else %}<span class="badge bg-warning text-dark">{% trans "Pending" %}</span>{% endif %}</div>{% endfor %}{% else %}<div class="text-center py-4"><i class="fas fa-syringe fa-2x text-muted mb-2"></i><p class="text-muted small">{% trans "No vaccinations." %}</p></div>{% endif %}
+                    {% if vaccinations %}
+                        {% for v in vaccinations|slice:":5" %}
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="small">{{ v.vaccine_name }}</span>
+                            {% if v.status == 'completed' %}<span class="badge bg-success">{% trans "Done" %}</span>{% elif v.status == 'overdue' %}<span class="badge bg-danger">{% trans "Overdue" %}</span>{% else %}<span class="badge bg-warning text-dark">{% trans "Pending" %}</span>{% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="text-center py-4"><i class="fas fa-syringe fa-2x text-muted mb-2"></i><p class="text-muted small">{% trans "No vaccinations." %}</p></div>
+                    {% endif %}
                 </div>
             </div>
         </div>
