@@ -74,15 +74,32 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--dark) !important;
+            color: var(--primary) !important;
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            margin-right: auto;
+            padding-left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
         }
 
         .navbar-brand img {
-            height: 40px;
+            height: 45px;
             width: auto;
+            padding: 5px;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.5);
+            transform: rotate(-5deg);
         }
 
         .nav-link {
@@ -280,10 +297,10 @@
 
 <body>
     <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
+        <div class="container-fluid px-4">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'core/logo.png' %}" alt="AamCare">
-                AamCare
+                <span style="background: linear-gradient(135deg, #D4AF37, #B8860B); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">AamCare</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -408,7 +425,7 @@
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center gap-2 mb-4">
                         <img src="{% static 'core/logo.png' %}" alt="AamCare"
-                            style="height: 40px; background: transparent;">
+                            style="height: 40px; padding: 5px; background: linear-gradient(135deg, #D4AF37, #FFD700); border-radius: 10px;">
                         <h5 class="mb-0 text-white">AamCare</h5>
                     </div>
                     <p class="text-white-50 mb-4">Supporting maternal and infant health in rural Nepal through digital

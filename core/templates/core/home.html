@@ -12,6 +12,9 @@
         padding: 120px 0 100px;
         position: relative;
         overflow: hidden;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
     }
 
     .hero-shape {
@@ -33,20 +36,34 @@
     .hero-title {
         font-size: 4.5rem;
         font-weight: 700;
-        line-height: 1.1;
+        line-height: 1.2;
         margin-bottom: 1.5rem;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, #D4AF37, #B8860B);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .hero-subtitle {
-        font-size: 1.5rem;
-        color: var(--gray);
+        font-size: 1.3rem;
+        color: #555;
         margin-bottom: 2.5rem;
-        font-weight: 300;
+        font-weight: 400;
         max-width: 600px;
+        line-height: 1.8;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
     .hero-image-container {
@@ -56,14 +73,25 @@
 
     .hero-image {
         border-radius: 30px;
-        box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 30px 60px rgba(212, 175, 55, 0.2);
         transform: perspective(1000px) rotateY(-5deg);
-        transition: transform 0.5s ease;
+        transition: all 0.5s ease;
         mix-blend-mode: multiply;
+        animation: floatImage 6s ease-in-out infinite;
+    }
+
+    @keyframes floatImage {
+        0%, 100% {
+            transform: perspective(1000px) rotateY(-5deg) translateY(0);
+        }
+        50% {
+            transform: perspective(1000px) rotateY(-5deg) translateY(-20px);
+        }
     }
 
     .hero-image:hover {
-        transform: perspective(1000px) rotateY(0deg);
+        transform: perspective(1000px) rotateY(0deg) scale(1.05);
+        box-shadow: 0 40px 80px rgba(212, 175, 55, 0.3);
     }
 
     /* Feature Cards */
@@ -71,11 +99,12 @@
         background: white;
         border-radius: 24px;
         padding: 2.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid rgba(212, 175, 55, 0.1);
         height: 100%;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     }
 
     .feature-card::before {
@@ -84,15 +113,16 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        height: 5px;
+        background: linear-gradient(90deg, #D4AF37, #FFD700);
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
     .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.3);
     }
 
     .feature-card:hover::before {
@@ -100,23 +130,25 @@
     }
 
     .feature-icon-wrapper {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        background: var(--primary-light);
+        width: 90px;
+        height: 90px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #FFF9F0, #FFE4B5);
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 1.5rem;
-        color: var(--primary);
-        font-size: 2rem;
-        transition: all 0.3s ease;
+        color: #D4AF37;
+        font-size: 2.5rem;
+        transition: all 0.4s ease;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
     }
 
     .feature-card:hover .feature-icon-wrapper {
-        background: var(--primary);
+        background: linear-gradient(135deg, #D4AF37, #FFD700);
         color: white;
-        transform: scale(1.1) rotate(5deg);
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
     }
 
     /* Stats Section */
@@ -180,6 +212,32 @@
         position: relative;
         z-index: 1;
     }
+
+    /* Feature Cards Hover Effects */
+    .hover-lift {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+        border-color: rgba(102, 126, 234, 0.4) !important;
+    }
+
+    /* New Mother Section Enhancements */
+    .new-mother-card {
+        transition: all 0.3s ease;
+    }
+
+    .new-mother-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .transition-all {
+        transition: all 0.3s ease;
+    }
 </style>
 
 <!-- Hero Section -->
@@ -188,9 +246,9 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 hero-content animate-up">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white shadow-sm mb-4">
-                    <span class="badge bg-primary rounded-pill">New</span>
-                    <span class="small fw-bold text-secondary">Trusted by 10,000+ Mothers</span>
+                <div class="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill bg-white shadow-sm mb-4" style="border: 2px solid rgba(212, 175, 55, 0.2);">
+                    <span class="badge bg-primary rounded-pill px-3">New</span>
+                    <span class="small fw-bold text-secondary">✨ Trusted by 10,000+ Mothers</span>
                 </div>
                 <h1 class="hero-title">
                     {% trans "Your Gentle Guide to Motherhood" %}
@@ -198,13 +256,16 @@
                 <p class="hero-subtitle">
                     {% trans "Experience a safe and healthy pregnancy with personalized care, expert guidance, and a supportive community." %}
                 </p>
-                <div class="d-flex gap-3">
-                    <a href="{% url 'register_pregnant_woman' %}" class="btn btn-primary btn-lg shadow-lg">
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'register_pregnant_woman' %}" class="btn btn-primary btn-lg shadow-lg px-4 py-3" style="border-radius: 15px;">
                         <i class="fas fa-baby me-2"></i>{% trans "I'm Pregnant" %}
                     </a>
-                    <a href="{% url 'register_new_mother' %}" class="btn btn-outline-primary btn-lg">
+                    <a href="{% url 'register_new_mother' %}" class="btn btn-success btn-lg px-4 py-3" style="border-radius: 15px; border-width: 2px;">
                         <i class="fas fa-heart me-2"></i>{% trans "I'm a New Mother" %}
                     </a>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="mb-0"><small class="text-muted">Already a member? <a href="{% url 'login' %}" class="text-primary">Sign in here</a></small></p>
                 </div>
             </div>
             <div class="col-lg-6 mt-5 mt-lg-0 animate-up" style="animation-delay: 0.2s;">
@@ -252,39 +313,60 @@
 </section>
 
 <!-- Detailed Features -->
-<section class="bg-white py-5">
+<section class="py-5" style="background: linear-gradient(135deg, #FFF9F0 0%, #FFF5E6 100%);">
     <div class="container py-5">
         <div class="text-center mb-5 animate-up">
-            <span class="text-primary fw-bold text-uppercase tracking-wider">Features</span>
-            <h2 class="display-5 fw-bold mt-2">{% trans "Everything You Need" %}</h2>
+            <span class="fw-bold text-uppercase" style="color: #D4AF37; letter-spacing: 2px; font-size: 0.9rem;">Features</span>
+            <h2 class="display-5 fw-bold mt-2" style="color: #2C3E50;">{% trans "Everything You Need" %}</h2>
+            <p class="text-muted mt-3 mx-auto" style="max-width: 600px;">Comprehensive support for your beautiful journey into motherhood</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6 animate-up">
-                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
-                    <i class="fas fa-utensils fa-3x text-secondary mb-4"></i>
-                    <h5>{% trans "Diet Plans" %}</h5>
-                    <p class="text-muted small">{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
+                <div class="p-4 rounded-4 h-100 text-center hover-lift" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #FF6B6B, #FF8E53); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);">
+                        <i class="fas fa-utensils fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Diet Plans" %}</h5>
+                    <p class="small text-muted">{% trans "Personalized nutrition guidance for pregnancy and postpartum recovery." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.1s;">
-                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
-                    <i class="fas fa-syringe fa-3x text-secondary mb-4"></i>
-                    <h5>{% trans "Vaccination" %}</h5>
-                    <p class="text-muted small">{% trans "Timely reminders and information about essential vaccinations." %}</p>
+                <div class="p-4 rounded-4 h-100 text-center hover-lift" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #4ECDC4, #44A08D); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);">
+                        <i class="fas fa-syringe fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Vaccination" %}</h5>
+                    <p class="small text-muted">{% trans "Timely reminders and information about essential vaccinations." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.2s;">
-                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
-                    <i class="fas fa-running fa-3x text-secondary mb-4"></i>
-                    <h5>{% trans "Exercises" %}</h5>
-                    <p class="text-muted small">{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
+                <div class="p-4 rounded-4 h-100 text-center hover-lift" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-baby-carriage"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #A8E6CF, #64b5f6); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(168, 230, 207, 0.3);">
+                        <i class="fas fa-running fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Exercises" %}</h5>
+                    <p class="small text-muted">{% trans "Safe and effective exercise routines for pregnancy and recovery." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: 0.3s;">
-                <div class="p-4 rounded-3 bg-light h-100 text-center hover-lift transition-all">
-                    <i class="fas fa-brain fa-3x text-secondary mb-4"></i>
-                    <h5>{% trans "Mental Health" %}</h5>
-                    <p class="text-muted small">{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
+                <div class="p-4 rounded-4 h-100 text-center hover-lift" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #C19A6B, #8B4513); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);">
+                        <i class="fas fa-brain fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 style="color: #2C3E50; font-weight: 700;">{% trans "Mental Health" %}</h5>
+                    <p class="small text-muted">{% trans "Support for emotional well-being during pregnancy and motherhood." %}</p>
                 </div>
             </div>
         </div>
@@ -311,6 +393,55 @@
     </div>
 </section>
 
+<!-- New Mother Focus -->
+<section class="py-5" style="background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);">
+    <div class="container py-4">
+        <div class="text-center mb-5 animate-up">
+            <span class="fw-bold text-uppercase" style="color: #D4AF37; letter-spacing: 2px; font-size: 0.9rem;">New Mother Support</span>
+            <h2 class="display-5 fw-bold mt-2" style="color: #2C3E50;">{% trans "Caring for Your Little One" %}</h2>
+            <p class="text-muted mt-3 mx-auto" style="max-width: 600px;">Specialized support and guidance for new mothers navigating the beautiful journey of early parenthood</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 animate-up">
+                <div class="p-4 rounded-4 h-100 new-mother-card" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #FFB6C1, #FF69B4); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(255, 182, 193, 0.3);">
+                        <i class="fas fa-baby fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 class="text-center" style="color: #2C3E50; font-weight: 700;">{% trans "Baby Growth Tracker" %}</h5>
+                    <p class="small text-muted text-center">Monitor your baby's weight, height, and developmental milestones with our easy-to-use tracker</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 animate-up" style="animation-delay: 0.1s;">
+                <div class="p-4 rounded-4 h-100 new-mother-card" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #87CEEB, #4682B4); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);">
+                        <i class="fas fa-heart fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 class="text-center" style="color: #2C3E50; font-weight: 700;">{% trans "Postpartum Care" %}</h5>
+                    <p class="small text-muted text-center">Guidance on physical recovery, emotional well-being, and adjusting to life with your newborn</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 animate-up" style="animation-delay: 0.2s;">
+                <div class="p-4 rounded-4 h-100 new-mother-card" style="background: white; border: 2px solid rgba(212, 175, 55, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1; font-size: 2rem;">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="mb-3" style="background: linear-gradient(135deg, #98FB98, #32CD32); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 12px rgba(152, 251, 152, 0.3);">
+                        <i class="fas fa-cookie-bite fa-2x" style="color: white;"></i>
+                    </div>
+                    <h5 class="text-center" style="color: #2C3E50; font-weight: 700;">{% trans "Breastfeeding Support" %}</h5>
+                    <p class="small text-muted text-center">Tips, techniques, and troubleshooting for successful breastfeeding and nutrition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Call to Action -->
 <section class="stories-section">
     <div class="container">
@@ -319,12 +450,15 @@
             <div class="story-content">
                 <h2 class="display-5 fw-bold mb-4">{% trans "Join Our Community" %}</h2>
                 <p class="lead text-muted mb-5">{% trans "Read inspiring stories from mothers who found support and guidance through AamCare" %}</p>
-                <div class="d-flex justify-content-center gap-3">
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
                     <a href="{% url 'success_stories' %}" class="btn btn-primary btn-lg">
                         <i class="fas fa-book-open me-2"></i>{% trans "Read Stories" %}
                     </a>
                     <a href="{% url 'about_trust' %}" class="btn btn-outline-primary btn-lg">
                         <i class="fas fa-shield-alt me-2"></i>{% trans "Why Trust Us" %}
+                    </a>
+                    <a href="{% url 'register_new_mother' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-baby me-2"></i>{% trans "I'm a New Mother" %}
                     </a>
                 </div>
             </div>
