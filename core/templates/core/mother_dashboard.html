@@ -5,335 +5,737 @@
 
 {% block extra_css %}
 <style>
-    .dashboard-hero {
+    /* Modern Dashboard Styles */
+    .dashboard-container {
+        background: linear-gradient(135deg, #fff0f5 0%, #fafafa 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
         background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-        border-radius: 20px;
-        color: white;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 40px rgba(236, 72, 153, 0.3);
-    }
-
-    .stat-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: none;
-        height: 100%;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    .stat-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         margin-bottom: 1rem;
     }
 
-    .recommendation-card {
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: none;
-        height: 100%;
+    .dashboard-header p {
+        font-size: 1.2rem;
+        color: #6b7280;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
-    .recommendation-card .card-header {
-        padding: 1rem 1.25rem;
-        font-weight: 600;
-        border-bottom: none;
-    }
-
-    .recommendation-item {
-        padding: 0.75rem 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .recommendation-item:last-child {
-        border-bottom: none;
-    }
-
-    .tip-item {
-        display: flex;
-        align-items: flex-start;
-        padding: 0.5rem 0;
-    }
-
-    .tip-icon {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #10b981;
+    /* Profile Card Modern Design */
+    .profile-card {
+        background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+        border-radius: 30px;
+        padding: 3rem;
         color: white;
+        box-shadow: 0 25px 50px rgba(236, 72, 153, 0.3);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        margin-bottom: 2.5rem;
+        transform: perspective(1000px) rotateX(0deg);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .profile-card:hover {
+        transform: perspective(1000px) rotateX(2deg) translateY(-10px);
+        box-shadow: 0 35px 60px rgba(236, 72, 153, 0.4);
+    }
+
+    .profile-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .profile-card::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -30%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .profile-card-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-avatar-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .profile-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
-        flex-shrink: 0;
-        margin-right: 0.75rem;
-        margin-top: 2px;
+        font-size: 3.5rem;
+        border: 6px solid rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(30px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
     }
 
-    .btn-modern {
-        border-radius: 12px;
-        padding: 0.75rem 1.5rem;
+    .profile-avatar::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+        transform: rotate(45deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: rotate(45deg) translateX(-100%); }
+        100% { transform: rotate(45deg) translateX(100%); }
+    }
+
+    .profile-name {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .profile-name h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-name p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .profile-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .profile-info-item {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 2rem;
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-info-item:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .profile-info-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #ffffff, rgba(255,255,255,0.5));
+    }
+
+    .profile-info-label {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.25rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .profile-info-value {
+        font-size: 1.5rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .medical-history-card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 2rem;
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        margin-bottom: 2.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .medical-history-card h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .medical-history-content {
+        font-size: 1.2rem;
+        line-height: 1.8;
         font-weight: 500;
-        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1.5rem;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .btn-modern:hover {
-        transform: translateY(-2px);
+    .profile-actions {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.2rem 2.5rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .action-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .action-btn:hover::before {
+        transform: translateX(100%);
+    }
+
+    .btn-log-checkup {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+    }
+
+    .btn-edit-profile {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: white;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Plan Cards */
+    .plans-section {
+        margin-bottom: 3rem;
     }
 
     .section-title {
-        font-size: 1.25rem;
-        font-weight: 600;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
         color: #1f2937;
-        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #ec4899, #be185d);
+        border-radius: 2px;
+    }
+
+    .plan-card {
+        background: white;
+        border-radius: 30px;
+        padding: 3rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        border: none;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .plan-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #ec4899, #be185d);
+    }
+
+    .plan-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 3px solid #f3f4f6;
+    }
+
+    .plan-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        margin-right: 1.75rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .plan-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(255,255,255,0.3), transparent);
+        transform: translateX(-100%);
+    }
+
+    .plan-title-container {
+        flex: 1;
+    }
+
+    .plan-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #1f2937;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .plan-subtitle {
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .plan-items-container {
+        margin-bottom: 2.5rem;
+    }
+
+    .plan-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 1.5rem;
+        margin-bottom: 1.25rem;
+        background: #f9fafb;
+        border-radius: 18px;
+        border-left: 6px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .plan-item:hover {
+        background: #f3f4f6;
+        border-left-color: #ec4899;
+        transform: translateX(10px) scale(1.01);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .plan-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(236, 72, 153, 0.05), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .plan-item:hover::before {
+        transform: translateX(0);
+    }
+
+    .plan-item i {
+        margin-right: 1.25rem;
+        margin-top: 0.4rem;
+        color: #ec4899;
+        font-size: 1.3rem;
+    }
+
+    .plan-item-text {
+        flex: 1;
+        color: #4b5563;
+        line-height: 1.8;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .view-more-btn {
+        display: block;
+        width: 100%;
+        padding: 1.25rem;
+        border-radius: 18px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid #ec4899;
+        background: transparent;
+        color: #ec4899;
+    }
+
+    .view-more-btn:hover {
+        background: #ec4899;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    /* Quick Actions */
+    .quick-actions-section {
+        margin-bottom: 3rem;
+    }
+
+    .quick-actions-title {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        color: #1f2937;
+    }
+
+    .quick-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.75rem;
     }
 
     .quick-action-btn {
         background: white;
-        border: 2px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 1rem;
+        border: none;
+        border-radius: 25px;
+        padding: 2.5rem 1.5rem;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         text-decoration: none;
         color: #374151;
         display: block;
+        height: 100%;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick-action-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #ec4899, #be185d);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
     }
 
     .quick-action-btn:hover {
-        border-color: #ec4899;
-        background: #fdf2f8;
-        color: #ec4899;
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .stage-badge {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 30px;
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-        display: inline-block;
+    .quick-action-btn:hover::before {
+        transform: scaleX(1);
     }
 
-    .stage-indicator {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
+    .quick-action-btn i {
+        font-size: 2.8rem;
+        margin-bottom: 1.25rem;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ec4899, #be185d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
-    .stage-early {
-        background: #fef3c7;
-        color: #d97706;
+    .quick-action-btn:hover i {
+        transform: scale(1.3) rotate(10deg);
     }
 
-    .stage-mid {
-        background: #dbeafe;
-        color: #1d4ed8;
+    .quick-action-btn span {
+        font-weight: 700;
+        font-size: 1.2rem;
+        display: block;
+        color: #1f2937;
     }
 
-    .stage-established {
-        background: #d1fae5;
-        color: #059669;
+    /* Animations */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .floating {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .profile-card {
+            padding: 2rem;
+        }
+        
+        .profile-info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .plan-card {
+            padding: 2rem;
+        }
+        
+        .profile-actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container py-4">
-    <!-- Hero Section -->
-    <div class="dashboard-hero">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="mb-2">{% trans "Welcome" %}, {{ profile.name }}! 💕</h1>
-                <p class="mb-3 opacity-75">
-                    {% trans "Baby is" %} {{ postpartum_dates.days_since_birth }} {% trans "days old" %} •
-                    <span
-                        class="stage-indicator {% if postpartum_stage == 'early' %}stage-early{% elif postpartum_stage == 'mid' %}stage-mid{% else %}stage-established{% endif %}">
-                        {% if postpartum_stage == 'early' %}{% trans "Early Recovery" %}
-                        {% elif postpartum_stage == 'mid' %}{% trans "Mid Recovery" %}
-                        {% else %}{% trans "Established" %}{% endif %}
-                    </span>
-                </p>
-                <div class="d-flex flex-wrap gap-2">
-                    <span class="stage-badge">
-                        <i class="fas fa-baby me-1"></i> {% trans "Birth Date" %}: {{ profile.child_birth_date|date:"M
-                        j, Y" }}
-                    </span>
-                    <span class="stage-badge">
-                        <i class="fas fa-calendar me-1"></i> {{ postpartum_dates.weeks_since_birth }} {% trans "weeks
-                        postpartum" %}
-                    </span>
+    <!-- Profile Information -->
+    <div class="profile-card mb-4 animate-up">
+        <div class="profile-card-content">
+            <div class="profile-avatar-container">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
                 </div>
             </div>
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <a href="{% url 'submit_checkup' 'mother' %}" class="btn btn-light btn-modern">
-                    <i class="fas fa-plus me-2"></i>{% trans "Log Checkup" %}
+            <div class="profile-name">
+                <h2>{{ profile.name }}</h2>
+                <p><i class="fas fa-birthday-cake me-2"></i>{{ profile.age }} {% trans "years old" %} • <i class="fas fa-phone ms-2 me-2"></i>{% if profile.phone_number %}{{ profile.phone_number }}{% else %}-{% endif %}</p>
+            </div>
+            <div class="profile-info-grid">
+                <div class="profile-info-item">
+                    <div class="profile-info-label">👶 {% trans "Baby's Birth Date" %}</div>
+                    <div class="profile-info-value"><i class="fas fa-baby"></i>{{ profile.child_birth_date|date:"F j, Y" }}</div>
+                </div>
+                <div class="profile-info-item">
+                    <div class="profile-info-label">📅 {% trans "Baby's Age" %}</div>
+                    <div class="profile-info-value"><i class="fas fa-calendar-check"></i>{{ postpartum_dates.days_since_birth }} {% trans "days" %}</div>
+                </div>
+                <div class="profile-info-item">
+                    <div class="profile-info-label">⏱️ {% trans "Postpartum Period" %}</div>
+                    <div class="profile-info-value"><i class="fas fa-heartbeat"></i>{{ postpartum_dates.weeks_since_birth }} {% trans "weeks" %}</div>
+                </div>
+            </div>
+            {% if profile.medical_history %}
+            <div class="medical-history-card">
+                <h3><i class="fas fa-notes-medical me-2"></i>{% trans "Medical History" %}</h3>
+                <div class="medical-history-content">{{ profile.medical_history }}</div>
+            </div>
+            {% endif %}
+            <div class="profile-actions">
+                <a href="{% url 'submit_checkup' 'mother' %}" class="action-btn btn-log-checkup">
+                    <i class="fas fa-plus"></i>{% trans "Log Checkup" %}
+                </a>
+                <a href="{% url 'update_mother_profile' %}" class="action-btn btn-edit-profile">
+                    <i class="fas fa-edit"></i>{% trans "Edit Profile" %}
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Quick Stats -->
-    <div class="row g-4 mb-4">
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background: #fce7f3; color: #ec4899;">
-                    <i class="fas fa-baby"></i>
-                </div>
-                <h3 class="mb-1">{{ postpartum_dates.days_since_birth }}</h3>
-                <p class="text-muted mb-0 small">{% trans "Days Since Birth" %}</p>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background: #dbeafe; color: #3b82f6;">
-                    <i class="fas fa-calendar-week"></i>
-                </div>
-                <h3 class="mb-1">{{ postpartum_dates.weeks_since_birth }}</h3>
-                <p class="text-muted mb-0 small">{% trans "Weeks Postpartum" %}</p>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background: #d1fae5; color: #10b981;">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3 class="mb-1">{{ postpartum_dates.months_since_birth }}</h3>
-                <p class="text-muted mb-0 small">{% trans "Months Old" %}</p>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background: #fef3c7; color: #f59e0b;">
-                    <i class="fas fa-syringe"></i>
-                </div>
-                <h3 class="mb-1">{{ vaccinations.count }}</h3>
-                <p class="text-muted mb-0 small">{% trans "Vaccinations" %}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Personalized Recommendations Section -->
-    <h2 class="section-title">
-        <i class="fas fa-star text-warning me-2"></i>
-        {% if stage_info.name %}{{ stage_info.name }}{% else %}Recovery{% endif %} Recommendations
-        {% if stage_info.period %}<small class="text-muted ms-2">({{ stage_info.period }})</small>{% endif %}
-    </h2>
-
-    <div class="row g-4 mb-4">
-        <!-- Tips Card -->
-        <div class="col-lg-3 col-md-6">
-            <div class="recommendation-card">
-                <div class="card-header"
-                    style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
-                    <i class="fas fa-lightbulb me-2"></i>{% trans "Tips" %}
-                </div>
-                <div class="card-body">
-                    {% if stage_info.tips %}
-                    {% for tip in stage_info.tips %}
-                    <div class="tip-item">
-                        <span class="tip-icon"><i class="fas fa-check"></i></span>
-                        <span class="small">{{ tip }}</span>
+    <!-- Diet Plan & Exercise Section -->
+    <div class="plans-section">
+        <h2 class="section-title">{% trans "Your Personalized Plans" %}</h2>
+        <div class="row g-4 mb-4">
+            <!-- Diet Plan Card -->
+            <div class="col-lg-6">
+                <div class="plan-card animate-up">
+                    <div class="plan-header">
+                        <div class="plan-icon" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="plan-title-container">
+                            <h3 class="plan-title">🍎 {% trans "Postpartum Diet Plan" %}</h3>
+                            <p class="plan-subtitle">{% trans "Nutrition for Recovery & Breastfeeding" %}</p>
+                        </div>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <p class="text-muted mb-0 small">Loading tips...</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Diet Card -->
-        <div class="col-lg-3 col-md-6">
-            <div class="recommendation-card">
-                <div class="card-header"
-                    style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;">
-                    <i class="fas fa-utensils me-2"></i>{% trans "Diet" %}
-                </div>
-                <div class="card-body">
-                    {% if diet_content %}
-                    {% for content in diet_content|slice:":2" %}
-                    <div class="recommendation-item">
-                        <h6 class="mb-1 small fw-bold">{{ content.title }}</h6>
-                        <p class="text-muted mb-0 small">{{ content.body|truncatewords:10 }}</p>
+                    <div class="plan-items-container">
+                        {% if stage_info.diet_recommendations %}
+                        {% for diet in stage_info.diet_recommendations %}
+                        <div class="plan-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="plan-item-text">{{ diet }}</div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">🍗 {% trans "High-protein foods for tissue repair and recovery" %}</div>
+                        </div>
+                        <div class="plan-item">
+                        
+                            <div class="plan-item-text">🥬 {% trans "Iron-rich foods to replenish blood loss (spinach, red meat, beans)" %}</div>
+                        </div>
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">💧 {% trans "Stay well-hydrated for milk production (10-12 glasses daily)" %}</div>
+                        </div>
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">🥛 {% trans "Calcium-rich foods for bone health and milk quality" %}</div>
+                        </div>
+                        <div class="plan-item">
+                       
+                            <div class="plan-item-text">🥕 {% trans "Fruits and vegetables for vitamins and fiber" %}</div>
+                        </div>
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">🐟 {% trans "Omega-3 rich foods for baby's brain development" %}</div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                    <a href="{% url 'comprehensive_nutrition_mother' %}"
-                        class="btn btn-sm btn-outline-primary w-100 mt-2">
-                        {% trans "View All" %}
+                    <a href="{% url 'diet_plans' %}" class="view-more-btn">
+                        <i class="fas fa-book me-2"></i>📖 {% trans "View Complete Diet Plans" %}
                     </a>
-                    {% else %}
-                    <p class="text-muted small mb-2">No diet plans for this stage yet.</p>
-                    <a href="{% url 'diet_plans' %}" class="btn btn-sm btn-outline-primary">Browse</a>
-                    {% endif %}
                 </div>
             </div>
-        </div>
 
-        <!-- Exercise Card -->
-        <div class="col-lg-3 col-md-6">
-            <div class="recommendation-card">
-                <div class="card-header"
-                    style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;">
-                    <i class="fas fa-running me-2"></i>{% trans "Exercise" %}
-                </div>
-                <div class="card-body">
-                    {% if exercise_content %}
-                    {% for content in exercise_content|slice:":2" %}
-                    <div class="recommendation-item">
-                        <h6 class="mb-1 small fw-bold">{{ content.title }}</h6>
-                        <p class="text-muted mb-0 small">{{ content.body|truncatewords:10 }}</p>
+            <!-- Exercise & Self-Care Card -->
+            <div class="col-lg-6">
+                <div class="plan-card animate-up">
+                    <div class="plan-header">
+                        <div class="plan-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="plan-title-container">
+                            <h3 class="plan-title">🧘 {% trans "Self-Care & Wellness" %}</h3>
+                            <p class="plan-subtitle">{% trans "Postpartum Recovery & Mental Health" %}</p>
+                        </div>
                     </div>
-                    {% endfor %}
-                    <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-warning w-100 mt-2">
-                        {% trans "View All" %}
-                    </a>
-                    {% else %}
-                    <p class="text-muted small mb-2">No exercises for this stage yet.</p>
-                    <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-warning">Browse</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Breastfeeding Card -->
-        <div class="col-lg-3 col-md-6">
-            <div class="recommendation-card">
-                <div class="card-header"
-                    style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: white;">
-                    <i class="fas fa-heart me-2"></i>{% trans "Breastfeeding" %}
-                </div>
-                <div class="card-body">
-                    {% if breastfeeding_content %}
-                    {% for content in breastfeeding_content|slice:":2" %}
-                    <div class="recommendation-item">
-                        <h6 class="mb-1 small fw-bold">{{ content.title }}</h6>
-                        <p class="text-muted mb-0 small">{{ content.body|truncatewords:10 }}</p>
+                    <div class="plan-items-container">
+                        {% if stage_info.exercise_recommendations %}
+                        {% for exercise in stage_info.exercise_recommendations %}
+                        <div class="plan-item">
+                            <i class="fas fa-running"></i>
+                            <div class="plan-item-text">{{ exercise }}</div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="plan-item">
+                         
+                            <div class="plan-item-text">🛌 {% trans "Prioritize rest and sleep when baby sleeps" %}</div>
+                        </div>
+                        <div class="plan-item">
+                
+                            <div class="plan-item-text">🚶 {% trans "Start with gentle walks and gradually increase activity" %}</div>
+                        </div>
+                        <div class="plan-item">
+                         
+                            <div class="plan-item-text">🧘 {% trans "Practice mindfulness or meditation for mental wellness" %}</div>
+                        </div>
+                        <div class="plan-item">
+                            
+                            <div class="plan-item-text">🤗 {% trans "Accept help from family and friends" %}</div>
+                        </div>
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">👥 {% trans "Connect with other new mothers for support" %}</div>
+                        </div>
+                        <div class="plan-item">
+                           
+                            <div class="plan-item-text">❤️ {% trans "Monitor mood and seek help for postpartum depression signs" %}</div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                    <a href="{% url 'breastfeeding_support' %}" class="btn btn-sm btn-outline-danger w-100 mt-2">
-                        {% trans "View All" %}
+                    <a href="{% url 'exercise_guidance' %}" class="view-more-btn">
+                        <i class="fas fa-book me-2"></i>📖 {% trans "View Complete Wellness Guide" %}
                     </a>
-                    {% else %}
-                    <p class="text-muted small mb-2">No content for this stage yet.</p>
-                    <a href="{% url 'breastfeeding_support' %}" class="btn btn-sm btn-outline-danger">Browse</a>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -344,44 +746,32 @@
         <i class="fas fa-bolt text-primary me-2"></i>{% trans "Quick Actions" %}
     </h2>
 
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-lg-2">
+    <div class="quick-actions-grid">
             <a href="{% url 'vaccination_tracker' %}" class="quick-action-btn">
-                <i class="fas fa-syringe fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Vaccinations" %}</span>
+                <i class="fas fa-syringe"></i>
+                <span>{% trans "Vaccinations" %}</span>
             </a>
-        </div>
-        <div class="col-6 col-lg-2">
             <a href="{% url 'comprehensive_nutrition_mother' %}" class="quick-action-btn">
-                <i class="fas fa-table fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Nutrition" %}</span>
+                <i class="fas fa-table"></i>
+                <span>{% trans "Nutrition" %}</span>
             </a>
-        </div>
-        <div class="col-6 col-lg-2">
             <a href="{% url 'mental_health_support' %}" class="quick-action-btn">
-                <i class="fas fa-brain fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Mental Health" %}</span>
+                <i class="fas fa-brain"></i>
+                <span>{% trans "Mental" %}</span>
             </a>
-        </div>
-        <div class="col-6 col-lg-2">
             <a href="{% url 'danger_signs' %}" class="quick-action-btn">
-                <i class="fas fa-exclamation-triangle fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Danger Signs" %}</span>
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>{% trans "Danger" %}</span>
             </a>
-        </div>
-        <div class="col-6 col-lg-2">
             <a href="{% url 'submit_story' %}" class="quick-action-btn">
-                <i class="fas fa-heart fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Share Story" %}</span>
+                <i class="fas fa-heart"></i>
+                <span>{% trans "Stories" %}</span>
             </a>
-        </div>
-        <div class="col-6 col-lg-2">
             <a href="{% url 'update_mother_profile' %}" class="quick-action-btn">
-                <i class="fas fa-user-edit fa-2x mb-2 d-block"></i>
-                <span class="small">{% trans "Update Profile" %}</span>
+                <i class="fas fa-user-edit"></i>
+                <span>{% trans "Profile" %}</span>
             </a>
         </div>
-    </div>
 
     <!-- Health Progress & Vaccinations -->
     <div class="row g-4">
@@ -410,10 +800,8 @@
                                 <tr>
                                     <td><span class="badge bg-primary">Month {{ checkup.month }}</span></td>
                                     <td>{% if checkup.weight_kg %}{{ checkup.weight_kg }} kg{% else %}-{% endif %}</td>
-                                    <td>{% if checkup.child_weight_kg %}{{ checkup.child_weight_kg }} kg{% else %}-{%
-                                        endif %}</td>
-                                    <td>{% if checkup.child_feeding_status %}{{ checkup.get_child_feeding_status_display
-                                        }}{% else %}-{% endif %}</td>
+                                    <td>{% if checkup.child_weight_kg %}{{ checkup.child_weight_kg }} kg{% else %}-{% endif %}</td>
+                                    <td>{% if checkup.child_feeding_status %}{{ checkup.get_child_feeding_status_display }}{% else %}-{% endif %}</td>
                                     <td class="small">{{ checkup.created_at|date:"M j" }}</td>
                                     <td>
                                         <a href="{% url 'delete_checkup' checkup.id %}"

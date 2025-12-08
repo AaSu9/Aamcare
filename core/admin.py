@@ -158,7 +158,132 @@ class PregnancyTipAdmin(admin.ModelAdmin):
         })
     )
 
-admin.site.register(PregnantWomanProfile)
-admin.site.register(NewMotherProfile)
-admin.site.register(VaccinationRecord)
-admin.site.register(VaccinationNotificationLog)
+@admin.register(PregnantWomanProfile)
+class PregnantWomanProfileAdmin(admin.ModelAdmin):
+    list_display = ['name', 'user', 'age', 'due_date', 'phone_number', 'get_current_week', 'get_trimester_display']
+    list_filter = ['due_date']
+    search_fields = ['name', 'user__username', 'phone_number']
+    readonly_fields = ['get_current_week', 'get_trimester_display', 'get_pregnancy_info']
+    
+    fieldsets = (
+        ('User Information', {
+            'fields': ('user', 'name', 'age', 'phone_number')
+        }),
+        ('Pregnancy Details', {
+            'fields': ('due_date', 'medical_history')
+        }),
+        ('Current Status', {
+            'fields': ('get_current_week', 'get_trimester_display', 'get_pregnancy_info'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_current_week(self, obj):
+        return f"Week {obj.get_current_pregnancy_week()}"
+    get_current_week.short_description = 'Current Week'
+    
+    def get_trimester_display(self, obj):
+        return f"Trimester {obj.get_trimester()}"
+    get_trimester_display.short_description = 'Trimester'
+    
+    def get_pregnancy_info(self, obj):
+        dates = obj.get_pregnancy_dates()
+        return f"Days remaining: {dates['days_remaining']}, Weeks remaining: {dates['weeks_remaining']}"
+    get_pregnancy_info.short_description = 'Pregnancy Info'
+
+@admin.register(NewMotherProfile)
+class NewMotherProfileAdmin(admin.ModelAdmin):
+    list_display = ['name', 'user', 'child_birth_date', 'phone_number', 'get_days_since_birth', 'get_postpartum_stage_display']
+    list_filter = ['child_birth_date']
+    search_fields = ['name', 'user__username', 'phone_number']
+    readonly_fields = ['get_days_since_birth', 'get_postpartum_stage_display', 'get_postpartum_info']
+    
+    fieldsets = (
+        ('User Information', {
+            'fields': ('user', 'name', 'phone_number')
+        }),
+        ('Child Information', {
+            'fields': ('child_birth_date', 'current_health_status')
+        }),
+        ('Current Status', {
+            'fields': ('get_days_since_birth', 'get_postpartum_stage_display', 'get_postpartum_info'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_days_since_birth(self, obj):
+        dates = obj.get_postpartum_dates()
+        return f"{dates['days_since_birth']} days ({dates['weeks_since_birth']} weeks)"
+    get_days_since_birth.short_description = 'Time Since Birth'
+    
+    def get_postpartum_stage_display(self, obj):
+        return obj.get_postpartum_stage().title()
+    get_postpartum_stage_display.short_description = 'Postpartum Stage'
+    
+    def get_postpartum_info(self, obj):
+        dates = obj.get_postpartum_dates()
+        return f"Months since birth: {dates['months_since_birth']}"
+    get_postpartum_info.short_description = 'Postpartum Info'
+
+@admin.register(VaccinationRecord)
+class VaccinationRecordAdmin(admin.ModelAdmin):
+    list_display = ['get_profile_name', 'vaccine_name', 'due_date', 'completed_date', 'status', 'created_at']
+    list_filter = ['status', 'vaccine_name', 'due_date', 'created_at']
+    search_fields = ['pregnant_profile__name', 'mother_profile__name', 'notes']
+    readonly_fields = ['created_at', 'updated_at']
+    list_editable = ['status']
+    date_hierarchy = 'due_date'
+    
+    fieldsets = (
+        ('Profile Information', {
+            'fields': ('pregnant_profile', 'mother_profile')
+        }),
+        ('Vaccination Details', {
+            'fields': ('vaccine_name', 'due_date', 'completed_date', 'status')
+        }),
+        ('Additional Information', {
+            'fields': ('notes', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_profile_name(self, obj):
+        if obj.pregnant_profile:
+            return f"{obj.pregnant_profile.name} (Pregnant)"
+        elif obj.mother_profile:
+            return f"{obj.mother_profile.name} (Mother)"
+        return "No Profile"
+    get_profile_name.short_description = 'Profile'
+    get_profile_name.admin_order_field = 'pregnant_profile__name'
+
+@admin.register(VaccinationNotificationLog)
+class VaccinationNotificationLogAdmin(admin.ModelAdmin):
+    list_display = ['get_recipient', 'notification_type', 'sent_at', 'status', 'get_vaccination']
+    list_filter = ['notification_type', 'status', 'sent_at']
+    search_fields = ['user__username', 'pregnant_woman__name', 'mother__name', 'message']
+    readonly_fields = ['sent_at']
+    date_hierarchy = 'sent_at'
+    
+    fieldsets = (
+        ('Recipient Information', {
+            'fields': ('user', 'pregnant_woman', 'mother')
+        }),
+        ('Notification Details', {
+            'fields': ('notification_type', 'vaccination_record', 'sent_at', 'status')
+        }),
+        ('Message', {
+            'fields': ('message',),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_recipient(self, obj):
+        target = obj.pregnant_woman or obj.mother or obj.user
+        return str(target) if target else "Unknown"
+    get_recipient.short_description = 'Recipient'
+    
+    def get_vaccination(self, obj):
+        if obj.vaccination_record:
+            return obj.vaccination_record.get_vaccine_name_display()
+        return "N/A"
+    get_vaccination.short_description = 'Vaccine'

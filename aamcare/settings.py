@@ -67,7 +67,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processors.language_processor',
             ],
         },
     },
@@ -106,37 +105,23 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internationalization - English Only
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+# Disable internationalization to use English only
+USE_I18N = False
 
 USE_L10N = True
 
 USE_TZ = True
 
-# Available languages
-LANGUAGES = [
-    ('en', 'English'),
-    ('ne', 'नेपाली'),
-]
-
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
-
-# Disable translation loading for now to avoid .mo file issues
-USE_I18N = True
-
-# Language selection middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # Add this line
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

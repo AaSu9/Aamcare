@@ -11,8 +11,8 @@
                 <div class="col-md-6 mb-4">
                     <div class="card testimonial-card h-100">
                         <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-quote-left cultural-icon"></i>{% if language == 'ne' and story.title_ne %}{{ story.title_ne }}{% else %}{{ story.title }}{% endif %}</h5>
-                            <p class="card-text">{% if language == 'ne' and story.story_ne %}{{ story.story_ne|linebreaks }}{% else %}{{ story.story|linebreaks }}{% endif %}</p>
+                            <h5 class="card-title"><i class="fas fa-quote-left cultural-icon"></i>{{ story.title }}</h5>
+                            <p class="card-text">{{ story.story|linebreaks }}</p>
                             <div class="row mt-3">
                                 <div class="col-6">
                                     <small class="text-muted">
