@@ -1,0 +1,423 @@
+﻿{% extends 'core/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Mother Dashboard" %}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-md-8">
+                                            <h2><i class="fas fa-heart me-2"></i>{% trans "Welcome" %}, {{ profile.name }}!</h2>
+                <p class="mb-0">{% trans "Child Birth Date" %}: {{ profile.child_birth_date|date:"F j, Y" }}</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <a href="{% url 'submit_story' %}" class="btn btn-light btn-lg">
+                                <i class="fas fa-heart me-2"></i>Share Your Story
+                            </a>
+                            <a href="{% url 'update_mother_profile' %}" class="btn btn-light btn-sm mt-2 ms-2">
+                                <i class="fas fa-phone"></i> Update Phone Number
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date-Based Postpartum Planning Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="fas fa-calendar-check me-2"></i>Your Postpartum Timeline & Planning</h5>
+                </div> 
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Recovery Progress</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Birth Date:</strong> {{ postpartum_dates.birth_date|date:"F j, Y" }}</li>
+                                <li><strong>Days Since Birth:</strong> {{ postpartum_dates.days_since_birth }} days</li>
+                                <li><strong>Weeks Since Birth:</strong> {{ postpartum_dates.weeks_since_birth }} weeks</li>
+                                <li><strong>Months Since Birth:</strong> {{ postpartum_dates.months_since_birth }} months</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-primary"><i class="fas fa-clock me-2"></i>Current Status</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Current Date:</strong> {{ postpartum_dates.current_date|date:"F j, Y" }}</li>
+                                {% if postpartum_dates.days_since_birth < 42 %}
+                                    <li><strong>Recovery Phase:</strong> <span class="badge bg-warning">Early Recovery</span></li>
+                                {% elif postpartum_dates.days_since_birth < 90 %}
+                                    <li><strong>Recovery Phase:</strong> <span class="badge bg-info">Mid Recovery</span></li>
+                                {% else %}
+                                    <li><strong>Recovery Phase:</strong> <span class="badge bg-success">Established</span></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    {% if postpartum_dates.milestones %}
+                    <div class="mt-3">
+                        <h6 class="text-primary"><i class="fas fa-calendar-week me-2"></i>Upcoming Milestones</h6>
+                        <div class="row">
+                            {% for milestone in postpartum_dates.milestones|slice:":4" %}
+                            <div class="col-md-3 mb-2">
+                                <div class="card border-info">
+                                    <div class="card-body text-center p-2">
+                                        <h6 class="text-info mb-1">{{ milestone.description|truncatewords:4 }}</h6>
+                                        <p class="mb-1 small">{{ milestone.date|date:"M j" }}</p>
+                                        <p class="mb-0 small text-muted">
+                                            {% if milestone.days_from_now == 0 %}
+                                                <span class="badge bg-success">Today</span>
+                                            {% elif milestone.days_from_now > 0 %}
+                                                <span class="badge bg-info">{{ milestone.days_from_now }} days</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Past</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <!-- Postpartum Stage-Specific Personalized Recommendations -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-warning h-100">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-star me-2"></i>
+                        {% if stage_info.name %}
+                            {{ stage_info.name }} Recommendations ({{ stage_info.period }})
+                        {% else %}
+                            Personalized Recommendations for Your Recovery Stage
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Stage Tips -->
+                        <div class="col-md-3 mb-3">
+                            <div class="card border-success h-100">
+                                <div class="card-header bg-success text-white py-2">
+                                    <h6 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Tips</h6>
+                                </div>
+                                <div class="card-body">
+                                    {% if stage_info.tips %}
+                                        <ul class="list-unstyled mb-0 small">
+                                            {% for tip in stage_info.tips %}
+                                                <li class="mb-2">
+                                                    <i class="fas fa-check-circle text-success me-1"></i>{{ tip }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p class="text-muted small">Loading tips...</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Diet Recommendations -->
+                        <div class="col-md-3 mb-3">
+                            <div class="card border-info h-100">
+                                <div class="card-header bg-info text-white py-2">
+                                    <h6 class="mb-0"><i class="fas fa-utensils me-2"></i>Diet</h6>
+                                </div>
+                                <div class="card-body">
+                                    {% if diet_content %}
+                                        {% for content in diet_content|slice:":2" %}
+                                            <div class="mb-2 pb-2 {% if not forloop.last %}border-bottom{% endif %}">
+                                                <strong class="small">{{ content.title }}</strong>
+                                                <p class="text-muted small mb-0">{{ content.body|truncatewords:10 }}</p>
+                                            </div>
+                                        {% endfor %}
+                                        <a href="{% url 'comprehensive_nutrition_mother' %}" class="btn btn-sm btn-outline-info w-100 mt-1">View All</a>
+                                    {% else %}
+                                        <p class="text-muted small">No diet plans for this stage yet.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Exercise Recommendations -->
+                        <div class="col-md-3 mb-3">
+                            <div class="card border-danger h-100">
+                                <div class="card-header bg-danger text-white py-2">
+                                    <h6 class="mb-0"><i class="fas fa-running me-2"></i>Exercise</h6>
+                                </div>
+                                <div class="card-body">
+                                    {% if exercise_content %}
+                                        {% for content in exercise_content|slice:":2" %}
+                                            <div class="mb-2 pb-2 {% if not forloop.last %}border-bottom{% endif %}">
+                                                <strong class="small">{{ content.title }}</strong>
+                                                <p class="text-muted small mb-0">{{ content.body|truncatewords:10 }}</p>
+                                            </div>
+                                        {% endfor %}
+                                        <a href="{% url 'exercise_guidance' %}" class="btn btn-sm btn-outline-danger w-100 mt-1">View All</a>
+                                    {% else %}
+                                        <p class="text-muted small">No exercises for this stage yet.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Breastfeeding Support -->
+                        <div class="col-md-3 mb-3">
+                            <div class="card border-primary h-100">
+                                <div class="card-header bg-primary text-white py-2">
+                                    <h6 class="mb-0"><i class="fas fa-heart me-2"></i>Breastfeeding</h6>
+                                </div>
+                                <div class="card-body">
+                                    {% if breastfeeding_content %}
+                                        {% for content in breastfeeding_content|slice:":2" %}
+                                            <div class="mb-2 pb-2 {% if not forloop.last %}border-bottom{% endif %}">
+                                                <strong class="small">{{ content.title }}</strong>
+                                                <p class="text-muted small mb-0">{{ content.body|truncatewords:10 }}</p>
+                                            </div>
+                                        {% endfor %}
+                                        <a href="{% url 'breastfeeding_support' %}" class="btn btn-sm btn-outline-primary w-100 mt-1">View All</a>
+                                    {% else %}
+                                        <p class="text-muted small">No content for this stage yet.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line me-2"></i>Recovery Progress</h5>
+                </div>
+                <div class="card-body">
+                    {% if checkups %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th>Month</th>
+                                        <th>Mother Weight</th>
+                                        <th>Blood Pressure</th>
+                                        <th>Fever</th>
+                                        <th>Child Weight</th>
+                                        <th>Child Height</th>
+                                        <th>Feeding</th>
+                                        <th>Notes</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for checkup in checkups %}
+                                    <tr>
+                                        <td><span class="badge bg-primary">Month {{ checkup.month }}</span></td>
+                                        <td>
+                                            {% if checkup.mother_weight_kg %}
+                                                <span class="text-success">{{ checkup.weight_kg }} kg</span>
+                                            {% else %}
+ <span class="text-muted">{% trans "-" %}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if checkup.blood_pressure_systolic and checkup.blood_pressure_diastolic %}
+                                                <span class="text-info">{{ checkup.blood_pressure_systolic }}/{{ checkup.blood_pressure_diastolic }}</span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+ {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if checkup.fever %}
+                                                <span class="text-danger">
+                                                    <i class="fas fa-thermometer-half"></i>
+                                                    {% if checkup.fever_temperature %}
+                                                        {{ checkup.fever_temperature }}┬░C
+                                                    {% else %}
+                                                        Yes
+ {% endif %}
+                                                </span>
+                                            {% else %}
+                                                <span class="text-success">No</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if checkup.child_weight_kg %}
+                                                <span class="text-success">{{ checkup.child_weight_kg }} kg</span>
+                                            {% else %}
+ <span class="text-muted">{% trans "-" %}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if checkup.child_height_cm %}
+                                                <span class="text-info">{{ checkup.child_height_cm }} cm</span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+ {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if checkup.child_feeding_status %}
+                                                <span class="badge bg-warning">{{ checkup.get_child_feeding_status_display }}</span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+ </td>
+                                        <td>{{ checkup.notes|truncatewords:8 }}</td>
+                                        <td>{{ checkup.created_at|date:"M j, Y" }}</td>
+                                        <td>
+                                            <a href="{% url 'delete_checkup' checkup.id %}" class="btn btn-sm btn-outline-danger" 
+                                               title="Delete this checkup record">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+ </div>
+                    {% else %}
+                        <p class="text-muted">No recovery progress recorded yet.</p>
+                    {% endif %}
+                    
+                    <a href="{% url 'submit_checkup' 'mother' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Submit Recovery Progress
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-baby me-2"></i>Baby Vaccination Schedule</h5>
+                </div>
+                <div class="card-body">
+                    {% if vaccinations %}
+                        <div class="mb-3">
+                            <h6>Baby's Vaccination Progress</h6>
+                            <p class="text-muted small">
+                                {% for vaccination in vaccinations|slice:":3" %}
+                                    {{ vaccination.get_vaccine_name_display }} - 
+                                    {% if vaccination.status == 'completed' %}
+                                        <span class="text-success">Completed</span>
+                                    {% elif vaccination.status == 'overdue' %}
+                                        <span class="text-danger">Overdue</span>
+                                    {% else %}
+                                        <span class="text-warning">Pending</span>
+ {% endif %}<br>
+                                {% endfor %}
+                            </p>
+                            <a href="{% url 'vaccination_tracker' %}" class="btn btn-sm btn-primary">View Full Tracker</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-heart me-2"></i>Breastfeeding Support</h5>
+                </div>
+                <div class="card-body">
+                    {% if breastfeeding_content %}
+                        {% for content in breastfeeding_content|slice:":2" %}
+                            <div class="mb-3">
+                                <h6>{{ content.title }}</h6>
+                                <p class="text-muted small">{{ content.body|truncatewords:15 }}</p>
+                                <a href="{% url 'content_detail' content.id %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No breastfeeding support available.</p>
+                    {% endif %}
+                    <a href="{% url 'breastfeeding_support' %}" class="btn btn-outline-primary me-2">View All Support</a>
+                    <a href="{% url 'comprehensive_nutrition_mother' %}" class="btn btn-primary">
+                        <i class="fas fa-table me-2"></i>Comprehensive Nutrition Table
+                    </a>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-white">
+                    <h5><i class="fas fa-brain me-2"></i>Mental Health Support</h5>
+                </div>
+                <div class="card-body">
+                    {% if mental_content %}
+                        {% for content in mental_content|slice:":2" %}
+                            <div class="mb-3">
+                                <h6>{{ content.title }}</h6>
+                                <p class="text-muted small">{{ content.body|truncatewords:15 }}</p>
+                                <a href="{% url 'content_detail' content.id %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No mental health support available.</p>
+                    {% endif %}
+                    <a href="{% url 'mental_health_support' %}" class="btn btn-outline-primary">View All Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5><i class="fas fa-running me-2"></i>Postpartum Exercise</h5>
+                </div>
+                <div class="card-body">
+                    {% if exercise_content %}
+                        <div class="row">
+                            {% for content in exercise_content|slice:":3" %}
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6>{% if language == 'ne' and content.title_ne %}{{ content.title_ne }}{% else %}{{ content.title }}{% endif %}</h6>
+                                            <p class="text-muted small">{% if language == 'ne' and content.body_ne %}{{ content.body_ne|truncatewords:20 }}{% else %}{{ content.body|truncatewords:20 }}{% endif %}</p>
+                                            <a href="{% url 'content_detail' content.id %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No exercise guidance available.</p>
+                    {% endif %}
+                    <a href="{% url 'exercise_guidance' %}" class="btn btn-outline-primary">View All Exercise Guidance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'update_mother_profile' %}" class="btn btn-light btn-sm mt-2">
+        <i class="fas fa-phone"></i> Update Phone Number
+    </a>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script>
+    // Initialize ScrollReveal for the main cards
+    ScrollReveal().reveal('.card', {
+        delay: 200,
+        distance: '50px',
+        easing: 'ease-in-out',
+        origin: 'bottom'
+    });
+</script>
+{% endblock %}
