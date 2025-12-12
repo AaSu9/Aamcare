@@ -137,22 +137,19 @@
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
                         {{ form.name }}
-                        {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                        endfor %}
+                        {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
                         {{ form.age }}
-                        {% for error in form.age.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor
-                        %}
+                        {% for error in form.age.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="{{ form.due_date.id_for_label }}" class="form-label">Expected Due Date</label>
                     {{ form.due_date }}
-                    {% for error in form.due_date.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                    endfor %}
+                    {% for error in form.due_date.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     <div class="form-text small">We'll use this to track your weeks and send timely advice.</div>
                 </div>
 
@@ -162,14 +159,12 @@
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
                         {{ form.username }}
-                        {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                        endfor %}
+                        {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
                         {{ form.email }}
-                        {% for error in form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                        endfor %}
+                        {% for error in form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                 </div>
 
@@ -177,22 +172,19 @@
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                         {{ form.password1 }}
-                        {% for error in form.password1.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                        endfor %}
+                        {% for error in form.password1.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="col-md-6 mb-4">
                         <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
                         {{ form.password2 }}
-                        {% for error in form.password2.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                        endfor %}
+                        {% for error in form.password2.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
                     {{ form.phone_number }}
-                    {% for error in form.phone_number.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
-                    endfor %}
+                    {% for error in form.phone_number.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
                 </div>
 
                 <div class="mb-4">
