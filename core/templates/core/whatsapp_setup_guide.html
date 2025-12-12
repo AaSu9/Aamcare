@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}WhatsApp Setup Guide{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2><i class="fab fa-whatsapp me-2"></i>WhatsApp Notification Setup</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle me-2"></i>Why WhatsApp Notifications?</h5>
+                        <p>Receive daily health tips, vaccination reminders, and nutrition advice directly on WhatsApp at 7 AM every morning.</p>
+                    </div>
+
+                    <h4 class="mt-4">Setup Instructions</h4>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">
+                            <h6>Save Our WhatsApp Number</h6>
+                            <p>Open your phone's contacts app and create a new contact:</p>
+                            <div class="bg-light p-3 rounded text-center">
+                                <strong>Name:</strong> Aamcare Health<br>
+                                <strong>Number:</strong> +14155238886
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Join Our WhatsApp Service</h6>
+                            <p>Open WhatsApp and send a message to our number:</p>
+                            <div class="bg-light p-3 rounded text-center">
+                                <strong>Message:</strong> join aamcare
+                            </div>
+                            <p class="mt-2"><small>You'll receive a confirmation message when successful.</small></p>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Start Receiving Tips</h6>
+                            <p>After joining, you'll automatically receive daily health tips at 7 AM.</p>
+                        </li>
+                    </ol>
+
+                    <div class="alert alert-warning mt-4">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i>Important Notes</h5>
+                        <ul>
+                            <li>This one-time setup is required due to WhatsApp policies</li>
+                            <li>Messages are sent only once per day at 7 AM</li>
+                            <li>You can stop receiving messages anytime by replying "STOP"</li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'pregnant_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                        <button class="btn btn-outline-primary ms-2" onclick="showQRCode()">Show QR Code</button>
+                    </div>
+
+                    <div id="qrCodeSection" class="mt-4 text-center" style="display: none;">
+                        <h5>Quick Setup with QR Code</h5>
+                        <p>Scan this QR code to pre-fill the WhatsApp message:</p>
+                        <img src="{% url 'generate_whatsapp_qr' %}" alt="WhatsApp Setup QR Code" class="img-fluid" style="max-width: 200px;">
+                        <p class="mt-2"><small>Note: You'll still need to tap "Send" in WhatsApp</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showQRCode() {
+    document.getElementById('qrCodeSection').style.display = 'block';
+    // Scroll to QR code section
+    document.getElementById('qrCodeSection').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Android Setup Guide{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2><i class="fas fa-mobile-alt me-2"></i>Run Aamcare on Android</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle me-2"></i>How to Run on Android</h5>
+                        <p>You can run the Aamcare application on your Android device using Termux, a Linux terminal emulator.</p>
+                    </div>
+
+                    <h4 class="mt-4">Option 1: Using Termux (Recommended)</h4>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">
+                            <h6>Install Termux</h6>
+                            <p>Download Termux from F-Droid (recommended) or Google Play Store</p>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Update Packages</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>pkg update && pkg upgrade</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Install Required Packages</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>pkg install python python-pip git</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Clone the Repository</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>git clone &lt;repository-url&gt;</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Install Dependencies</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>cd "Aamcare vaccine updated"<br>pip install -r requirements.txt</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Run Database Migrations</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>python manage.py migrate</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Start the Server</h6>
+                            <div class="bg-light p-3 rounded">
+                                <code>python manage.py runserver 0.0.0.0:8000</code>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>Access the App</h6>
+                            <p>Open your Android browser and go to: <strong>http://localhost:8000</strong></p>
+                        </li>
+                    </ol>
+
+                    <h4 class="mt-4">Option 2: Cloud Deployment</h4>
+                    <p>For a more stable experience, deploy the application to a cloud platform:</p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Heroku</li>
+                        <li class="list-group-item">AWS Elastic Beanstalk</li>
+                        <li class="list-group-item">Google Cloud Platform</li>
+                        <li class="list-group-item">DigitalOcean</li>
+                    </ul>
+
+                    <div class="alert alert-warning mt-4">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i>Important Notes</h5>
+                        <ul>
+                            <li>Running on Android is suitable for development/testing only</li>
+                            <li>Performance may be limited on mobile devices</li>
+                            <li>For production use, cloud deployment is recommended</li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'pregnant_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                        <button class="btn btn-outline-primary ms-2" onclick="showQRCode()">Show Setup QR Code</button>
+                    </div>
+
+                    <div id="qrCodeSection" class="mt-4 text-center" style="display: none;">
+                        <h5>Quick Setup with QR Code</h5>
+                        <p>Scan this QR code to access the detailed Android setup guide:</p>
+                        <img src="{% url 'generate_android_setup_qr' %}" alt="Android Setup QR Code" class="img-fluid" style="max-width: 200px;">
+                        <p class="mt-2"><small>Note: This QR code links to detailed setup instructions</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showQRCode() {
+    document.getElementById('qrCodeSection').style.display = 'block';
+    // Scroll to QR code section
+    document.getElementById('qrCodeSection').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+{% endblock %}
