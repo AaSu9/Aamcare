@@ -1,253 +1,349 @@
 {% extends 'core/base.html' %}
-
+{% load static %}
 {% block title %}Danger Signs - AamCare{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <!-- Emergency Alert -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="alert alert-danger text-center" role="alert">
-                <h4><i class="fas fa-exclamation-triangle me-2"></i>Emergency Contact</h4>
-                <p class="mb-2"><strong>If you experience any danger signs, seek immediate medical care!</strong></p>
-                <p class="mb-0">
-                    <i class="fas fa-phone me-2"></i>Emergency: <strong>1660</strong> | 
-                    <i class="fas fa-hospital me-2"></i>Nearest Health Facility
-                </p>
-            </div>
+<style>
+    /* Emergency Theme */
+    .danger-hero {
+        background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+        color: white;
+        padding: 4rem 2rem;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        box-shadow: 0 15px 40px rgba(255, 65, 108, 0.3);
+    }
+
+    .danger-hero::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        top: -100px;
+        right: -50px;
+        animation: pulse-ring 4s infinite cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    @keyframes pulse-ring {
+        0% {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: scale(1.3);
+            opacity: 0;
+        }
+    }
+
+    /* Emergency Floating Card */
+    .emergency-card {
+        background: white;
+        border-radius: 20px;
+        border-left: 6px solid #FF4B2B;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 10;
+        margin-top: -30px;
+        padding: 1.5rem;
+    }
+
+    /* Modern Card Styles */
+    .info-card {
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: white;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card .card-header {
+        background: #FEE2E2;
+        border-bottom: none;
+        color: #B91C1C;
+        padding: 1.25rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .source-box {
+        background: #F8FAFC;
+        border-radius: 12px;
+        padding: 1rem;
+        font-size: 0.9rem;
+        border: 1px solid #E2E8F0;
+    }
+
+    /* Action Steps */
+    .step-card {
+        text-align: center;
+        padding: 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .step-card:hover {
+        background: linear-gradient(135deg, #FFF5F5 0%, #FFF0F0 100%);
+        border-color: #FF4B2B;
+        transform: translateY(-5px);
+    }
+
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #FEE2E2;
+        color: #EF4444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover .step-icon {
+        background: #EF4444;
+        color: white;
+        transform: scale(1.1) rotate(10deg);
+    }
+
+    /* Local Resources */
+    .resource-card {
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid #E2E8F0;
+        background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+    }
+
+    .resource-icon {
+        color: #0F172A;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        padding: 10px;
+        background: #F1F5F9;
+        border-radius: 10px;
+    }
+
+    /* Animations */
+    .animate-up {
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .delay-1 {
+        animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+        animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Hero Alert -->
+    <div class="danger-hero text-center animate-up">
+        <div class="position-relative z-1">
+            <h1 class="fw-bold display-4 mb-3"><i class="fas fa-exclamation-triangle me-3"></i>Danger Signs</h1>
+            <p class="lead mb-0 opacity-90 mx-auto" style="max-width: 700px;">
+                Pregnancy and postpartum periods can have complications. Knowing these signs and seeking immediate
+                medical help can save lives.
+            </p>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="card text-dark text-center" style="
-                background: linear-gradient(135deg, #ffa500 0%, #ff6b6b 100%);
-                background-size: cover;
-                position: relative;
-                overflow: hidden;
-            ">
-                <div style='
-                    position: absolute;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    background-image: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
-                                      radial-gradient(circle at 75% 75%, rgba(255, 107, 107, 0.10) 0%, transparent 50%);
-                    z-index: 0;
-                '></div>
-                <div class="card-body py-5" style="position: relative; z-index: 1;">
-                    <h1><i class="fas fa-exclamation-triangle cultural-icon"></i>Pregnancy & Postpartum Danger Signs</h1>
-                    <p class="lead">Know when to seek immediate medical attention - this information could save lives</p>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">24/7</h3>
-                                <p class="mb-0">Emergency Support</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">100%</h3>
-                                <p class="mb-0">Government Approved</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h3 class="mb-0">Immediate</h3>
-                                <p class="mb-0">Action Required</p>
-                            </div>
-                        </div>
+    <!-- Quick Emergency Contact -->
+    <div class="row justify-content-center mb-5 animate-up delay-1">
+        <div class="col-lg-8">
+            <div class="emergency-card d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-danger text-white rounded-circle p-3 shadow-sm">
+                        <i class="fas fa-phone-alt fa-lg"></i>
                     </div>
+                    <div>
+                        <h5 class="mb-0 text-danger fw-bold">Emergency Hotline: 1660</h5>
+                        <small class="text-muted">Available 24/7 • Toll Free</small>
+                    </div>
+                </div>
+                <div>
+                    <a href="tel:1660" class="btn btn-danger rounded-pill px-4 py-2 fw-bold shadow-sm pulse-button">
+                        <i class="fas fa-phone me-2"></i>Call Now
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Danger Signs Content -->
+    <!-- Danger Signs Content Cards -->
     {% if danger_content %}
-        <div class="row">
-            {% for content in danger_content %}
-                <div class="col-12 mb-4">
-                    <div class="card border-danger">
-                        <div class="card-header bg-danger text-white">
-                            <h4 class="mb-0">
-                                <i class="fas fa-exclamation-triangle me-2"></i>{{ content.title }}
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    {{ content.body|linebreaks }}
-                                    
-                                    {% if content.cultural_context %}
-                                        <div class="mt-3 p-3 bg-light rounded">
-                                            <h6><i class="fas fa-globe cultural-icon"></i>Cultural Context</h6>
-                                            <p class="mb-0">{{ content.cultural_context }}</p>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card bg-light">
-                                        <div class="card-body">
-                                            <h6><i class="fas fa-info-circle cultural-icon"></i>Source Information</h6>
-                                            <p class="mb-2">
-                                                <strong>Source:</strong> {{ content.get_source_display }}
-                                            </p>
-                                            {% if content.source_reference %}
-                                                <p class="mb-2">
-                                                    <strong>Reference:</strong> {{ content.source_reference }}
-                                                </p>
-                                            {% endif %}
-                                            {% if content.reviewed_by %}
-                                                <p class="mb-2">
-                                                    <strong>Reviewed by:</strong> {{ content.reviewed_by.name }}
-                                                </p>
-                                            {% endif %}
-                                            {% if content.review_date %}
-                                                <p class="mb-0">
-                                                    <strong>Review date:</strong> {{ content.review_date|date:"F j, Y" }}
-                                                </p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row g-4 mb-5">
+        {% for content in danger_content %}
+        <div class="col-lg-6 animate-up delay-2">
+            <div class="info-card">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ content.title }}
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="col-12">
-                <div class="card text-center">
-                    <div class="card-body py-5">
-                        <i class="fas fa-exclamation-triangle fa-3x text-muted mb-3"></i>
-                        <h5>No Danger Signs Information Available</h5>
-                        <p class="text-muted">Please contact your health care provider for emergency guidance.</p>
+                <div class="card-body p-4">
+                    <div class="mb-4 text-secondary">
+                        {{ content.body|linebreaks }}
+                    </div>
+
+                    {% if content.cultural_context %}
+                    <div class="alert alert-light border-0 bg-orange-50 mb-4"
+                        style="background-color: #FFF7ED; border-radius: 12px;">
+                        <h6 class="text-warning fw-bold small text-uppercase mb-2">
+                            <i class="fas fa-globe-asia me-2"></i>Cultural Context
+                        </h6>
+                        <p class="small mb-0 text-muted">{{ content.cultural_context }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="source-box">
+                        <div class="d-flex align-items-center gap-2 mb-2 text-primary">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="fw-bold small">Medically Verified</span>
+                        </div>
+                        <p class="mb-1 small"><strong>Source:</strong> {{ content.get_source_display }}</p>
+                        {% if content.reviewed_by %}
+                        <p class="mb-0 small text-muted">Reviewed by: {{ content.reviewed_by.name }}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5 mb-5 animate-up">
+        <div class="bg-white rounded-4 p-5 shadow-sm d-inline-block">
+            <i class="fas fa-notes-medical fa-4x text-muted mb-3"></i>
+            <h3>No Information Available</h3>
+            <p class="text-muted">Please consult your nearest health post for immediate guidance.</p>
+        </div>
+    </div>
     {% endif %}
 
-    <!-- Emergency Action Plan -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card text-white text-center" style="
-                background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
-                background-size: cover;
-                position: relative;
-                overflow: hidden;
-            ">
-                <div style='
-                    position: absolute;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    background-image: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
-                                      radial-gradient(circle at 75% 75%, rgba(255, 107, 107, 0.10) 0%, transparent 50%);
-                    z-index: 0;
-                '></div>
-                <div class="card-body text-center py-5" style="position: relative; z-index: 1;">
-                    <h3><i class="fas fa-phone cultural-icon"></i>Emergency Action Plan</h3>
-                    <p class="lead">What to do if you experience danger signs</p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-3">
-                            <div class="text-center">
-                                <i class="fas fa-phone fa-2x mb-2"></i>
-                                <h6>Step 1: Call</h6>
-                                <p class="small">Call emergency number 1660 immediately</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-center">
-                                <i class="fas fa-user-md fa-2x mb-2"></i>
-                                <h6>Step 2: Contact</h6>
-                                <p class="small">Contact your nearest health facility</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-center">
-                                <i class="fas fa-car fa-2x mb-2"></i>
-                                <h6>Step 3: Transport</h6>
-                                <p class="small">Arrange safe transport to hospital</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-center">
-                                <i class="fas fa-hospital fa-2x mb-2"></i>
-                                <h6>Step 4: Treatment</h6>
-                                <p class="small">Receive immediate medical care</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Action Plan -->
+    <h3 class="fw-bold text-center mb-4 animate-up"><i class="fas fa-clipboard-check text-success me-2"></i>Emergency
+        Action Plan</h3>
+    <div class="row g-4 mb-5 animate-up delay-3">
+        <div class="col-md-3">
+            <div class="step-card">
+                <div class="step-icon"><i class="fas fa-phone"></i></div>
+                <h5>1. Call</h5>
+                <p class="small text-muted mb-0">Dial 1660 or Call Ambulance immediately</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="step-card">
+                <div class="step-icon"><i class="fas fa-hospital-user"></i></div>
+                <h5>2. Contact</h5>
+                <p class="small text-muted mb-0">Inform nearest health facility</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="step-card">
+                <div class="step-icon"><i class="fas fa-ambulance"></i></div>
+                <h5>3. Transport</h5>
+                <p class="small text-muted mb-0">Arrange safe travel to hospital</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="step-card">
+                <div class="step-icon"><i class="fas fa-user-md"></i></div>
+                <h5>4. Treat</h5>
+                <p class="small text-muted mb-0">Get professional medical care</p>
             </div>
         </div>
     </div>
 
-    <!-- Local Health Resources -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card mandala-bg">
-                <div class="card-body text-center py-5">
-                    <h3><i class="fas fa-map-marker-alt cultural-icon"></i>Local Health Resources</h3>
-                    <p class="lead">Know your local health facilities and community health workers</p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <div class="card expert-card">
-                                <div class="card-body">
-                                    <i class="fas fa-hospital fa-2x cultural-icon mb-2"></i>
-                                    <h6>Health Posts</h6>
-                                    <p class="small">Primary health care centers in your area</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card expert-card">
-                                <div class="card-body">
-                                    <i class="fas fa-user-nurse fa-2x cultural-icon mb-2"></i>
-                                    <h6>ANMs & FCHVs</h6>
-                                    <p class="small">Community health workers for immediate support</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card expert-card">
-                                <div class="card-body">
-                                    <i class="fas fa-ambulance fa-2x cultural-icon mb-2"></i>
-                                    <h6>Emergency Transport</h6>
-                                    <p class="small">Local transport options for emergencies</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <a href="{% url 'community_workers' %}" class="btn btn-primary me-3">
-                            <i class="fas fa-users me-2"></i>Find Community Workers
-                        </a>
-                        <a href="{% url 'about_trust' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-certificate me-2"></i>Learn About Our Trust
-                        </a>
-                    </div>
+    <!-- Community Resources -->
+    <div class="bg-white rounded-4 p-4 shadow-sm border animate-up delay-3">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h4 class="fw-bold mb-3">Local Health Resources</h4>
+                <p class="text-muted mb-4">You are not alone. Connect with community health workers (FCHVs) and local
+                    health posts.</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'community_workers' %}" class="btn btn-primary rounded-pill px-4">Find Workers</a>
+                    <a href="{% url 'about_trust' %}" class="btn btn-outline-secondary rounded-pill px-4">About
+                        Trust</a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Important Notice -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="alert alert-warning" role="alert">
-                <h6><i class="fas fa-info-circle me-2"></i>Important Notice</h6>
-                <p class="mb-0">
-                    This information is provided as a guide only. Always seek immediate medical attention 
-                    if you experience any danger signs. AamCare is not a substitute for professional 
-                    medical care. In case of emergency, call 1660 or go to the nearest health facility immediately.
-                </p>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="resource-card">
+                            <i class="fas fa-clinic-medical resource-icon text-primary"></i>
+                            <h6 class="fw-bold">Health Posts</h6>
+                            <small class="text-muted">Primary care centers</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="resource-card">
+                            <i class="fas fa-user-nurse resource-icon text-success"></i>
+                            <h6 class="fw-bold">FCHVs</h6>
+                            <small class="text-muted">Community Support</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %} 
+
+<style>
+    .pulse-button {
+        animation: btn-pulse 2s infinite;
+    }
+
+    @keyframes btn-pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+        }
+
+        70% {
+            box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+        }
+    }
+</style>
+{% endblock %}

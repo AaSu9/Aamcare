@@ -22,7 +22,7 @@ class PregnantWomanProfile(models.Model):
         conception_date = self.due_date - timedelta(weeks=40)
         weeks_pregnant = (today - conception_date).days // 7
         return max(1, min(40, weeks_pregnant))
-    
+
     def get_current_pregnancy_month(self):
         """Calculate current pregnancy month based on due date"""
         weeks = self.get_current_pregnancy_week()
@@ -384,6 +384,7 @@ class VaccinationNotificationLog(models.Model):
     NOTIFICATION_TYPE_CHOICES = [
         ("sms", "SMS"),
         ("email", "Email"),
+        ("whatsapp", "WhatsApp"),
     ]
     STATUS_CHOICES = [
         ("success", "Success"),

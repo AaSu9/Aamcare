@@ -1,251 +1,292 @@
-{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="{{ language }}">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% trans "AamCare - Maternal Health Support" %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}AamCare - Maternal Health Support{% endblock %}</title>
 
+    <!-- SEO & Social Sharing -->
+    <meta name="description"
+        content="AamCare: Your gentle guide to motherhood. Specialized health tracking, vaccination reminders, and expert support for pregnant women and new mothers in Nepal.">
+    <meta name="keywords" content="pregnancy, nepal, maternal health, vaccination tracker, baby growth, aamcare">
+    <meta name="author" content="Team AAM">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aamcare.org.np/">
+    <meta property="og:title" content="AamCare - Safe Motherhood Journey">
+    <meta property="og:description"
+        content="Join thousands of mothers in Nepal tracking their pregnancy and baby's health with AamCare. Free, secure, and government approved guidance.">
+    <meta property="og:image" content="{% static 'core/motherchild.png' %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aamcare.org.np/">
+    <meta property="twitter:title" content="AamCare - Safe Motherhood Journey">
+    <meta property="twitter:description"
+        content="Expert guidance for your pregnancy journey. Track vaccines, growth, and health status in one secure place.">
+    <meta property="twitter:image" content="{% static 'core/motherchild.png' %}">
+
+    <!-- PWA / Mobile Capable -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4F46E5">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Icons & CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <style>
         :root {
-            /* Modern Premium Palette */
-            --primary: #D4AF37;
-            /* Rich Gold */
-            --primary-light: #F4E5B2;
-            --secondary: #FF7F50;
-            /* Warm Coral */
-            --secondary-light: #FFDAB9;
-            --dark: #2C3E50;
-            --light: #F9FAFB;
+            /* Amazing Vibrant Palette */
+            --primary: #4F46E5;
+            /* Indigo-600 */
+            --primary-light: #818CF8;
+            --primary-dark: #3730A3;
+
+            --secondary: #EC4899;
+            /* Pink-500 */
+            --secondary-light: #F472B6;
+
+            --accent: #10B981;
+            /* Emerald-500 */
+
+            --dark: #1E293B;
+            /* Slate-800 */
+            --light: #F8FAFC;
+            /* Slate-50 */
             --white: #FFFFFF;
-            --gray: #6C757D;
-            --success: #10B981;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            --gradient-secondary: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);
+            --gradient-accent: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
 
             /* Shadows & Glass */
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.25);
+
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+            --backdrop-blur: blur(12px);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        .navbar-brand {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        /* Navbar Styling */
+        /* Modern Glass Navbar */
         .navbar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: var(--backdrop-blur);
+            -webkit-backdrop-filter: var(--backdrop-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             padding: 1rem 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar.scrolled {
+            padding: 0.75rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-sm);
         }
 
         .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary) !important;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--dark) !important;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            margin-right: auto;
-            padding-left: 0;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand:hover {
-            transform: scale(1.05);
         }
 
         .navbar-brand img {
-            height: 45px;
-            width: auto;
-            padding: 5px;
-            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            height: 48px;
+            width: 48px;
+            object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .navbar-brand:hover img {
-            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.5);
-            transform: rotate(-5deg);
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .nav-link {
-            font-weight: 500;
-            color: var(--dark) !important;
-            padding: 0.5rem 1rem !important;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #64748B !important;
+            padding: 0.6rem 1.2rem !important;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-link:hover {
-            color: var(--primary) !important;
-            background: rgba(212, 175, 55, 0.1);
-        }
-
+        .nav-link:hover,
         .nav-link.active {
             color: var(--primary) !important;
-            font-weight: 600;
+            background: rgba(79, 70, 229, 0.05);
         }
 
-        /* Buttons */
+        /* Premium Buttons */
         .btn {
-            font-family: 'Outfit', sans-serif;
             font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            /* Pill shape for modern look */
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: var(--primary);
-            border: none;
+            background: var(--gradient-primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
 
         .btn-primary:hover {
-            background: #C5A028;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+            color: white;
+            background: var(--gradient-secondary);
         }
 
         .btn-outline-primary {
+            background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
-            background: transparent;
         }
 
         .btn-outline-primary:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
         }
 
-        /* Dropdown */
+        /* Modern Dropdown */
         .dropdown-menu {
             border: none;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-md);
             border-radius: 16px;
-            padding: 0.5rem;
+            padding: 0.75rem;
             margin-top: 1rem;
-            animation: fadeIn 0.2s ease;
+            animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
         }
 
         .dropdown-item {
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 0.75rem 1rem;
             font-weight: 500;
+            color: #475569;
+            transition: all 0.2s;
         }
 
         .dropdown-item:hover {
-            background: var(--light);
+            background: #F1F5F9;
             color: var(--primary);
+            transform: translateX(5px);
         }
 
         .dropdown-item i {
-            width: 20px;
+            width: 24px;
+            color: var(--primary-light);
+            transition: color 0.2s;
+        }
+
+        .dropdown-item:hover i {
             color: var(--primary);
-            margin-right: 0.5rem;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 5rem 0 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .footer h5 {
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer h6 {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
-        .animate-up {
-            animation: fadeInUp 0.6s ease;
-        }
-
-        @keyframes fadeInUp {
+        @keyframes slideUpFade {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(15px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Styled Alerts */
+        .alert {
+            border-radius: 16px;
+            border: none;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid var(--primary);
         }
 
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: #94A3B8;
+            padding: 5rem 0 2rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .transition-all {
-            transition: all 0.3s ease;
+        .footer-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .footer-link {
-            color: rgba(255, 255, 255, 0.7);
+            color: #94A3B8;
             text-decoration: none;
             display: block;
             margin-bottom: 0.75rem;
@@ -253,84 +294,125 @@
         }
 
         .footer-link:hover {
-            color: var(--primary);
-            padding-left: 5px;
+            color: var(--white);
+            transform: translateX(5px);
         }
 
-        .trust-badge {
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
+        .social-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        /* Floating Emergency Button */
+        .fab-emergency {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #EF4444;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            z-index: 1050;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: pulse-red 2s infinite;
+        }
+
+        .fab-emergency:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-emergency i {
+            font-size: 1.5rem;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            70% {
+                box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
             }
         }
 
-        /* Utilities */
-        .cultural-icon {
-            color: var(--primary);
+        /* Scroll Reveal Animation Initial State */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
 
-        .text-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid px-4">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container px-4">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'core/logo.png' %}" alt="AamCare">
-                <span style="background: linear-gradient(135deg, #D4AF37, #B8860B); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">AamCare</span>
+                <span class="brand-text">AamCare</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="fas fa-bars text-primary fs-3"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">{% trans "Home" %}</a>
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="trustDropdown" role="button"
                             data-bs-toggle="dropdown">
-                            {% trans "Trust & Safety" %}
+                            Resources
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'about_trust' %}">
-                                    <i class="fas fa-certificate"></i>{% trans "About Our Trust" %}
+                                    <i class="fas fa-shield-alt"></i> About & Safety
                                 </a></li>
                             <li><a class="dropdown-item" href="{% url 'health_experts' %}">
-                                    <i class="fas fa-user-md"></i>{% trans "Health Experts" %}
+                                    <i class="fas fa-user-md"></i> Health Experts
                                 </a></li>
                             <li><a class="dropdown-item" href="{% url 'community_workers' %}">
-                                    <i class="fas fa-users"></i>{% trans "Community Workers" %}
+                                    <i class="fas fa-users"></i> Community
                                 </a></li>
                             <li><a class="dropdown-item" href="{% url 'testimonials' %}">
-                                    <i class="fas fa-heart"></i>{% trans "Success Stories" %}
+                                    <i class="fas fa-star"></i> Success Stories
                                 </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'danger_signs' %}">
-                                    <i class="fas fa-exclamation-triangle"></i>{% trans "Danger Signs" %}
+                                    <i class="fas fa-exclamation-triangle text-danger"></i> Danger Signs
                                 </a></li>
                         </ul>
                     </li>
@@ -338,158 +420,186 @@
                     {% if user.is_authenticated %}
                     {% if user.pregnantwomanprofile %}
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white ms-2 px-4" href="{% url 'pregnant_dashboard' %}">
-                            {% trans "Dashboard" %}
+                        <a class="btn btn-primary ms-2" href="{% url 'pregnant_dashboard' %}">
+                            <i class="fas fa-columns"></i> Dashboard
                         </a>
                     </li>
                     {% elif user.newmotherprofile %}
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white ms-2 px-4" href="{% url 'mother_dashboard' %}">
-                            {% trans "Dashboard" %}
+                        <a class="btn btn-secondary ms-2" href="{% url 'mother_dashboard' %}">
+                            <i class="fas fa-columns"></i> Dashboard
                         </a>
                     </li>
                     {% endif %}
                     <li class="nav-item ms-2">
-                        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-primary" style="padding: 0.5rem 1rem;">
+                            <button type="submit" class="btn btn-outline-primary p-2" title="Logout">
                                 <i class="fas fa-sign-out-alt"></i>
                             </button>
                         </form>
                     </li>
                     {% else %}
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
+                    <li class="nav-item ms-lg-2">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
-                    <li class="nav-item ms-2">
-                        <a class="btn btn-primary text-white" href="#" role="button" data-bs-toggle="dropdown">
-                            {% trans "Get Started" %}
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-primary px-4" href="#" role="button" data-bs-toggle="dropdown">
+                            Get Started
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{% url 'register_pregnant_woman' %}">
-                                    <i class="fas fa-baby"></i>{% trans "I'm Pregnant" %}
-                                </a></li>
-                            <li><a class="dropdown-item" href="{% url 'register_new_mother' %}">
-                                    <i class="fas fa-heart"></i>{% trans "I'm a New Mother" %}
-                                </a></li>
+                        <ul class="dropdown-menu dropdown-menu-end p-3" style="min-width: 250px;">
+                            <li>
+                                <a class="dropdown-item p-3 mb-2 rounded bg-light"
+                                    href="{% url 'register_pregnant_woman' %}">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle p-2 bg-indigo-100 me-3 text-primary">
+                                            <i class="fas fa-baby fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block text-dark">I'm Pregnant</strong>
+                                            <small class="text-muted">Track my pregnancy</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item p-3 rounded bg-light" href="{% url 'register_new_mother' %}">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle p-2 bg-pink-100 me-3 text-secondary">
+                                            <i class="fas fa-heart fa-lg" style="color: var(--secondary);"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block text-dark">I'm a New Mother</strong>
+                                            <small class="text-muted">Postpartum care</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     {% endif %}
-
-                    <!-- Language Switcher -->
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-globe"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <form method="post" action="{% url 'set_language' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="language" value="en">
-                                    <button type="submit" class="dropdown-item">English</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form method="post" action="{% url 'set_language' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="language" value="ne">
-                                    <button type="submit" class="dropdown-item">Nepali</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Messages Area -->
     {% if messages %}
-    <div class="container mt-4">
+    <div class="container mt-4 pt-2">
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm border-0" role="alert">
-            {{ message }}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show animate__animated animate__fadeInDown"
+            role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle me-2 fs-5 text-{{ message.tags }}"></i>
+                <div>{{ message }}</div>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 
+    <!-- Main Content -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer mt-auto">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center gap-2 mb-4">
-                        <img src="{% static 'core/logo.png' %}" alt="AamCare"
-                            style="height: 40px; padding: 5px; background: linear-gradient(135deg, #D4AF37, #FFD700); border-radius: 10px;">
-                        <h5 class="mb-0 text-white">AamCare</h5>
+                        <img src="{% static 'core/logo.png' %}" alt="AamCare" style="height: 40px; border-radius: 8px;">
+                        <h5 class="mb-0 text-white fw-bold">AamCare</h5>
                     </div>
-                    <p class="text-white-50 mb-4">Supporting maternal and infant health in rural Nepal through digital
-                        care and guidance. Your trusted companion for a healthy journey.</p>
+                    <p class="mb-4" style="line-height: 1.8;">
+                        Empowering mothers in Nepal with digital healthcare support. From pregnancy to postpartum, we
+                        are your trusted companion for a safer, healthier journey.
+                    </p>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-6">
-                    <h6>Quick Links</h6>
+                    <h6 class="footer-title">Platform</h6>
+                    <a href="{% url 'home' %}" class="footer-link">Home</a>
                     <a href="{% url 'about_trust' %}" class="footer-link">About Us</a>
                     <a href="{% url 'health_experts' %}" class="footer-link">Experts</a>
-                    <a href="{% url 'community_workers' %}" class="footer-link">Community</a>
-                    <a href="{% url 'testimonials' %}" class="footer-link">Stories</a>
+                    <a href="{% url 'testimonials' %}" class="footer-link">Success Stories</a>
                 </div>
                 <div class="col-lg-2 col-6">
-                    <h6>Resources</h6>
+                    <h6 class="footer-title">Support</h6>
                     <a href="{% url 'danger_signs' %}" class="footer-link">Danger Signs</a>
-                    <a href="#" class="footer-link">Diet Plans</a>
-                    <a href="#" class="footer-link">Vaccination</a>
-                    <a href="#" class="footer-link">Exercises</a>
+                    <a href="#" class="footer-link">Vaccination Guide</a>
+                    <a href="#" class="footer-link">Emergency Contacts</a>
+                    <a href="#" class="footer-link">FAQs</a>
                 </div>
                 <div class="col-lg-4">
-                    <h6>Trust & Support</h6>
-                    <div class="trust-badge">
-                        <i class="fas fa-certificate text-warning"></i>
-                        <span>Government Approved</span>
+                    <h6 class="footer-title">Contact & Safety</h6>
+                    <div class="p-3 rounded mb-3"
+                        style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone-alt text-danger me-3"></i>
+                            <div>
+                                <small class="d-block text-white-50">Emergency Hotline</small>
+                                <span class="text-white fw-bold">1660-01-0000</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="trust-badge">
-                        <i class="fas fa-user-md text-info"></i>
-                        <span>Expert Reviewed</span>
-                    </div>
-                    <div class="mt-4">
-                        <p class="mb-2"><i class="fas fa-phone me-2 text-primary"></i> <a href="tel:1660"
-                                class="text-white text-decoration-none">Emergency: 1660</a></p>
-                        <p><i class="fas fa-envelope me-2 text-primary"></i> <a href="mailto:support@aamcare.np"
-                                class="text-white text-decoration-none">support@aamcare.np</a></p>
-                    </div>
+                    <p><i class="fas fa-envelope me-2 text-primary"></i> <a href="mailto:support@aamcare.org.np"
+                            class="text-decoration-none text-white-50">support@aamcare.org.np</a></p>
+                    <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> Kathmandu, Nepal</p>
                 </div>
             </div>
-            <div class="row mt-5 pt-4 border-top border-secondary">
+            <div class="row mt-5 pt-4 border-top border-secondary"
+                style="border-color: rgba(255,255,255,0.1) !important;">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="text-white-50 small mb-0">&copy; 2024 AamCare. All rights reserved.</p>
+                    <p class="small mb-0">&copy; 2024 AamCare. Built with ❤️ for Mothers.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <p class="text-white-50 small mb-0">Designed by "TEAM AAN💚"
-                    </p>
+                    <p class="small mb-0">Privacy Policy • Terms of Service</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- Emergency Floating Button -->
+    <a href="tel:1660" class="fab-emergency" title="Emergency Call">
+        <i class="fas fa-phone-alt animate__animated animate__tada animate__infinite"></i>
+    </a>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize ScrollReveal
-        ScrollReveal().reveal('.animate-up', {
-            delay: 200,
-            distance: '20px',
-            origin: 'bottom',
-            duration: 800,
-            easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('scrolled');
+            }
+        });
+
+        // Simple Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
         });
     </script>
 </body>

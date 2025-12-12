@@ -682,20 +682,24 @@ def vaccination_tracker(request):
     # Calculate mother vs baby vaccine counts for mother profile
     mother_vaccines_count = 0
     baby_vaccines_count = 0
+    processed_vaccinations = []
     
-    if profile_type == 'mother':
-        for vaccination in vaccinations:
+    for vaccination in vaccinations:
+        if profile_type == 'mother':
             vaccine_name_lower = vaccination.vaccine_name.lower()
             if ('(Mother)' in vaccination.vaccine_name or 
                 'tdap' in vaccine_name_lower or 
                 'covid19' in vaccine_name_lower or 
                 'influenza' in vaccine_name_lower):
+                vaccination.is_mother_type = True
                 mother_vaccines_count += 1
             else:
+                vaccination.is_mother_type = False
                 baby_vaccines_count += 1
+        processed_vaccinations.append(vaccination)
     
     context = {
-        'vaccinations': vaccinations,
+        'vaccinations': processed_vaccinations,
         'profile_type': profile_type,
         'total_vaccinations': total_vaccinations,
         'completed_vaccinations': completed_vaccinations,
@@ -704,7 +708,7 @@ def vaccination_tracker(request):
         'mother_vaccines_count': mother_vaccines_count,
         'baby_vaccines_count': baby_vaccines_count,
     }
-    return render(request, 'core/vaccination_tracker.html', context)
+    return render(request, 'core/vaccination_tracker_v2.html', context)
 
 @login_required
 def update_vaccination(request, vaccination_id):

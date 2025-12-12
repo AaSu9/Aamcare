@@ -1,149 +1,217 @@
 {% extends 'core/base.html' %}
-{% load i18n %}
+{% load static %}
 
-{% block title %}{% trans "Register - Pregnant Woman" %}{% endblock %}
+{% block title %}Register - Pregnant Woman{% endblock %}
 
 {% block content %}
 <style>
-    .register-container {
+    .auth-wrapper {
+        min-height: 90vh;
         display: flex;
-        justify-content: center;
         align-items: center;
-        padding: 4rem 0;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        justify-content: center;
+        padding: 60px 0;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     }
-    .register-card {
+
+    .auth-card {
+        background: white;
         border-radius: 24px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border: none;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         overflow: hidden;
-        width: 100%;
         max-width: 800px;
+        width: 100%;
     }
-    .register-header {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    .auth-header {
+        background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        padding: 3rem;
+        text-align: center;
         color: white;
-        padding: 2.5rem 2rem;
-        text-align: center;
+        position: relative;
+        overflow: hidden;
     }
-    .register-header i {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+
+    .auth-header::before {
+        content: '';
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        top: -50px;
+        left: -50px;
     }
-    .register-header h2 {
-        font-weight: 700;
-        font-size: 2.2rem;
+
+    .auth-header::after {
+        content: '';
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        bottom: -30px;
+        right: -30px;
     }
-    .register-body {
-        padding: 2.5rem 3rem;
+
+    .auth-body {
+        padding: 3rem;
     }
-    .form-control, .form-select {
+
+    .form-control,
+    .form-select {
         border-radius: 12px;
-        padding: 1rem;
-        border: 1px solid #e0e0e0;
+        padding: 12px 15px;
+        border: 2px solid #F1F5F9;
+        background-color: #F8FAFC;
+        font-weight: 500;
         transition: all 0.3s ease;
     }
-    .form-control:focus, .form-select:focus {
+
+    .form-control:focus,
+    .form-select:focus {
+        background-color: white;
         border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.1);
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
     }
+
     .form-label {
-        font-weight: 600;
-        color: #555;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #64748B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
     }
-    .register-btn {
-        padding: 1rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        background: var(--primary);
+
+    .btn-register {
+        background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
         border: none;
+        padding: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        color: white;
+        border-radius: 50px;
     }
-    .register-btn:hover {
+
+    .btn-register:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        color: white;
     }
+
     .login-link {
-        text-align: center;
-        margin-top: 1.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .login-link:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
     }
 </style>
 
-<div class="register-container">
-    <div class="register-card animate__animated animate__fadeInUp">
-        <div class="register-header">
-            <i class="fas fa-baby"></i>
-            <h2>{% trans "Join as a Pregnant Woman" %}</h2>
+<div class="auth-wrapper">
+    <div class="auth-card animate__animated animate__fadeInUp">
+        <div class="auth-header">
+            <div class="position-relative z-1">
+                <div class="bg-white bg-opacity-20 rounded-circle p-3 d-inline-block mb-3">
+                    <i class="fas fa-baby fa-3x text-white"></i>
+                </div>
+                <h2 class="fw-bold mb-1">Join as a Pregnant Woman</h2>
+                <p class="mb-0 opacity-75">Start your guided journey to a healthy motherhood</p>
+            </div>
         </div>
-        <div class="register-body">
+
+        <div class="auth-body">
             <form method="post">
                 {% csrf_token %}
-                
+
+                <h5 class="text-dark fw-bold mb-4 pb-2 border-bottom">Personal Information</h5>
+
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.name.id_for_label }}" class="form-label">{% trans "Full Name" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
                         {{ form.name }}
-                        {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                        endfor %}
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.age.id_for_label }}" class="form-label">{% trans "Age" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
                         {{ form.age }}
-                        {% for error in form.age.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.age.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor
+                        %}
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="{{ form.due_date.id_for_label }}" class="form-label">{% trans "Expected Due Date" %}</label>
+                <div class="mb-4">
+                    <label for="{{ form.due_date.id_for_label }}" class="form-label">Expected Due Date</label>
                     {{ form.due_date }}
-                    {% for error in form.due_date.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    {% for error in form.due_date.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                    endfor %}
+                    <div class="form-text small">We'll use this to track your weeks and send timely advice.</div>
                 </div>
 
+                <h5 class="text-dark fw-bold mb-4 pb-2 border-bottom mt-4">Account Details</h5>
+
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.username.id_for_label }}" class="form-label">{% trans "Username" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
                         {{ form.username }}
-                        {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                        endfor %}
                     </div>
-                    <div class="col-md-6 mb-3">
-                         <label for="{{ form.email.id_for_label }}" class="form-label">{% trans "Email" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
                         {{ form.email }}
-                        {% for error in form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                        endfor %}
                     </div>
                 </div>
-                
+
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.password1.id_for_label }}" class="form-label">{% trans "Password" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                         {{ form.password1 }}
-                        {% for error in form.password1.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.password1.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                        endfor %}
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.password2.id_for_label }}" class="form-label">{% trans "Confirm Password" %}</label>
+                    <div class="col-md-6 mb-4">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
                         {{ form.password2 }}
-                        {% for error in form.password2.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        {% for error in form.password2.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                        endfor %}
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">{% trans "Phone Number" %}</label>
+                <div class="mb-4">
+                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
                     {{ form.phone_number }}
-                    {% for error in form.phone_number.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    {% for error in form.phone_number.errors %}<div class="text-danger small mt-1">{{ error }}</div>{%
+                    endfor %}
                 </div>
 
-                <div class="mb-3">
-                    <label for="{{ form.medical_history.id_for_label }}" class="form-label">{% trans "Medical History (Optional)" %}</label>
+                <div class="mb-4">
+                    <label for="{{ form.medical_history.id_for_label }}" class="form-label">Medical History
+                        (Optional)</label>
                     {{ form.medical_history }}
-                    {% for error in form.medical_history.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    {% for error in form.medical_history.errors %}<div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
                 </div>
 
-                <div class="d-grid mt-4">
-                    <button type="submit" class="btn btn-primary register-btn">{% trans "Create Account" %}</button>
+                <div class="d-grid mt-5">
+                    <button type="submit" class="btn btn-primary btn-register">Create Account <i
+                            class="fas fa-arrow-right ms-2"></i></button>
                 </div>
             </form>
-            
-            <div class="login-link">
-                <p>{% trans "Already have an account?" %} <a href="{% url 'login' %}">{% trans "Login here" %}</a></p>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">Already have an account? <a href="{% url 'login' %}" class="login-link">Login
+                        here</a></p>
             </div>
         </div>
     </div>

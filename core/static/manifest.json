@@ -1,0 +1,21 @@
+{
+    "name": "AamCare",
+    "short_name": "AamCare",
+    "start_url": "/",
+    "background_color": "#F8FAFC",
+    "theme_color": "#4F46E5",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/static/core/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/core/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
