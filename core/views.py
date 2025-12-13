@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from datetime import date, timedelta
 from django.contrib.auth.views import LoginView
-from .forms import PregnantWomanRegistrationForm, NewMotherRegistrationForm, CheckupProgressForm, VaccinationRecordForm, UserTestimonialForm, GiveBirthForm, PregnantWomanProfileUpdateForm, NewMotherProfileUpdateForm
+from .forms import PregnantWomanRegistrationForm, NewMotherRegistrationForm, CheckupProgressForm, VaccinationRecordForm, UserTestimonialForm, GiveBirthForm, PregnantWomanProfileUpdateForm, NewMotherProfileUpdateForm, PregnantWomanProfileCompletionForm, NewMotherProfileCompletionForm
 from .models import (
     PregnantWomanProfile, NewMotherProfile, CheckupProgress, InfoContent, 
     VaccinationRecord, HealthExpert, UserTestimonial, CommunityHealthWorker, PregnancyTip
@@ -40,6 +40,13 @@ def register_pregnant_woman(request):
     # Set user type in session for Google OAuth
     request.session['user_type'] = 'pregnant'
     
+    # Check if this is a Google Sign-In request
+    google_signin = request.GET.get('google_signin')
+    
+    if google_signin:
+        # Redirect to Google OAuth
+        return redirect('social:begin', 'google-oauth2')
+    
     if request.method == 'POST':
         form = PregnantWomanRegistrationForm(request.POST)
         if form.is_valid():
@@ -66,6 +73,13 @@ def register_pregnant_woman(request):
 def register_new_mother(request):
     # Set user type in session for Google OAuth
     request.session['user_type'] = 'mother'
+    
+    # Check if this is a Google Sign-In request
+    google_signin = request.GET.get('google_signin')
+    
+    if google_signin:
+        # Redirect to Google OAuth
+        return redirect('social:begin', 'google-oauth2')
     
     if request.method == 'POST':
         form = NewMotherRegistrationForm(request.POST)
@@ -1120,3 +1134,84 @@ def comprehensive_nutrition_mother(request):
             'child_details': None,
         }
     return render(request, 'core/comprehensive_nutrition_mother.html', context)
+
+@login_required
+def complete_pregnant_profile(request):
+    """Complete profile information for Google authenticated pregnant women"""
+    try:
+        # Check if user already has a profile
+        profile = PregnantWomanProfile.objects.get(user=request.user)
+        # If profile already exists and is complete, redirect to dashboard
+        if profile.name and profile.age and profile.due_date and profile.phone_number:
+            messages.info(request, 'Your profile is already complete.')
+            return redirect('pregnant_dashboard')
+    except PregnantWomanProfile.DoesNotExist:
+        # Create a new profile for the user
+        profile = PregnantWomanProfile(user=request.user)
+    
+    if request.method == 'POST':
+        form = PregnantWomanProfileCompletionForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.created_by_google = True
+            profile.save()
+            
+            # Create vaccination schedule
+            create_pregnancy_vaccination_schedule(profile)
+            
+            messages.success(request, 'Profile completed successfully!')
+            return redirect('pregnant_dashboard')
+    else:
+        # Pre-populate form with Google user data if available
+        initial_data = {
+            'name': f"{request.user.first_name} {request.user.last_name}".strip(),
+            'phone_number': profile.phone_number if hasattr(profile, 'phone_number') else ''
+        }
+        form = PregnantWomanProfileCompletionForm(instance=profile, initial=initial_data)
+    
+    return render(request, 'core/complete_pregnant_profile.html', {
+        'form': form,
+        'profile': profile
+    })
+
+
+@login_required
+def complete_mother_profile(request):
+    """Complete profile information for Google authenticated new mothers"""
+    try:
+        # Check if user already has a profile
+        profile = NewMotherProfile.objects.get(user=request.user)
+        # If profile already exists and is complete, redirect to dashboard
+        if profile.name and profile.child_birth_date and profile.phone_number:
+            messages.info(request, 'Your profile is already complete.')
+            return redirect('mother_dashboard')
+    except NewMotherProfile.DoesNotExist:
+        # Create a new profile for the user
+        profile = NewMotherProfile(user=request.user)
+    
+    if request.method == 'POST':
+        form = NewMotherProfileCompletionForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.created_by_google = True
+            profile.save()
+            
+            # Create vaccination schedule
+            create_baby_vaccination_schedule(profile)
+            
+            messages.success(request, 'Profile completed successfully!')
+            return redirect('mother_dashboard')
+    else:
+        # Pre-populate form with Google user data if available
+        initial_data = {
+            'name': f"{request.user.first_name} {request.user.last_name}".strip(),
+            'phone_number': profile.phone_number if hasattr(profile, 'phone_number') else ''
+        }
+        form = NewMotherProfileCompletionForm(instance=profile, initial=initial_data)
+    
+    return render(request, 'core/complete_mother_profile.html', {
+        'form': form,
+        'profile': profile
+    })

@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'core.middleware.GoogleOAuthOnboardingMiddleware',
 ]
 
 ROOT_URLCONF = 'aamcare.urls'
@@ -178,6 +179,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'core.pipeline.create_profile',
+    'core.pipeline.redirect_to_profile_completion',
     'social_core.pipeline.user.user_details',
 )
 
