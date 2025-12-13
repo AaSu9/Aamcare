@@ -37,6 +37,9 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 def register_pregnant_woman(request):
+    # Set user type in session for Google OAuth
+    request.session['user_type'] = 'pregnant'
+    
     if request.method == 'POST':
         form = PregnantWomanRegistrationForm(request.POST)
         if form.is_valid():
@@ -61,6 +64,9 @@ def register_pregnant_woman(request):
     return render(request, 'core/register_pregnant.html', {'form': form})
 
 def register_new_mother(request):
+    # Set user type in session for Google OAuth
+    request.session['user_type'] = 'mother'
+    
     if request.method == 'POST':
         form = NewMotherRegistrationForm(request.POST)
         if form.is_valid():
