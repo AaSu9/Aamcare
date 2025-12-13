@@ -149,7 +149,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Twilio settings
 TWILIO_ACCOUNT_SID = 'ACcd8a206b626859f47e411bf8c8f67674'
 TWILIO_AUTH_TOKEN = 'cbd0e2bad3a95a6ea02ee06a433f06b2'
-TWILIO_FROM_NUMBER = 'whatsapp:+14155238886'  # Standard Twilio Sandbox Number
+TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Standard Twilio Sandbox Number
+TWILIO_FROM_NUMBER = '+14155238886'  # For SMS fallback
 
 # Email backend settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

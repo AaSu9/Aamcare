@@ -18,12 +18,13 @@ class Command(BaseCommand):
             from twilio.rest import Client
             account_sid = getattr(settings, 'TWILIO_ACCOUNT_SID', None)
             auth_token = getattr(settings, 'TWILIO_AUTH_TOKEN', None)
-            from_number = getattr(settings, 'TWILIO_FROM_NUMBER', None)
+            whatsapp_number = getattr(settings, 'TWILIO_WHATSAPP_NUMBER', None)
 
-            if all([account_sid, auth_token, from_number]):
+            if all([account_sid, auth_token, whatsapp_number]):
                 client = Client(account_sid, auth_token)
+                from_number = whatsapp_number
             else:
-                 self.stdout.write(self.style.WARNING("Twilio settings not found. Running in DEMO/MOCK mode."))
+                 self.stdout.write(self.style.WARNING("Twilio WhatsApp settings not found. Running in DEMO/MOCK mode."))
                  client = "MOCK_CLIENT"
                  from_number = "MOCK_NUMBER"
         except ImportError:
@@ -158,13 +159,16 @@ class Command(BaseCommand):
                  # Default to Nepal +977 if no country code provided
                  formatted_to = f"+977{formatted_to}"
             
+            # Ensure WhatsApp prefix for recipient
             if not formatted_to.startswith('whatsapp:'):
                 formatted_to = f"whatsapp:{formatted_to}"
                 
+            # Ensure WhatsApp prefix for sender
             formatted_from = from_
             if not formatted_from.startswith('whatsapp:'):
                 formatted_from = f"whatsapp:{formatted_from}"
 
+            # Send as WhatsApp message
             message = client.messages.create(
                 from_=formatted_from,
                 body=body,
