@@ -161,8 +161,8 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Social Auth Settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''  # Will be set with your Google Client ID
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''  # Will be set with your Google Client Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '968060718801-leuu998ugl6v9731ik2t7dd6vbrnu54s.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
