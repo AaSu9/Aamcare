@@ -2,22 +2,24 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from datetime import date, timedelta
 from django.contrib.auth.views import LoginView
-from .forms import PregnantWomanRegistrationForm, NewMotherRegistrationForm, CheckupProgressForm, VaccinationRecordForm, UserTestimonialForm, GiveBirthForm, PregnantWomanProfileUpdateForm, NewMotherProfileUpdateForm, PregnantWomanProfileCompletionForm, NewMotherProfileCompletionForm
+from .forms import PregnantWomanRegistrationForm, NewMotherRegistrationForm, CheckupProgressForm, VaccinationRecordForm, UserTestimonialForm, GiveBirthForm, PregnantWomanProfileUpdateForm, NewMotherProfileUpdateForm
 from .models import (
     PregnantWomanProfile, NewMotherProfile, CheckupProgress, InfoContent, 
     VaccinationRecord, HealthExpert, UserTestimonial, CommunityHealthWorker, PregnancyTip
 )
 from django.contrib.auth.models import User
+import qrcode
+from io import BytesIO
 # Custom language session key
 LANGUAGE_SESSION_KEY = 'django_language'
 
 def home(request):
     # Get featured testimonials for the homepage
-    featured_testimonials = UserTestimonial.objects.filter(is_approved=True, is_featured=True)[:3]
+    featured_testimonials = UserTestimonial.objects.filter(is_approved=True, is_featured=True)[:4]
     
     # Get active health experts
     health_experts = HealthExpert.objects.filter(is_active=True)[:4]
@@ -36,17 +38,32 @@ def home(request):
     }
     return render(request, 'core/home.html', context)
 
+def whatsapp_setup_guide(request):
+    """Display the WhatsApp setup guide"""
+    return render(request, 'core/whatsapp_setup_guide.html')
+
+def generate_whatsapp_qr(request):
+    """Generate a QR code for WhatsApp setup"""
+    # WhatsApp join URL
+    whatsapp_url = "https://wa.me/14155238886?text=join+machinery-egg"
+    
+    # Generate QR code
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(whatsapp_url)
+    qr.make(fit=True)
+    
+    # Create image
+    img = qr.make_image(fill_color="black", back_color="white")
+    
+    # Save to BytesIO
+    buffer = BytesIO()
+    img.save(buffer, format='PNG')
+    buffer.seek(0)
+    
+    # Return as HTTP response
+    return HttpResponse(buffer.getvalue(), content_type="image/png")
+
 def register_pregnant_woman(request):
-    # Set user type in session for Google OAuth
-    request.session['user_type'] = 'pregnant'
-    
-    # Check if this is a Google Sign-In request
-    google_signin = request.GET.get('google_signin')
-    
-    if google_signin:
-        # Redirect to Google OAuth
-        return redirect('social:begin', 'google-oauth2')
-    
     if request.method == 'POST':
         form = PregnantWomanRegistrationForm(request.POST)
         if form.is_valid():
@@ -71,16 +88,6 @@ def register_pregnant_woman(request):
     return render(request, 'core/register_pregnant.html', {'form': form})
 
 def register_new_mother(request):
-    # Set user type in session for Google OAuth
-    request.session['user_type'] = 'mother'
-    
-    # Check if this is a Google Sign-In request
-    google_signin = request.GET.get('google_signin')
-    
-    if google_signin:
-        # Redirect to Google OAuth
-        return redirect('social:begin', 'google-oauth2')
-    
     if request.method == 'POST':
         form = NewMotherRegistrationForm(request.POST)
         if form.is_valid():
@@ -1035,19 +1042,29 @@ class CustomLoginView(LoginView):
         
         # Check if user has a pregnant woman profile
         try:
-            PregnantWomanProfile.objects.get(user=user)
-            return '/dashboard/pregnant/'
+            profile = PregnantWomanProfile.objects.get(user=user)
+            # Check if profile is complete
+            if profile.name and profile.age and profile.due_date and profile.phone_number:
+                return '/dashboard/pregnant/'
+            else:
+                # Profile exists but is incomplete, redirect to completion page
+                return '/complete-profile/pregnant/'
         except PregnantWomanProfile.DoesNotExist:
             pass
         
         # Check if user has a new mother profile
         try:
-            NewMotherProfile.objects.get(user=user)
-            return '/dashboard/mother/'
+            profile = NewMotherProfile.objects.get(user=user)
+            # Check if profile is complete
+            if profile.name and profile.child_birth_date and profile.phone_number:
+                return '/dashboard/mother/'
+            else:
+                # Profile exists but is incomplete, redirect to completion page
+                return '/complete-profile/mother/'
         except NewMotherProfile.DoesNotExist:
             pass
         
-        # If no profile found, redirect to home
+        # If no profile found, redirect to home (this shouldn't happen with Google auth)
         return '/'
 
 def custom_404(request, exception):
@@ -1135,83 +1152,3 @@ def comprehensive_nutrition_mother(request):
         }
     return render(request, 'core/comprehensive_nutrition_mother.html', context)
 
-@login_required
-def complete_pregnant_profile(request):
-    """Complete profile information for Google authenticated pregnant women"""
-    try:
-        # Check if user already has a profile
-        profile = PregnantWomanProfile.objects.get(user=request.user)
-        # If profile already exists and is complete, redirect to dashboard
-        if profile.name and profile.age and profile.due_date and profile.phone_number:
-            messages.info(request, 'Your profile is already complete.')
-            return redirect('pregnant_dashboard')
-    except PregnantWomanProfile.DoesNotExist:
-        # Create a new profile for the user
-        profile = PregnantWomanProfile(user=request.user)
-    
-    if request.method == 'POST':
-        form = PregnantWomanProfileCompletionForm(request.POST, instance=profile)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.created_by_google = True
-            profile.save()
-            
-            # Create vaccination schedule
-            create_pregnancy_vaccination_schedule(profile)
-            
-            messages.success(request, 'Profile completed successfully!')
-            return redirect('pregnant_dashboard')
-    else:
-        # Pre-populate form with Google user data if available
-        initial_data = {
-            'name': f"{request.user.first_name} {request.user.last_name}".strip(),
-            'phone_number': profile.phone_number if hasattr(profile, 'phone_number') else ''
-        }
-        form = PregnantWomanProfileCompletionForm(instance=profile, initial=initial_data)
-    
-    return render(request, 'core/complete_pregnant_profile.html', {
-        'form': form,
-        'profile': profile
-    })
-
-
-@login_required
-def complete_mother_profile(request):
-    """Complete profile information for Google authenticated new mothers"""
-    try:
-        # Check if user already has a profile
-        profile = NewMotherProfile.objects.get(user=request.user)
-        # If profile already exists and is complete, redirect to dashboard
-        if profile.name and profile.child_birth_date and profile.phone_number:
-            messages.info(request, 'Your profile is already complete.')
-            return redirect('mother_dashboard')
-    except NewMotherProfile.DoesNotExist:
-        # Create a new profile for the user
-        profile = NewMotherProfile(user=request.user)
-    
-    if request.method == 'POST':
-        form = NewMotherProfileCompletionForm(request.POST, instance=profile)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.created_by_google = True
-            profile.save()
-            
-            # Create vaccination schedule
-            create_baby_vaccination_schedule(profile)
-            
-            messages.success(request, 'Profile completed successfully!')
-            return redirect('mother_dashboard')
-    else:
-        # Pre-populate form with Google user data if available
-        initial_data = {
-            'name': f"{request.user.first_name} {request.user.last_name}".strip(),
-            'phone_number': profile.phone_number if hasattr(profile, 'phone_number') else ''
-        }
-        form = NewMotherProfileCompletionForm(instance=profile, initial=initial_data)
-    
-    return render(request, 'core/complete_mother_profile.html', {
-        'form': form,
-        'profile': profile
-    })
