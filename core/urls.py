@@ -13,6 +13,7 @@ urlpatterns = [
     path('give-birth/', views.give_birth, name='give_birth'),
     path('checkup/submit/<str:profile_type>/', views.submit_checkup, name='submit_checkup'),
     path('checkup/delete/<int:checkup_id>/', views.delete_checkup, name='delete_checkup'),
+    path('checkup/update/<int:checkup_id>/', views.update_checkup, name='update_checkup'),
     path('vaccination/tracker/', views.vaccination_tracker, name='vaccination_tracker'),
     path('vaccination/update/<int:vaccination_id>/', views.update_vaccination, name='update_vaccination'),
     path('content/<int:content_id>/', views.content_detail, name='content_detail'),
@@ -38,4 +39,6 @@ urlpatterns = [
     path('profile/update/mother/', views.update_mother_profile, name='update_mother_profile'),
     path('whatsapp/setup/', views.whatsapp_setup_guide, name='whatsapp_setup_guide'),
     path('whatsapp/generate-qr/', views.generate_whatsapp_qr, name='generate_whatsapp_qr'),
+    path('report/pregnant/pdf/', views.generate_pregnant_health_report_pdf, name='generate_pregnant_health_report_pdf'),
+    path('report/mother/pdf/', views.generate_mother_health_report_pdf, name='generate_mother_health_report_pdf'),
 ] 

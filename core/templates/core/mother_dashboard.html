@@ -1,4 +1,4 @@
-﻿{% extends 'core/base.html' %}
+{% extends 'core/base.html' %}
 
 {% block title %}Mother Dashboard{% endblock %}
 
@@ -366,6 +366,11 @@
                 <div class="mt-3">
                     <p class="mb-0"><i class="fas fa-quote-left me-2 opacity-50"></i>{{ stage_info.tips|first }}</p>
                 </div>
+                <div class="mt-3">
+                    <a href="{% url 'generate_mother_health_report_pdf' %}" class="btn btn-success btn-modern" target="_blank">
+                        <i class="fas fa-file-pdf me-2"></i>Export Health Report (PDF)
+                    </a>
+                </div>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
                 <a href="{% url 'submit_checkup' 'mother' %}" class="btn btn-light btn-modern text-primary me-2">
@@ -576,6 +581,72 @@
         </div>
     </div>
 
+    <!-- Health Recommendations -->
+    {% if health_recommendations %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="recommendation-card">
+                <div class="card-header bg-white border-bottom">
+                    <i class="fas fa-user-md text-info me-2"></i>Your Personalized Health Recommendations
+                </div>
+                <div class="card-body">
+                    {% for recommendation in health_recommendations %}
+                    <div class="border-bottom pb-3 mb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="mb-1">{{ recommendation.title }}</h6>
+                            {% if recommendation.severity == 'urgent' %}
+                            <span class="badge bg-danger">Urgent</span>
+                            {% elif recommendation.severity == 'high' %}
+                            <span class="badge bg-warning text-dark">High Priority</span>
+                            {% elif recommendation.severity == 'medium' %}
+                            <span class="badge bg-info text-dark">Medium Priority</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Low Priority</span>
+                            {% endif %}
+                        </div>
+                        <p class="small text-muted mb-2">{{ recommendation.description }}</p>
+                        
+                        {% if recommendation.recommendation_type == 'medicine' and recommendation.medicine_name %}
+                        <div class="alert alert-warning mb-2 py-2">
+                            <h6 class="mb-1"><i class="fas fa-prescription-bottle-alt me-1"></i> Medication</h6>
+                            <p class="mb-1 small">{{ recommendation.medicine_name }} - {{ recommendation.dosage }}</p>
+                            {% if recommendation.duration %}<p class="mb-0 small">Duration: {{ recommendation.duration }}</p>{% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if recommendation.recommendation_type == 'nutrition' %}
+                        <div class="alert alert-success mb-2 py-2">
+                            <h6 class="mb-1"><i class="fas fa-apple-alt me-1"></i> Nutrition Targets</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% if recommendation.calories_per_day %}
+                                <span class="badge bg-light text-dark">{{ recommendation.calories_per_day }} kcal/day</span>
+                                {% endif %}
+                                {% if recommendation.protein_grams %}
+                                <span class="badge bg-light text-dark">{{ recommendation.protein_grams }}g protein</span>
+                                {% endif %}
+                                {% if recommendation.iron_mg %}
+                                <span class="badge bg-light text-dark">{{ recommendation.iron_mg }}mg iron</span>
+                                {% endif %}
+                                {% if recommendation.calcium_mg %}
+                                <span class="badge bg-light text-dark">{{ recommendation.calcium_mg }}mg calcium</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if recommendation.action_required %}
+                        <div class="alert alert-danger mb-0 py-2">
+                            <i class="fas fa-exclamation-circle me-1"></i> <strong>Action Required:</strong> This requires immediate attention.
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Health Progress & Vaccinations -->
     <div class="row g-4">
         <!-- Health Progress -->
@@ -627,6 +698,10 @@
                                     </td>
                                     <td class="small">{{ checkup.created_at|date:"M j" }}</td>
                                     <td>
+                                        <a href="{% url 'update_checkup' checkup.id %}"
+                                            class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                         <a href="{% url 'delete_checkup' checkup.id %}"
                                             class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-trash"></i>
@@ -686,6 +761,15 @@
 {% endblock %}
 
 {% block extra_js %}
+{% if urgent_recommendation %}
+<div id="urgent-recommendation-data" 
+     data-title="{{ urgent_recommendation.title|escapejs }}" 
+     data-description="{{ urgent_recommendation.description|escapejs }}" 
+     data-severity="{{ urgent_recommendation.severity }}" 
+     style="display: none;"></div>
+{% endif %}
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Add smooth fade-in animation to cards
@@ -698,6 +782,53 @@
                 el.style.transform = 'translateY(0)';
             }, index * 50);
         });
+
+        // Show popup for urgent/high priority recommendations
+        const urgentRecData = document.getElementById('urgent-recommendation-data');
+        if (urgentRecData) {
+            const title = urgentRecData.getAttribute('data-title');
+            const description = urgentRecData.getAttribute('data-description');
+            const severity = urgentRecData.getAttribute('data-severity');
+            showRecommendationModal(title, description, severity);
+        }
     });
+
+    function showRecommendationModal(title, description, severity) {
+        // Create modal HTML
+        const modalHtml = `
+        <div class="modal fade" id="recommendationModal" tabindex="-1" aria-labelledby="recommendationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header ${severity === 'urgent' ? 'bg-danger text-white' : 'bg-warning text-dark'}">
+                        <h5 class="modal-title" id="recommendationModalLabel">
+                            <i class="fas ${severity === 'urgent' ? 'fa-exclamation-triangle' : 'fa-exclamation-circle'} me-2"></i>
+                            Important Health Recommendation
+                        </h5>
+                        <button type="button" class="btn-close ${severity === 'urgent' ? 'btn-close-white' : ''}" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="mb-3">${title}</h6>
+                        <p class="mb-0">${description}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="#health-recommendations" class="btn ${severity === 'urgent' ? 'btn-danger' : 'btn-warning'}">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        
+        // Add modal to DOM
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('recommendationModal'));
+        modal.show();
+        
+        // Clean up modal after it's hidden
+        document.getElementById('recommendationModal').addEventListener('hidden.bs.modal', function () {
+            this.remove();
+        });
+    }
 </script>
 {% endblock %}

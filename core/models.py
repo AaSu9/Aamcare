@@ -414,3 +414,51 @@ class VaccinationNotificationLog(models.Model):
     def __str__(self):
         target = self.pregnant_woman or self.mother or self.user
         return f"{self.get_notification_type_display()} to {target} at {self.sent_at}"
+
+
+class HealthRecommendation(models.Model):
+    """Model for storing personalized health recommendations based on checkup data"""
+    RECOMMENDATION_TYPE_CHOICES = [
+        ("nutrition", "Nutrition"),
+        ("medicine", "Medicine"),
+        ("lifestyle", "Lifestyle"),
+        ("exercise", "Exercise"),
+        ("medical_attention", "Medical Attention Required"),
+    ]
+    
+    SEVERITY_CHOICES = [
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
+        ("urgent", "Urgent"),
+    ]
+    
+    checkup = models.ForeignKey(CheckupProgress, on_delete=models.CASCADE)
+    recommendation_type = models.CharField(max_length=20, choices=RECOMMENDATION_TYPE_CHOICES)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    severity = models.CharField(max_length=10, choices=SEVERITY_CHOICES, default="low")
+    
+    # Medicine specific fields
+    medicine_name = models.CharField(max_length=100, blank=True)
+    dosage = models.CharField(max_length=100, blank=True, help_text="e.g., '500mg twice daily'")
+    duration = models.CharField(max_length=100, blank=True, help_text="e.g., '7 days'")
+    
+    # Nutrition specific fields
+    calories_per_day = models.PositiveIntegerField(null=True, blank=True)
+    protein_grams = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    iron_mg = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    calcium_mg = models.DecimalField(max_digits=6, decimal_places=1, null=True, blank=True)
+    
+    # Action items
+    action_required = models.BooleanField(default=False, help_text="Does this require immediate action?")
+    follow_up_days = models.PositiveIntegerField(null=True, blank=True, help_text="Days until follow-up recommended")
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.get_recommendation_type_display()}: {self.title}"
+    
+    class Meta:
+        ordering = ['-severity', '-created_at']
