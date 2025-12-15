@@ -67,6 +67,60 @@ class PregnantWomanProfile(models.Model):
                 })
         
         return dates
+    
+    def get_baby_size_description(self):
+        """Get a fun size comparison description for the current pregnancy week"""
+        current_week = self.get_current_pregnancy_week()
+        
+        # Baby size comparisons based on pregnancy weeks
+        size_comparisons = {
+            4: ('Poppy Seed', '🌱'),
+            5: ('Apple Seed', '🍎'),
+            6: ('Lentil', '🫘'),
+            7: ('Blueberry', '🫐'),
+            8: ('Raspberry', '🍇'),
+            9: ('Cherry', '🍒'),
+            10: ('Fig', '🫒'),
+            11: ('Kiwi', '🥝'),
+            12: ('Plum', '🍑'),
+            13: ('Lime', '🍋'),
+            14: ('Pea Pod', '🫛'),
+            15: ('Apple', '🍎'),
+            16: ('Avocado', '🥑'),
+            17: ('Pear', '🍐'),
+            18: ('Bell Pepper', '🫑'),
+            19: ('Mango', '🥭'),
+            20: ('Banana', '🍌'),
+            21: ('Carrot', '🥕'),
+            22: ('Corn', '🌽'),
+            23: ('Sweet Potato', '🍠'),
+            24: ('Eggplant', '🍆'),
+            25: ('Cucumber', '🥒'),
+            26: ('Zucchini', '🥒'),
+            27: ('Butternut Squash', '🎃'),
+            28: ('Leek', '韭'),
+            29: ('Papaya', '🍈'),
+            30: ('Cabbage', '🥬'),
+            31: ('Coconut', '🥥'),
+            32: ('Pineapple', '🍍'),
+            33: ('Melon', '🍈'),
+            34: ('Cantaloupe', '🍈'),
+            35: ('Honeydew', '🍈'),
+            36: ('Romaine Lettuce', '🥬'),
+            37: ('Iceberg Lettuce', '🥬'),
+            38: ('Jicama', '🥔'),
+            39: ('Pumpkin', '🎃'),
+            40: ('Watermelon', '🍉'),
+        }
+        
+        # Find the closest week with a size comparison
+        for week in sorted(size_comparisons.keys(), reverse=True):
+            if current_week >= week:
+                fruit, emoji = size_comparisons[week]
+                return fruit, emoji
+        
+        # Default fallback
+        return 'Poppy Seed', '🌱'
 
 class NewMotherProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

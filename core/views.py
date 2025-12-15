@@ -364,6 +364,7 @@ def pregnant_dashboard(request):
         current_week = profile.get_current_pregnancy_week()
         current_month = profile.get_current_pregnancy_month()
         current_trimester = profile.get_trimester()
+        baby_size_fruit, baby_size_emoji = profile.get_baby_size_description()
         
         # Get trimester-specific content using Q objects for OR conditions
         from django.db.models import Q
@@ -456,6 +457,8 @@ def pregnant_dashboard(request):
             'trimester_info': trimester_tips_content.get(current_trimester, {}),
             'health_recommendations': health_recommendations,
             'urgent_recommendation': urgent_recommendation,
+            'baby_size_fruit': baby_size_fruit,
+            'baby_size_emoji': baby_size_emoji,
         }
         return render(request, 'core/pregnant_dashboard.html', context)
     except PregnantWomanProfile.DoesNotExist:

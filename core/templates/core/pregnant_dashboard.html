@@ -14,6 +14,28 @@
         position: relative;
         overflow: hidden;
     }
+    
+    /* Baby Size Widget Animation */
+    @keyframes size-pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    
+    .size-icon {
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    
+    .size-icon.animate {
+        animation: size-pulse 0.5s ease-in-out;
+    }
+    
+    .week-btn.active {
+        background: #667eea;
+        border-color: #667eea;
+        color: white;
+    }
 
     .dashboard-hero::before {
         content: "";
@@ -409,7 +431,7 @@
                     <p class="mb-2"><i class="fas fa-heart text-pink me-2"></i><strong>Baby Development:</strong> Your
                         baby is growing stronger every day!</p>
                     <p class="mb-0"><i class="fas fa-lightbulb text-yellow me-2"></i><strong>Did you know?</strong> By
-                        week {{ current_week }}, your baby is about the size of {{ baby_size_description }}.</p>
+                        week {{ current_week }}, your baby is about the size of {{ baby_size_fruit }} {{ baby_size_emoji }}.</p>
                 </div>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
@@ -424,6 +446,48 @@
                     <i class="fas fa-baby me-2"></i>I've Given Birth
                     </a>
                     {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Baby Size Widget -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <h3 class="fw-bold mb-3">How big is your baby? 🥑</h3>
+                            <p class="text-muted mb-4">Select your current week to see a fun size comparison!</p>
+                            
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="8"
+                                    data-fruit="Raspberry" data-icon="🍇">Week 8</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="12" data-fruit="Plum"
+                                    data-icon="🍑">Week 12</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="16" data-fruit="Avocado"
+                                    data-icon="🥑">Week 16</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="20" data-fruit="Banana"
+                                    data-icon="🍌">Week 20</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="25" data-fruit="Cucumber"
+                                    data-icon="🥒">Week 25</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="30"
+                                    data-fruit="Cabbage" data-icon="🥬">Week 30</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="35" data-fruit="Honeydew"
+                                    data-icon="🍈">Week 35</button>
+                                <button class="btn btn-outline-primary rounded-pill week-btn" data-week="40"
+                                    data-fruit="Watermelon" data-icon="🍉">Week 40</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <div class="baby-size-widget">
+                                <h4 class="fruit-name text-primary fw-bold mb-3">{{ baby_size_fruit }}</h4>
+                                <div class="size-icon fruit-icon display-1 mb-3">{{ baby_size_emoji }}</div>
+                                <p class="text-muted fruit-desc fs-5">Your baby is about the size of a {{ baby_size_fruit }}!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -873,6 +937,41 @@
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
             }, index * 50);
+        });
+
+        // Baby Size Widget Logic
+        const buttons = document.querySelectorAll('.week-btn');
+        const fruitName = document.querySelector('.fruit-name');
+        const fruitIcon = document.querySelector('.fruit-icon');
+        const fruitDesc = document.querySelector('.fruit-desc');
+
+        // Set the current week as active
+        const currentWeek = parseInt('{{ current_week }}');
+        buttons.forEach(btn => {
+            if (parseInt(btn.dataset.week) === currentWeek) {
+                btn.classList.add('active');
+            }
+        });
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Update active state
+                buttons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update Content
+                const fruit = this.dataset.fruit;
+                const icon = this.dataset.icon;
+
+                fruitName.textContent = fruit;
+                fruitIcon.textContent = icon;
+                fruitDesc.textContent = `Your baby is about the size of a ${fruit}!`;
+
+                // Add animation
+                fruitIcon.classList.remove('animate');
+                void fruitIcon.offsetWidth; // Trigger reflow
+                fruitIcon.classList.add('animate');
+            });
         });
 
         // Kick Counter Logic
