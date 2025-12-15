@@ -36,6 +36,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
     path('profile/update/pregnant/', views.update_pregnant_profile, name='update_pregnant_profile'),
     path('profile/update/mother/', views.update_mother_profile, name='update_mother_profile'),
-    path('complete-profile/pregnant/', views.complete_pregnant_profile, name='complete_pregnant_profile'),
-    path('complete-profile/mother/', views.complete_mother_profile, name='complete_mother_profile'),
+    path('whatsapp/setup/', views.whatsapp_setup_guide, name='whatsapp_setup_guide'),
+    path('whatsapp/generate-qr/', views.generate_whatsapp_qr, name='generate_whatsapp_qr'),
 ] 

@@ -105,7 +105,6 @@
     }
 
     @keyframes float-y {
-
         0%,
         100% {
             transform: translateY(0);
@@ -250,6 +249,72 @@
             transform: scale(1);
         }
     }
+
+    /* Cartoon Avatar Styles */
+    .cartoon-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .avatar-element {
+        position: absolute;
+    }
+
+    .hair {
+        width: 120%;
+        height: 25px;
+        top: -10px;
+        left: -10%;
+        border-radius: 50% 50% 0 0;
+    }
+
+    .face {
+        width: 40px;
+        height: 40px;
+        background: #FFDBAC;
+        border-radius: 50%;
+        top: 10px;
+        left: 5px;
+    }
+
+    .eyes {
+        width: 6px;
+        height: 6px;
+        background: #333;
+        border-radius: 50%;
+        top: 20px;
+        left: 15px;
+    }
+
+    .eyes::before {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #333;
+        border-radius: 50%;
+        left: 15px;
+    }
+
+    .mouth {
+        width: 15px;
+        height: 5px;
+        background: #E75480;
+        border-radius: 0 0 50% 50%;
+        top: 30px;
+        left: 18px;
+    }
+
+    /* Dynamic avatar styles will be applied via JavaScript */
+    .avatar-1 { background: linear-gradient(135deg, #FF9A9E 0%, #FAD0C4 100%); }
+    .avatar-2 { background: linear-gradient(135deg, #A1C4FD 0%, #C2E9FB 100%); }
+    .avatar-3 { background: linear-gradient(135deg, #FFECD2 0%, #FCB69F 100%); }
+    .avatar-4 { background: linear-gradient(135deg, #84FAB0 0%, #8FD3F4 100%); }
 </style>
 
 <!-- Hero Section -->
@@ -449,9 +514,41 @@
         </div>
 
         <div class="testimonial-scroll animate-on-scroll">
+            {% for testimonial in featured_testimonials %}
             <div class="testimonial-card-v2">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="https://i.pravatar.cc/100?img=5" class="rounded-circle me-3" width="50">
+                    <!-- Cartoon avatar with different colors for variety -->
+                    {% cycle '1,2,3,4' as avatar_index %}
+                    {% cycle '#8B4513,#000000,#8B4513,#4B0082' as hair_color %}
+                    <div class="cartoon-avatar me-3 avatar-{{ avatar_index }}" data-hair-color="{{ hair_color }}">
+                        <div class="avatar-element hair"></div>
+                        <div class="avatar-element face"></div>
+                        <div class="avatar-element eyes"></div>
+                        <div class="avatar-element mouth"></div>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">{{ testimonial.user.first_name }} {{ testimonial.user.last_name }}</h6>
+                        <small class="text-muted">{{ testimonial.village_district }}</small>
+                    </div>
+                </div>
+                <p class="text-muted">"{{ testimonial.story|truncatewords:25 }}"</p>
+                <div class="text-warning">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            {% empty %}
+            <div class="testimonial-card-v2">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="cartoon-avatar me-3 avatar-1" data-hair-color="#8B4513">
+                        <div class="avatar-element hair"></div>
+                        <div class="avatar-element face"></div>
+                        <div class="avatar-element eyes"></div>
+                        <div class="avatar-element mouth"></div>
+                    </div>
                     <div>
                         <h6 class="mb-0 fw-bold">Sita Sharma</h6>
                         <small class="text-muted">Kathmandu</small>
@@ -465,7 +562,12 @@
 
             <div class="testimonial-card-v2">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="https://i.pravatar.cc/100?img=9" class="rounded-circle me-3" width="50">
+                    <div class="cartoon-avatar me-3 avatar-2" data-hair-color="#000000">
+                        <div class="avatar-element hair"></div>
+                        <div class="avatar-element face"></div>
+                        <div class="avatar-element eyes"></div>
+                        <div class="avatar-element mouth"></div>
+                    </div>
                     <div>
                         <h6 class="mb-0 fw-bold">Maya Gurung</h6>
                         <small class="text-muted">Pokhara</small>
@@ -476,33 +578,7 @@
                 <div class="text-warning"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                         class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             </div>
-
-            <div class="testimonial-card-v2">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="https://i.pravatar.cc/100?img=6" class="rounded-circle me-3" width="50">
-                    <div>
-                        <h6 class="mb-0 fw-bold">Rita Karki</h6>
-                        <small class="text-muted">Chitwan</small>
-                    </div>
-                </div>
-                <p class="text-muted">"I tracked all my vaccinations here. The reminders are very helpful for busy
-                    moms."</p>
-                <div class="text-warning"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            </div>
-            <div class="testimonial-card-v2">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="https://i.pravatar.cc/100?img=12" class="rounded-circle me-3" width="50">
-                    <div>
-                        <h6 class="mb-0 fw-bold">Gita Adhikari</h6>
-                        <small class="text-muted">Biratnagar</small>
-                    </div>
-                </div>
-                <p class="text-muted">"Highly recommended for every pregnant woman in Nepal. The localized advice is
-                    perfect."</p>
-                <div class="text-warning"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -557,6 +633,18 @@
                 fruitIcon.offsetHeight; /* trigger reflow */
                 fruitIcon.style.animation = 'size-pulse 0.5s';
             });
+        });
+
+        // Apply hair colors to avatar elements
+        const avatarElements = document.querySelectorAll('.cartoon-avatar');
+        avatarElements.forEach(avatar => {
+            const hairColor = avatar.getAttribute('data-hair-color');
+            if (hairColor) {
+                const hairElement = avatar.querySelector('.hair');
+                if (hairElement) {
+                    hairElement.style.background = hairColor;
+                }
+            }
         });
     });
 </script>

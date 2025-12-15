@@ -411,6 +411,9 @@
                 <a href="{% url 'submit_checkup' 'pregnant' %}" class="btn btn-light btn-modern me-2">
                     <i class="fas fa-plus me-2"></i>Log Checkup
                 </a>
+                <a href="{% url 'whatsapp_setup_guide' %}" class="btn btn-success btn-modern me-2">
+                    <i class="fab fa-whatsapp me-2"></i>Setup WhatsApp
+                </a>
                 {% if pregnancy_dates.days_remaining <= 0 %} <a href="{% url 'give_birth' %}"
                     class="btn btn-success btn-modern">
                     <i class="fas fa-baby me-2"></i>I've Given Birth
@@ -713,8 +716,7 @@
                                 <tr>
                                     <td><span class="badge bg-primary">Month {{ checkup.month }}</span></td>
                                     <td>{% if checkup.weight_kg %}{{ checkup.weight_kg }} kg{% else %}-{% endif %}</td>
-                                    <td>{% if checkup.blood_pressure_systolic %}{{ checkup.blood_pressure_systolic }}/{{
-                                        checkup.blood_pressure_diastolic }}{% else %}-{% endif %}</td>
+                                    <td>{% if checkup.blood_pressure_systolic and checkup.blood_pressure_diastolic %}{{ checkup.blood_pressure_systolic }}/{{ checkup.blood_pressure_diastolic }}{% elif checkup.blood_pressure_systolic %}{{ checkup.blood_pressure_systolic }}/-{% else %}-{% endif %}</td>
                                     <td class="small">{{ checkup.created_at|date:"M j" }}</td>
                                     <td>
                                         <a href="{% url 'delete_checkup' checkup.id %}"

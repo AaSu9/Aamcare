@@ -368,8 +368,11 @@
                 </div>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <a href="{% url 'submit_checkup' 'mother' %}" class="btn btn-light btn-modern text-primary">
+                <a href="{% url 'submit_checkup' 'mother' %}" class="btn btn-light btn-modern text-primary me-2">
                     <i class="fas fa-plus me-2"></i>Log Checkup
+                </a>
+                <a href="{% url 'whatsapp_setup_guide' %}" class="btn btn-success btn-modern">
+                    <i class="fab fa-whatsapp me-2"></i>Setup WhatsApp
                 </a>
             </div>
         </div>
@@ -589,6 +592,7 @@
                                 <tr>
                                     <th>Month</th>
                                     <th>Mom Weight</th>
+                                    <th>Blood Pressure</th>
                                     <th>Baby Weight</th>
                                     <th>Date</th>
                                     <th></th>
@@ -601,6 +605,15 @@
                                     <td>
                                         {% if checkup.weight_kg %}
                                         {{ checkup.weight_kg }} kg
+                                        {% else %}
+                                        -
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if checkup.blood_pressure_systolic and checkup.blood_pressure_diastolic %}
+                                        {{ checkup.blood_pressure_systolic }}/{{ checkup.blood_pressure_diastolic }}
+                                        {% elif checkup.blood_pressure_systolic %}
+                                        {{ checkup.blood_pressure_systolic }}/-
                                         {% else %}
                                         -
                                         {% endif %}
