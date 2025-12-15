@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
-    'core.middleware.GoogleOAuthOnboardingMiddleware',
 ]
 
 ROOT_URLCONF = 'aamcare.urls'
@@ -70,8 +67,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -143,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Twilio settings
 TWILIO_ACCOUNT_SID = 'ACcd8a206b626859f47e411bf8c8f67674'
-TWILIO_AUTH_TOKEN = 'cbd0e2bad3a95a6ea02ee06a433f06b2'
-TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Standard Twilio Sandbox Number
-TWILIO_FROM_NUMBER = '+14155238886'  # For SMS fallback
+TWILIO_AUTH_TOKEN = '0d7c2ae132acba7753378a83878bb693'
+TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Twilio Sandbox Number
+TWILIO_FROM_NUMBER = '+12186169659'  # For SMS fallback
 
 # Email backend settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -161,29 +156,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-# Social Auth Settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '968060718801-leuu998ugl6v9731ik2t7dd6vbrnu54s.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/login/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_RAISE_EXCEPTIONS = False
-
-# Custom Pipeline for Google OAuth2
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
-    'core.pipeline.create_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'core.pipeline.create_profile',
-    'core.pipeline.redirect_to_profile_completion',
-    'social_core.pipeline.user.user_details',
-)
-
+# Auth settings
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.google.GoogleOAuth2',
 )

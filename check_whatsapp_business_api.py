@@ -2,7 +2,7 @@ from twilio.rest import Client
 
 # Your Twilio credentials
 account_sid = 'ACcd8a206b626859f47e411bf8c8f67674'
-auth_token = 'cbd0e2bad3a95a6ea02ee06a433f06b2'
+auth_token = '0d7c2ae132acba7753378a83878bb693'
 
 def check_whatsapp_business_status():
     try:
