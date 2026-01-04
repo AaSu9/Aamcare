@@ -26,10 +26,15 @@ SECRET_KEY = 'django-insecure-$i(c)xa$+7o@dc+=*y#yto^7*u1^&amuf@toxp!+2di)brfluj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-firebase-aamcaregit-1758815538443.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev"
+    "https://8000-firebase-aamcaregit-1758815538443.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev",
+    "https://*.pythonanywhere.com",
 ]
 
 # Application definition
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Twilio settings
 TWILIO_ACCOUNT_SID = 'ACcd8a206b626859f47e411bf8c8f67674'
-TWILIO_AUTH_TOKEN = '0d7c2ae132acba7753378a83878bb693'
+TWILIO_AUTH_TOKEN = 'cbd0e2bad3a95a6ea02ee06a433f06b2'
 TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Twilio Sandbox Number
 TWILIO_FROM_NUMBER = '+12186169659'  # For SMS fallback
 
